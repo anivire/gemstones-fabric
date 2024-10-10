@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "gemstones",
+	"version": "${version}",
+	"name": "Gemstones",
+	"description": "Add various Gemstones to your equipment, tools and weapons!",
+	"authors": [
+		"anivire"
+	],
+	"contact": {
+		"sources": "https://github.com/anivire/gemstones"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/gemstones/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"xyz.anivire.gemstones.Gemstones"
+		],
+		"client": [
+			"xyz.anivire.gemstones.GemstonesClient"
+		]
+	},
+	"mixins": [
+		"gemstones.mixins.json",
+		{
+			"config": "gemstones.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.7",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

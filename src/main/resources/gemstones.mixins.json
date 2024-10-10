@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "xyz.anivire.gemstones.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"ItemStackMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
