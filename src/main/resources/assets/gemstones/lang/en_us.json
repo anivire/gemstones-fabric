@@ -1,3 +1,12 @@
 {
-  "tooltip.gemstones.gemstone_slots": "Gemstone Slots: %d"
+  "tooltip.gemstones.gemstone_slots": "Gemstone Slots: %d",
+
+  "item.gemstones.topaz_gemstone": "Topaz Gemstone",
+  "tooltip.gemstones.topaz_gemstone.tooltip": "Processed gemstone",
+
+  "item.gemstones.malachite_gemstone": "Malachite Gemstone",
+  "tooltip.gemstones.malachite_gemstone.tooltip": "Processed gemstone",
+  
+  "item.gemstones.ruby_gemstone": "Ruby Gemstone",
+  "tooltip.gemstones.ruby_gemstone.tooltip": "Processed gemstone"
 }
