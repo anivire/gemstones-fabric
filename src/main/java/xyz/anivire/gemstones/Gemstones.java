@@ -1,6 +1,8 @@
 package xyz.anivire.gemstones;
 
 import net.fabricmc.api.ModInitializer;
+import xyz.anivire.gemstones.helpers.ComponentsHelper;
+import xyz.anivire.gemstones.helpers.ItemRegistrationHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package xyz.anivire.gemstones;
+package xyz.anivire.gemstones.helpers;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -7,6 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import xyz.anivire.gemstones.Gemstones;
 import xyz.anivire.gemstones.item.gemstone.MalachiteGemstone;
 import xyz.anivire.gemstones.item.gemstone.RubyGemstone;
 import xyz.anivire.gemstones.item.gemstone.TopazGemstone;
