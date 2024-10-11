@@ -11,6 +11,7 @@ public class Gemstones implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ComponentsHelper.initialize();
 		ItemRegistrationHelper.registerModItems();
 	}
 }

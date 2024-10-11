@@ -8,7 +8,7 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-public class MalachiteGemstone extends Item {
+public class MalachiteGemstone extends Gemstone {
   public MalachiteGemstone(Settings settings) {
     super(settings);
   }

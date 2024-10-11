@@ -8,7 +8,7 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-public class RubyGemstone extends Item {
+public class RubyGemstone extends Gemstone {
   public RubyGemstone(Settings settings) {
     super(settings);
   }

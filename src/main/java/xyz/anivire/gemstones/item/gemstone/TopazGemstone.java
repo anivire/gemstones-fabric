@@ -8,7 +8,7 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-public class TopazGemstone extends Item {
+public class TopazGemstone extends Gemstone {
   public TopazGemstone(Settings settings) {
     super(settings);
   }
