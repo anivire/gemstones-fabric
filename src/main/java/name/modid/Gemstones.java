@@ -1,6 +1,7 @@
 package name.modid;
 
 import name.modid.helpers.ComponentsHelper;
+import name.modid.helpers.EffectRegistraionHelper;
 import name.modid.helpers.ItemRegistrationHelper;
 import net.fabricmc.api.ModInitializer;
 
@@ -16,5 +17,6 @@ public class Gemstones implements ModInitializer {
 		LOGGER.info("Initializing Gemstones");
 		ComponentsHelper.initialize();
 		ItemRegistrationHelper.initialize();
+		EffectRegistraionHelper.initialize();
 	}
 }

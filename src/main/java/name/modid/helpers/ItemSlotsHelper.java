@@ -3,11 +3,14 @@ package name.modid.helpers;
 import name.modid.helpers.components.GemstoneSlot;
 import name.modid.helpers.components.ItemGemstoneSlots;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.BowItem;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ShovelItem;
+import net.minecraft.item.SwordItem;
 
 import java.util.UUID;
 
@@ -38,6 +41,12 @@ public class ItemSlotsHelper {
     }
 
     public static boolean isItemValid(Item item) {
-        return item instanceof PickaxeItem || item instanceof BowItem || item instanceof ArmorItem || item instanceof SwordItem;
+        return item instanceof PickaxeItem
+            || item instanceof BowItem
+            || item instanceof ArmorItem
+            || item instanceof SwordItem
+            || item instanceof AxeItem
+            || item instanceof ShovelItem
+            || item instanceof CrossbowItem;
     }
 }
