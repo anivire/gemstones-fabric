@@ -1,6 +1,5 @@
 package name.modid.helpers;
 
-import it.unimi.dsi.fastutil.Arrays;
 import name.modid.helpers.components.GemstoneSlot;
 import name.modid.helpers.components.ItemGemstoneSlots;
 import name.modid.helpers.types.GemstoneType;
@@ -50,7 +49,10 @@ public class ItemSlotsHelper {
             GemstoneSlot[] slots = new GemstoneSlot[MAX_SLOTS];
 
             for (int i = 0; i < MAX_SLOTS; i++) {
-                slots[i] = new GemstoneSlot(GemstoneHelper.getGemstoneString(GemstoneType.LOCKED), UUID.randomUUID(), false);
+                if (i == 0)
+                    slots[i] = new GemstoneSlot(GemstoneHelper.getGemstoneString(GemstoneType.EMPTY), UUID.randomUUID(), false);
+                else
+                    slots[i] = new GemstoneSlot(GemstoneHelper.getGemstoneString(GemstoneType.LOCKED), UUID.randomUUID(), false);
             }
 
             ItemGemstoneSlots itemGemstoneSlots = new ItemGemstoneSlots(slots);
@@ -60,11 +62,11 @@ public class ItemSlotsHelper {
 
     public static boolean isItemValid(Item item) {
         return item instanceof PickaxeItem
-            || item instanceof BowItem
-            || item instanceof ArmorItem
-            || item instanceof SwordItem
-            || item instanceof AxeItem
-            || item instanceof ShovelItem
-            || item instanceof CrossbowItem;
+                || item instanceof BowItem
+                || item instanceof ArmorItem
+                || item instanceof SwordItem
+                || item instanceof AxeItem
+                || item instanceof ShovelItem
+                || item instanceof CrossbowItem;
     }
 }

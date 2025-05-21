@@ -1,12 +1,11 @@
 {
   "tooltip.gemstones.gemstone_slots": "Gemstone Max Slots: %d",
   "tooltip.gemstones.gemstone_slots_info_with": "With gemstones:",
-  "tooltip.gemstones.gemstone_slots_1": "1: %d",
-  "tooltip.gemstones.gemstone_slots_2": "2: %d",
-  "tooltip.gemstones.gemstone_slots_3": "3: %d",
-  "tooltip.gemstones.gemstone_slots_4": "4: %d",
-  "tooltip.gemstones.gemstone_slots_5": "5: %d",
-
+  "tooltip.gemstones.gemstone_slots_1": "  %d",
+  "tooltip.gemstones.gemstone_slots_2": "  %d",
+  "tooltip.gemstones.gemstone_slots_3": "  %d",
+  "tooltip.gemstones.gemstone_slots_4": "  %d",
+  "tooltip.gemstones.gemstone_slots_5": "  %d",
   "item.gemstones.ruby_gemstone": "Ruby Gemstone",
   "tooltip.gemstones.ruby_gemstone.tooltip": "Processed gemstone"
 }

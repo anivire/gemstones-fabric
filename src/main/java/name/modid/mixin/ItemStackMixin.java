@@ -20,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+import java.util.Objects;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
@@ -37,35 +38,18 @@ public abstract class ItemStackMixin {
 
     @Unique
     private Formatting getSlotColor(String gemstoneType) {
-        return Formatting.WHITE;
+        if (Objects.equals(gemstoneType, "locked")) return Formatting.GRAY;
+        else if (Objects.equals(gemstoneType, "empty")) return Formatting.WHITE;
+        else return Formatting.WHITE;
     }
 
-    //    @Inject(method = "getTooltip", at = @At("RETURN"), cancellable = true)
-//    public void tooltip(
-//            Item.TooltipContext context,
-//            PlayerEntity player,
-//            TooltipType type,
-//            CallbackInfoReturnable<List<Text>> cir) {
-//        List<Text> tooltip = cir.getReturnValue();
-//        Item item = ((ItemStack) (Object) this).getItem();
-//        ItemStack itemStack = (ItemStack) (Object) this;
-//
-//        if (ItemSlotsHelper.isItemValid(item)) {
-//            GemstoneSlot[] gemstoneSlots = ItemSlotsHelper.getGemstoneSlots(itemStack);
-//
-//            if (gemstoneSlots != null) {
-//                for (int i = 0; i < gemstoneSlots.length; i++) {
-//                    tooltip.add(1, Text.translatable(
-//                                    String.format("tooltip.gemstones.gemstone_slots_%d", i + 1),
-//                                    gemstoneSlots[i].gemstoneType())
-//                            .formatted(getSlotColor(gemstoneSlots[i].gemstoneType()))
-//                    );
-//                }
-//            }
-//        }
-//
-//        cir.setReturnValue(tooltip);
-//    }
+    @Unique
+    private String getSlotText(String gemstoneType) {
+        if (Objects.equals(gemstoneType, "locked")) return "Slot is locked";
+        else if (Objects.equals(gemstoneType, "empty")) return "Slot is free";
+        else return "...";
+    }
+
     @Inject(method = "getTooltip", at = @At("RETURN"), cancellable = true)
     public void tooltip(Item.TooltipContext context, PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir) {
         List<Text> tooltip = cir.getReturnValue();
@@ -79,10 +63,8 @@ public abstract class ItemStackMixin {
                 MutableText slotsText = Text.literal("");
 
                 for (GemstoneSlot gemstoneSlot : gemstoneSlots) {
-                    String gemstoneType = gemstoneSlot.gemstoneType();
                     slotsText.append(Text.literal("\uE001")
                             .styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, "gemstone")))
-                            .formatted(getSlotColor(gemstoneType))
                     );
                 }
 
@@ -94,6 +76,14 @@ public abstract class ItemStackMixin {
                 tooltip.add(2, slotsText);
 
                 tooltip.add(5, Text.translatable("tooltip.gemstones.gemstone_slots_info_with").formatted(Formatting.GRAY));
+
+                for (int i = 0; i < gemstoneSlots.length; i++) {
+                    tooltip.add(6 + i, Text.translatable(String.format("tooltip.gemstones.gemstone_slots_%d", i + 1),
+                                    getSlotText(gemstoneSlots[i].gemstoneType()))
+                            .formatted(getSlotColor(gemstoneSlots[i].gemstoneType()))
+                    );
+                }
+
             }
         }
 
