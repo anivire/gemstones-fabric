@@ -13,12 +13,11 @@ public record ItemGemstoneSlots(GemstoneSlot[] slots) {
     });
 
     public int countFreeSlots() {
-        if (slots == null) {
-            return 0;
-        }
+        if (slots == null) return 0;
+
         return (int) Arrays.stream(slots)
-                .filter(slot -> !slot.isOccupied())
-                .count();
+            .filter(slot -> !slot.isOccupied())
+            .count();
     }
 
     public void fillSlot(int index, GemstoneSlot newSlot) {
