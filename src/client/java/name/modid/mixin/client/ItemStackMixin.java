@@ -38,9 +38,12 @@ public class ItemStackMixin {
   
   @Unique
   private String getSlotText(GemstoneType gemType) {
-    if (gemType == GemstoneType.LOCKED) return "Locked";
-    if (gemType == GemstoneType.EMPTY) return "Empty";
-    return gemType.toString();
+    return switch (gemType) {
+      case LOCKED -> "Locked";
+      case EMPTY -> "Empty";
+      case RUBY -> "Ruby";
+      default -> "unknown";
+    };
   }
   
   @Inject(method = "getTooltip", at = @At("RETURN"), cancellable = true)
@@ -112,9 +115,11 @@ public class ItemStackMixin {
           for (int i = 0; i < gemstoneSlots.length; i++) {
             GemstoneType gemType = gemstoneSlots[i].gemstoneType();
             GemstoneRarityType gemRarityType = gemstoneSlots[i].gemstoneRarityType();
-            tooltip.add(13 + i, Text.literal(String.format("  %s %s", gemRarityType.toString(), gemType.toString())).formatted(getGemstoneColor(gemType)));
+            tooltip.add(13 + i, Text.literal(String.format("  %s %s", gemRarityType.toString(), getSlotText(gemType))).formatted(getGemstoneColor(gemType)));
           }
           tooltip.add(18, Text.literal(""));
+        } else {
+          tooltip.add(12, Text.translatable("tooltip.gemstones.gemstone_slots_info_rarities_fold").formatted(Formatting.GRAY));
         }
       }
     }
