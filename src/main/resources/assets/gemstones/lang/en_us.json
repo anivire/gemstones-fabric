@@ -1,6 +1,7 @@
 {
   "tooltip.gemstones.gemstone_slots": "Gemstone Max Slots: %d",
   "tooltip.gemstones.gemstone_slots_info_with": "With gemstones:",
+  "tooltip.gemstones.gemstone_slots_info_rarities": "Gemstone rarities:",
   "tooltip.gemstones.gemstone_slots_1": "  %d",
   "tooltip.gemstones.gemstone_slots_2": "  %d",
   "tooltip.gemstones.gemstone_slots_3": "  %d",
