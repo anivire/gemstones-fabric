@@ -2,7 +2,7 @@ package name.modid.helpers;
 
 import name.modid.helpers.components.GemstoneSlot;
 import name.modid.helpers.components.ItemGemstoneSlots;
-import name.modid.helpers.modifiers.GemstoneModifiers;
+import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -44,15 +44,19 @@ public class ItemGemstoneSlotsHelper {
   }
   
   public static void initItemSlots(ItemStack itemStack, Item item) {
-    if (isItemValid(item) && !isGemstoneSlotsExists(itemStack)) {
-      GemstoneSlot[] gemstoneSlots = new GemstoneSlot[MAX_SLOTS];
-      
-      for (int i = 0; i < MAX_SLOTS; i++) {
-        if (i == 0) gemstoneSlots[i] = new GemstoneSlot(UUID.randomUUID(), GemstoneType.RUBY);
-        else gemstoneSlots[i] = new GemstoneSlot(UUID.randomUUID(), GemstoneType.LOCKED);
+    if (isItemValid(item)) {
+      ItemGemstoneSlots currentSlots = itemStack.get(ComponentsHelper.GEMSTONE_SLOTS);
+      if (currentSlots == null || currentSlots.gemstoneSlots().length != MAX_SLOTS) {
+        GemstoneSlot[] gemstoneSlots = new GemstoneSlot[MAX_SLOTS];
+        
+        for (int i = 0; i < MAX_SLOTS; i++) {
+          if (i == 0) gemstoneSlots[i] = new GemstoneSlot(UUID.randomUUID(), GemstoneType.RUBY);
+          else gemstoneSlots[i] = new GemstoneSlot(UUID.randomUUID(), GemstoneType.LOCKED);
+        }
+        
+        itemStack.set(ComponentsHelper.GEMSTONE_SLOTS, new ItemGemstoneSlots(gemstoneSlots));
+        updateItemSlotBonuses(itemStack, item);
       }
-      
-      itemStack.set(ComponentsHelper.GEMSTONE_SLOTS, new ItemGemstoneSlots(gemstoneSlots));
     }
   }
   
@@ -69,13 +73,16 @@ public class ItemGemstoneSlotsHelper {
       }
     }
     
-    AttributeModifiersComponent gemstoneModifiers = itemStack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
+    AttributeModifiersComponent gemstoneModifiers = itemStack.getOrDefault(
+      DataComponentTypes.ATTRIBUTE_MODIFIERS,
+      AttributeModifiersComponent.DEFAULT
+    );
     
     for (Map.Entry<GemstoneType, Integer> entry : itemGems.entrySet()) {
       GemstoneType gemType = entry.getKey();
       int count = entry.getValue();
       
-      EntityAttributeModifier baseModifier = GemstoneModifiers.getModifier(gemType, item);
+      EntityAttributeModifier baseModifier = GemstoneModifier.getModifier(gemType, item);
       if (baseModifier != null) {
         EntityAttributeModifier scaledModifier = new EntityAttributeModifier(
           baseModifier.id(),
@@ -84,9 +91,9 @@ public class ItemGemstoneSlotsHelper {
         );
         
         gemstoneModifiers = gemstoneModifiers.with(
-          GemstoneModifiers.getTargetAttribute(gemType, item),
+          GemstoneModifier.getTargetAttribute(gemType, item),
           scaledModifier,
-          GemstoneModifiers.getTargetGroup(gemType, item)
+          GemstoneModifier.getTargetGroup(gemType, item)
         );
       }
     }
@@ -95,6 +102,12 @@ public class ItemGemstoneSlotsHelper {
   }
   
   public static boolean isItemValid(Item item) {
-    return item instanceof PickaxeItem || item instanceof BowItem || item instanceof ArmorItem || item instanceof SwordItem || item instanceof AxeItem || item instanceof ShovelItem || item instanceof CrossbowItem;
+    return item instanceof PickaxeItem
+      || item instanceof BowItem
+      || item instanceof ArmorItem
+      || item instanceof SwordItem
+      || item instanceof AxeItem
+      || item instanceof ShovelItem
+      || item instanceof CrossbowItem;
   }
 }

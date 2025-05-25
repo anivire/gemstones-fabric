@@ -8,7 +8,7 @@ import java.util.Arrays;
 public record ItemGemstoneSlots(GemstoneSlot[] gemstoneSlots) {
   public static final Codec<ItemGemstoneSlots> GEMSTONE_SLOTS_CODEC = RecordCodecBuilder.create(builder -> {
     return builder.group(
-      GemstoneSlot.GEMSTONE_CODEC.listOf().fieldOf("gemstone_slots").forGetter(item -> Arrays.asList(item.gemstoneSlots))
+      GemstoneSlot.GEMSTONE_CODEC.listOf().fieldOf("slot").forGetter(item -> Arrays.asList(item.gemstoneSlots))
     ).apply(builder, list -> new ItemGemstoneSlots(list.toArray(new GemstoneSlot[0])));
   });
 }

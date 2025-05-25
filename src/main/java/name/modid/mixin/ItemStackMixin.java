@@ -3,7 +3,7 @@ package name.modid.mixin;
 import name.modid.Gemstones;
 import name.modid.helpers.ItemGemstoneSlotsHelper;
 import name.modid.helpers.components.GemstoneSlot;
-import name.modid.helpers.modifiers.GemstoneModifiers;
+import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -41,23 +41,17 @@ public abstract class ItemStackMixin {
   @Inject(method = "<init>*", at = @At("TAIL"))
   private void init(CallbackInfo ci) {
     ItemStack itemStack = (ItemStack) (Object) this;
-    Item item = this.getItem();
     
-    ItemGemstoneSlotsHelper.initItemSlots(itemStack, item);
-    ItemGemstoneSlotsHelper.updateItemSlotBonuses(itemStack, item);
+    ItemGemstoneSlotsHelper.initItemSlots(itemStack, itemStack.getItem());
   }
   
   @Unique
   private Formatting getGemstoneColor(GemstoneType gemType) {
-    switch (gemType) {
-      case LOCKED:
-        return Formatting.GRAY;
-      case RUBY:
-        return Formatting.RED;
-      case EMPTY:
-      default:
-        return Formatting.WHITE;
-    }
+    return switch (gemType) {
+      case LOCKED -> Formatting.GRAY;
+      case RUBY -> Formatting.RED;
+      default -> Formatting.WHITE;
+    };
   }
   
   @Unique
@@ -73,11 +67,6 @@ public abstract class ItemStackMixin {
     Item item = ((ItemStack) (Object) this).getItem();
     ItemStack itemStack = (ItemStack) (Object) this;
     
-    tooltip.removeIf(text -> {
-      String str = text.getString();
-      return str.contains("ruby_attack_damage_modifier") || str.contains("When in Main Hand:") && str.contains("Attack Damage");
-    });
-    
     if (ItemGemstoneSlotsHelper.isItemValid(item)) {
       GemstoneSlot[] gemstoneSlots = ItemGemstoneSlotsHelper.getGemstoneSlots(itemStack);
       
@@ -87,17 +76,13 @@ public abstract class ItemStackMixin {
         MutableText slotsText = Text.literal("");
         
         for (var gemstoneSlot : gemstoneSlots) {
-          if (Objects.equals(gemstoneSlot.gemstoneType(), GemstoneType.LOCKED)
-            || Objects.equals(gemstoneSlot.gemstoneType(), GemstoneType.EMPTY)) {
-            slotsText.append(Text.literal("\uE001")
-              .styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, "gemstone"))));
+          if (Objects.equals(gemstoneSlot.gemstoneType(), GemstoneType.LOCKED) || Objects.equals(gemstoneSlot.gemstoneType(), GemstoneType.EMPTY)) {
+            slotsText.append(Text.literal("\uE001").styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, "gemstone"))));
           } else if (Objects.equals(gemstoneSlot.gemstoneType(), GemstoneType.RUBY)) {
-            slotsText.append(Text.literal("\uE002")
-              .styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, "gemstone"))));
+            slotsText.append(Text.literal("\uE002").styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, "gemstone"))));
           }
         }
         
-        // Empty slots for spacing
         tooltip.add(1, Text.literal(""));
         tooltip.add(3, Text.literal(""));
         tooltip.add(4, Text.literal(""));
@@ -111,7 +96,7 @@ public abstract class ItemStackMixin {
           
           if (gemType != GemstoneType.LOCKED && gemType != GemstoneType.EMPTY) {
             // Получаем модификатор для этого типа гема и предмета
-            EntityAttributeModifier modifier = GemstoneModifiers.getModifier(gemType, item);
+            EntityAttributeModifier modifier = GemstoneModifier.getModifier(gemType, item);
             
             if (modifier != null) {
               String bonusType = "";
@@ -127,13 +112,8 @@ public abstract class ItemStackMixin {
                 bonusType = "mine_speed";
               }
               
-              // Формируем строку локализации
-              String translationKey = String.format("tooltip.gemstones.%s_gemstone.%s_bonus_tooltip",
-                gemType.toString().toLowerCase(),
-                bonusType
-              );
+              String translationKey = String.format("tooltip.gemstones.%s_gemstone.%s_bonus_tooltip", gemType.toString().toLowerCase(), bonusType);
               
-              // Определяем формат значения
               String formattedValue;
               if (modifier.operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
                 formattedValue = String.format("%.0f", bonusValue); // Целое число для ADD_VALUE
@@ -141,16 +121,10 @@ public abstract class ItemStackMixin {
                 formattedValue = String.format("%.0f", bonusValue * 100) + "%"; // Проценты для MULTIPLY
               }
               
-              // Добавляем в тултип
-              tooltip.add(6 + i, Text.translatable(translationKey, formattedValue)
-                .formatted(getGemstoneColor(gemType)));
+              tooltip.add(6 + i, Text.translatable(translationKey, formattedValue).formatted(getGemstoneColor(gemType)));
             }
           } else {
-            // Обработка пустых/заблокированных слотов
-            tooltip.add(6 + i, Text.translatable(
-                String.format("tooltip.gemstones.gemstone_slots_%d", i + 1),
-                getSlotText(gemstoneSlots[i].gemstoneType()))
-              .formatted(getGemstoneColor(gemstoneSlots[i].gemstoneType())));
+            tooltip.add(6 + i, Text.translatable(String.format("tooltip.gemstones.gemstone_slots_%d", i + 1), getSlotText(gemstoneSlots[i].gemstoneType())).formatted(getGemstoneColor(gemstoneSlots[i].gemstoneType())));
           }
 
 //          if (Objects.equals(gemstoneSlots[i].gemstoneType(), GemstoneType.RUBY)) {
