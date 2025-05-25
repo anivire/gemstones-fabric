@@ -62,16 +62,13 @@ public abstract class ItemStackMixin {
   @Inject(method = "getTooltip", at = @At("RETURN"), cancellable = true)
   public void tooltip(Item.TooltipContext context, PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir) {
     List<Text> tooltip = cir.getReturnValue();
-    Item item = ((ItemStack) (Object) this).getItem();
-    ItemStack itemStack = (ItemStack) (Object) this;
-    
+    Item item = this.getItem();
+    ItemStack itemStack = this.getItem().getDefaultStack();
     
     if (ItemGemstoneSlotsHelper.isItemValid(item)) {
       GemstoneSlot[] gemstoneSlots = ItemGemstoneSlotsHelper.getGemstoneSlots(itemStack);
       
       if (gemstoneSlots != null) {
-//        AttributeModifiersComponent modifiers = itemStack.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
-        
         MutableText slotsText = Text.literal("");
         
         for (var gemstoneSlot : gemstoneSlots) {

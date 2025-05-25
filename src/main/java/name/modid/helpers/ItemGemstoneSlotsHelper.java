@@ -1,8 +1,9 @@
 package name.modid.helpers;
 
 import name.modid.helpers.components.GemstoneSlot;
-import name.modid.helpers.components.ItemGemstoneSlots;
+import name.modid.helpers.components.ItemGemstoneSlot;
 import name.modid.helpers.modifiers.GemstoneModifier;
+import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -19,25 +20,24 @@ import net.minecraft.item.SwordItem;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class ItemGemstoneSlotsHelper {
   public static final int MAX_SLOTS = 5;
   
   public static boolean isGemstoneSlotsExists(ItemStack itemStack) {
-    ItemGemstoneSlots gemstoneSlots = itemStack.get(ComponentsHelper.GEMSTONE_SLOTS);
+    ItemGemstoneSlot gemstoneSlots = itemStack.get(ComponentsHelper.GEMSTONES);
     return gemstoneSlots != null;
   }
   
   public static GemstoneSlot getGemstoneSlot(ItemStack itemStack, int index) {
-    ItemGemstoneSlots gemstoneSlots = itemStack.get(ComponentsHelper.GEMSTONE_SLOTS);
+    ItemGemstoneSlot gemstoneSlots = itemStack.get(ComponentsHelper.GEMSTONES);
     if (gemstoneSlots == null) return null;
     
     return gemstoneSlots.gemstoneSlots()[index];
   }
   
   public static GemstoneSlot[] getGemstoneSlots(ItemStack itemStack) {
-    ItemGemstoneSlots gemstoneSlots = itemStack.get(ComponentsHelper.GEMSTONE_SLOTS);
+    ItemGemstoneSlot gemstoneSlots = itemStack.get(ComponentsHelper.GEMSTONES);
     if (gemstoneSlots == null) return null;
     
     return gemstoneSlots.gemstoneSlots();
@@ -45,16 +45,19 @@ public class ItemGemstoneSlotsHelper {
   
   public static void initItemSlots(ItemStack itemStack, Item item) {
     if (isItemValid(item)) {
-      ItemGemstoneSlots currentSlots = itemStack.get(ComponentsHelper.GEMSTONE_SLOTS);
+      itemStack.set(DataComponentTypes.MAX_STACK_SIZE, 1);
+      
+      ItemGemstoneSlot currentSlots = itemStack.get(ComponentsHelper.GEMSTONES);
       if (currentSlots == null || currentSlots.gemstoneSlots().length != MAX_SLOTS) {
         GemstoneSlot[] gemstoneSlots = new GemstoneSlot[MAX_SLOTS];
         
         for (int i = 0; i < MAX_SLOTS; i++) {
-          if (i == 0) gemstoneSlots[i] = new GemstoneSlot(UUID.randomUUID(), GemstoneType.RUBY);
-          else gemstoneSlots[i] = new GemstoneSlot(UUID.randomUUID(), GemstoneType.LOCKED);
+//          UUID uuid = UUID.randomUUID();
+          if (i == 0) gemstoneSlots[i] = new GemstoneSlot(GemstoneType.RUBY, GemstoneRarityType.COMMON);
+          else gemstoneSlots[i] = new GemstoneSlot(GemstoneType.LOCKED, GemstoneRarityType.NONE);
         }
         
-        itemStack.set(ComponentsHelper.GEMSTONE_SLOTS, new ItemGemstoneSlots(gemstoneSlots));
+        itemStack.set(ComponentsHelper.GEMSTONES, new ItemGemstoneSlot(gemstoneSlots));
         updateItemSlotBonuses(itemStack, item);
       }
     }

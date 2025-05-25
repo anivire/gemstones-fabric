@@ -1,4 +1,4 @@
-package name.modid.helpers.modifiers;
+package name.modid.helpers.types;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;

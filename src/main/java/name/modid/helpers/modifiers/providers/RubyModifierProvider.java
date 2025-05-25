@@ -3,7 +3,7 @@ package name.modid.helpers.modifiers.providers;
 import name.modid.Gemstones;
 import name.modid.helpers.modifiers.GemstoneModifierData;
 import name.modid.helpers.modifiers.GemstoneModifierProvider;
-import name.modid.helpers.modifiers.ItemType;
+import name.modid.helpers.types.ItemType;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
