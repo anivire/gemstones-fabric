@@ -17,7 +17,7 @@ public class RubyModifierProvider implements GemstoneModifierProvider {
   private static final Map<ItemType, GemstoneModifierData> MODIFIERS = Map.of(
     ItemType.SWORD, new GemstoneModifierData(
       new EntityAttributeModifier(
-        Identifier.of(Gemstones.MOD_ID, "ruby_attack_damage_modifier"),
+        Identifier.of(Gemstones.MOD_ID, "gemstone_ruby_attack_damage_modifier"),
         1.0,
         EntityAttributeModifier.Operation.ADD_VALUE
       ),
@@ -26,7 +26,7 @@ public class RubyModifierProvider implements GemstoneModifierProvider {
     ),
     ItemType.ARMOR_HEAD, new GemstoneModifierData(
       new EntityAttributeModifier(
-        Identifier.of(Gemstones.MOD_ID, "ruby_armor_head_modifier"),
+        Identifier.of(Gemstones.MOD_ID, "gemstone_ruby_armor_head_modifier"),
         2.0,
         EntityAttributeModifier.Operation.ADD_VALUE
       ),
@@ -35,7 +35,7 @@ public class RubyModifierProvider implements GemstoneModifierProvider {
     ),
     ItemType.ARMOR_CHEST, new GemstoneModifierData(
       new EntityAttributeModifier(
-        Identifier.of(Gemstones.MOD_ID, "ruby_armor_chest_modifier"),
+        Identifier.of(Gemstones.MOD_ID, "gemstone_ruby_armor_chest_modifier"),
         2.0,
         EntityAttributeModifier.Operation.ADD_VALUE
       ),
@@ -44,7 +44,7 @@ public class RubyModifierProvider implements GemstoneModifierProvider {
     ),
     ItemType.ARMOR_LEGS, new GemstoneModifierData(
       new EntityAttributeModifier(
-        Identifier.of(Gemstones.MOD_ID, "ruby_armor_legs_modifier"),
+        Identifier.of(Gemstones.MOD_ID, "gemstone_ruby_armor_legs_modifier"),
         2.0,
         EntityAttributeModifier.Operation.ADD_VALUE
       ),
@@ -53,7 +53,7 @@ public class RubyModifierProvider implements GemstoneModifierProvider {
     ),
     ItemType.ARMOR_FEET, new GemstoneModifierData(
       new EntityAttributeModifier(
-        Identifier.of(Gemstones.MOD_ID, "ruby_armor_feet_modifier"),
+        Identifier.of(Gemstones.MOD_ID, "gemstone_ruby_armor_feet_modifier"),
         2.0,
         EntityAttributeModifier.Operation.ADD_VALUE
       ),
@@ -62,7 +62,7 @@ public class RubyModifierProvider implements GemstoneModifierProvider {
     ),
     ItemType.PICKAXE, new GemstoneModifierData(
       new EntityAttributeModifier(
-        Identifier.of(Gemstones.MOD_ID, "ruby_pickaxe_tool_mine_speed_modifier"),
+        Identifier.of(Gemstones.MOD_ID, "gemstone_ruby_pickaxe_tool_mine_speed_modifier"),
         0.1,
         EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
       ),
@@ -71,7 +71,7 @@ public class RubyModifierProvider implements GemstoneModifierProvider {
     ),
     ItemType.AXE, new GemstoneModifierData(
       new EntityAttributeModifier(
-        Identifier.of(Gemstones.MOD_ID, "ruby_axe_tool_mine_speed_modifier"),
+        Identifier.of(Gemstones.MOD_ID, "gemstone_ruby_axe_tool_mine_speed_modifier"),
         0.1,
         EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
       ),
@@ -80,7 +80,7 @@ public class RubyModifierProvider implements GemstoneModifierProvider {
     ),
     ItemType.SHOVEL, new GemstoneModifierData(
       new EntityAttributeModifier(
-        Identifier.of(Gemstones.MOD_ID, "ruby_shovel_tool_mine_speed_modifier"),
+        Identifier.of(Gemstones.MOD_ID, "gemstone_ruby_shovel_tool_mine_speed_modifier"),
         0.1,
         EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
       ),

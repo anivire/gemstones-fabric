@@ -5,8 +5,6 @@ import name.modid.helpers.ItemGemstoneSlotsHelper;
 import name.modid.helpers.components.GemstoneSlot;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.types.GemstoneType;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -48,9 +46,9 @@ public abstract class ItemStackMixin {
   @Unique
   private Formatting getGemstoneColor(GemstoneType gemType) {
     return switch (gemType) {
-      case LOCKED -> Formatting.GRAY;
+      case LOCKED -> Formatting.DARK_GRAY;
       case RUBY -> Formatting.RED;
-      default -> Formatting.WHITE;
+      default -> Formatting.GRAY;
     };
   }
   
@@ -67,11 +65,12 @@ public abstract class ItemStackMixin {
     Item item = ((ItemStack) (Object) this).getItem();
     ItemStack itemStack = (ItemStack) (Object) this;
     
+    
     if (ItemGemstoneSlotsHelper.isItemValid(item)) {
       GemstoneSlot[] gemstoneSlots = ItemGemstoneSlotsHelper.getGemstoneSlots(itemStack);
       
       if (gemstoneSlots != null) {
-        AttributeModifiersComponent modifiers = itemStack.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
+//        AttributeModifiersComponent modifiers = itemStack.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
         
         MutableText slotsText = Text.literal("");
         
@@ -95,7 +94,6 @@ public abstract class ItemStackMixin {
           GemstoneType gemType = gemstoneSlots[i].gemstoneType();
           
           if (gemType != GemstoneType.LOCKED && gemType != GemstoneType.EMPTY) {
-            // Получаем модификатор для этого типа гема и предмета
             EntityAttributeModifier modifier = GemstoneModifier.getModifier(gemType, item);
             
             if (modifier != null) {
@@ -116,9 +114,9 @@ public abstract class ItemStackMixin {
               
               String formattedValue;
               if (modifier.operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
-                formattedValue = String.format("%.0f", bonusValue); // Целое число для ADD_VALUE
+                formattedValue = String.format("%.0f", bonusValue);
               } else {
-                formattedValue = String.format("%.0f", bonusValue * 100) + "%"; // Проценты для MULTIPLY
+                formattedValue = String.format("%.0f", bonusValue * 100) + "%";
               }
               
               tooltip.add(6 + i, Text.translatable(translationKey, formattedValue).formatted(getGemstoneColor(gemType)));
@@ -126,12 +124,6 @@ public abstract class ItemStackMixin {
           } else {
             tooltip.add(6 + i, Text.translatable(String.format("tooltip.gemstones.gemstone_slots_%d", i + 1), getSlotText(gemstoneSlots[i].gemstoneType())).formatted(getGemstoneColor(gemstoneSlots[i].gemstoneType())));
           }
-
-//          if (Objects.equals(gemstoneSlots[i].gemstoneType(), GemstoneType.RUBY)) {
-//            tooltip.add(6 + i, Text.translatable("tooltip.gemstones.ruby_gemstone.damage_bonus_sword_tooltip", 1).formatted(Formatting.RED));
-//          } else {
-//            tooltip.add(6 + i, Text.translatable(String.format("tooltip.gemstones.gemstone_slots_%d", i + 1), getSlotText(gemstoneSlots[i].gemstoneType()).formatted(getSlotColor(gemstoneSlots[i].gemstoneType()))));
-//          }
         }
       }
     }
