@@ -1,7 +1,7 @@
 package name.modid.helpers;
 
 import name.modid.Gemstones;
-import name.modid.items.RubyGemstone;
+import name.modid.items.RubyGemstoneItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -18,7 +18,7 @@ public final class ItemRegistrationHelper {
 
     public static final Item RUBY_GEMSTONE = register(
         "ruby_gemstone",
-        RubyGemstone::new,
+        RubyGemstoneItem::new,
         new Item.Settings().rarity(Rarity.EPIC)
     );
 

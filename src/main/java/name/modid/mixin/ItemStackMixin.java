@@ -1,6 +1,6 @@
 package name.modid.mixin;
 
-import name.modid.helpers.ItemGemstoneSlotsHelper;
+import name.modid.helpers.ItemGemstoneHelper;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,6 +13,6 @@ public abstract class ItemStackMixin {
   private void init(CallbackInfo ci) {
     ItemStack itemStack = (ItemStack) (Object) this;
     
-    ItemGemstoneSlotsHelper.initItemSlots(itemStack, itemStack.getItem());
+    ItemGemstoneHelper.initItemSlots(itemStack, itemStack.getItem());
   }
 }
