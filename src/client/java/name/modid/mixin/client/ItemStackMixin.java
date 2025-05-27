@@ -1,6 +1,5 @@
 package name.modid.mixin.client;
 
-import name.modid.Gemstones;
 import name.modid.helpers.ItemGemstoneHelper;
 import name.modid.helpers.components.Gemstone;
 import name.modid.helpers.modifiers.GemstoneModifier;
@@ -17,7 +16,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,9 +25,6 @@ import java.util.List;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
-  @Shadow
-  public abstract Item getItem();
-  
   @Unique
   private Formatting getGemstoneColor(GemstoneType gemType) {
     return switch (gemType) {
@@ -57,18 +52,24 @@ public abstract class ItemStackMixin {
     if (ItemGemstoneHelper.isItemValid(itemStack.getItem())
       && ItemGemstoneHelper.isGemstonesExists(itemStack)) {
       Gemstone[] gemstones = ItemGemstoneHelper.getGemstones(itemStack);
+      if (gemstones == null || gemstones.length == 0) return;
       
       tooltip.add(1, Text.literal(""));
       
       MutableText slotsText = Text.literal("");
       for (var gemstoneSlot : gemstones) {
-        if (gemstoneSlot.gemstoneType() == GemstoneType.LOCKED
-          || gemstoneSlot.gemstoneType() == GemstoneType.EMPTY) {
-          slotsText.append(Text.literal("\uE001").styled(style ->
-            style.withFont(Identifier.of(Gemstones.MOD_ID, "gemstone"))));
-        } else if (gemstoneSlot.gemstoneType() == GemstoneType.RUBY) {
-          slotsText.append(Text.literal("\uE002").styled(style ->
-            style.withFont(Identifier.of(Gemstones.MOD_ID, "gemstone"))));
+        Formatting color = getGemstoneColor(gemstoneSlot.gemstoneType());
+        switch (gemstoneSlot.gemstoneType()) {
+          case LOCKED, EMPTY -> slotsText.append(
+            Text.literal("\uE001").styled(style ->
+              style.withFont(Identifier.of("gemstones", "gemstone"))
+            )
+          );
+          case RUBY -> slotsText.append(
+            Text.literal("\uE002").styled(style ->
+              style.withFont(Identifier.of("gemstones", "gemstone"))
+            )
+          );
         }
       }
       

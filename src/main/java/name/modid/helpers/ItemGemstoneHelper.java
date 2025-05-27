@@ -1,7 +1,7 @@
 package name.modid.helpers;
 
 import name.modid.helpers.components.Gemstone;
-import name.modid.helpers.components.GemstoneSlot;
+import name.modid.helpers.components.GemstoneSlots;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
@@ -36,14 +36,14 @@ public class ItemGemstoneHelper {
   }
   
   public static boolean isGemstonesExists(ItemStack itemStack) {
-    return itemStack.get(ComponentsHelper.GEMSTONES).gemstones() != null;
+    return itemStack.get(ComponentsHelper.GEMSTONES) != null;
   }
   
   public static Gemstone[] getGemstones(ItemStack itemStack) {
     return itemStack.get(ComponentsHelper.GEMSTONES).gemstones();
   }
   
-  public static GemstoneSlot getGemstonesSlot(ItemStack itemStack) {
+  public static GemstoneSlots getGemstonesSlot(ItemStack itemStack) {
     return itemStack.get(ComponentsHelper.GEMSTONES);
   }
   
@@ -52,10 +52,10 @@ public class ItemGemstoneHelper {
   }
   
   public static Integer getGemstoneFirstEmptyIndex(ItemStack itemStack) {
-    GemstoneSlot gemstoneSlot = getGemstonesSlot(itemStack);
-    if (gemstoneSlot == null) return null;
+    GemstoneSlots gemstoneSlots = getGemstonesSlot(itemStack);
+    if (gemstoneSlots == null) return null;
     
-    Gemstone[] gemstones = gemstoneSlot.gemstones();
+    Gemstone[] gemstones = gemstoneSlots.gemstones();
     if (gemstones == null) return null;
     
     for (int i = 0; i < gemstones.length; i++) {
@@ -69,34 +69,34 @@ public class ItemGemstoneHelper {
   }
   
   public static ItemStack setGemstoneByIndex(ItemStack itemStack, int index, Gemstone gemstone) {
-    GemstoneSlot sourceSlots = getGemstonesSlot(itemStack);
+    GemstoneSlots sourceSlots = getGemstonesSlot(itemStack);
     if (sourceSlots == null && index < 0 || index >= MAX_SLOTS) return null;
     
     Gemstone[] newGemstones = Arrays.copyOf(sourceSlots.gemstones(), sourceSlots.gemstones().length);
     
     newGemstones[index] = gemstone;
-    itemStack.set(ComponentsHelper.GEMSTONES, new GemstoneSlot(newGemstones));
+    itemStack.set(ComponentsHelper.GEMSTONES, new GemstoneSlots(newGemstones));
     updateItemSlotBonuses(itemStack, itemStack.getItem());
     
     return itemStack;
   }
   
   public static void initItemSlots(ItemStack itemStack, Item item) {
-    if (isItemValid(item)) {
-      itemStack.set(DataComponentTypes.MAX_STACK_SIZE, 1);
+    if (!isItemValid(item)) return;
+    
+    // Only initialize on server side to prevent duplication
+    if (itemStack.getHolder() != null && itemStack.getHolder().getWorld().isClient) return;
+    
+    GemstoneSlots currentSlots = itemStack.get(ComponentsHelper.GEMSTONES);
+    if (currentSlots == null || currentSlots.gemstones().length != MAX_SLOTS) {
+      Gemstone[] gemstones = new Gemstone[MAX_SLOTS];
       
-      GemstoneSlot currentSlots = itemStack.get(ComponentsHelper.GEMSTONES);
-      if (currentSlots == null || currentSlots.gemstones().length != MAX_SLOTS) {
-        Gemstone[] gemstones = new Gemstone[MAX_SLOTS];
-        
-        for (int i = 0; i < MAX_SLOTS; i++) {
-//          UUID uuid = UUID.randomUUID();
-          gemstones[i] = new Gemstone(GemstoneType.EMPTY, GemstoneRarityType.NONE);
-        }
-        
-        itemStack.set(ComponentsHelper.GEMSTONES, new GemstoneSlot(gemstones));
-        updateItemSlotBonuses(itemStack, item);
+      for (int i = 0; i < MAX_SLOTS; i++) {
+        gemstones[i] = new Gemstone(GemstoneType.EMPTY, GemstoneRarityType.NONE);
       }
+      
+      itemStack.set(ComponentsHelper.GEMSTONES, new GemstoneSlots(gemstones));
+      updateItemSlotBonuses(itemStack, item);
     }
   }
   

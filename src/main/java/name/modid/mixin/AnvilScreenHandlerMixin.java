@@ -42,7 +42,6 @@ public abstract class AnvilScreenHandlerMixin {
     AnvilScreenHandler handler = (AnvilScreenHandler) (Object) this;
     ItemStack left = handler.getSlot(0).getStack();
     ItemStack right = handler.getSlot(1).getStack();
-    String newName = this.newItemName;
     
     if (!left.isEmpty()
       && !right.isEmpty()
