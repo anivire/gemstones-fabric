@@ -44,6 +44,32 @@ public abstract class ItemStackMixin {
     };
   }
   
+  @Unique
+  private Text getGemstoneSprite(GemstoneType gemType) {
+    return switch (gemType) {
+      case EMPTY -> Text.literal("\uE001").styled(style ->
+        style.withFont(Identifier.of("gemstones", "gemstone_sprite_font"))
+      );
+      case RUBY -> Text.literal("\uE002").styled(style ->
+        style.withFont(Identifier.of("gemstones", "gemstone_sprite_font"))
+      );
+      default -> Text.literal("");
+    };
+  }
+  
+  @Unique
+  private String getGemstoneModifier(String gemstoneModifierText) {
+    if (gemstoneModifierText.contains("attack_damage")) {
+      return "damage";
+    } else if (gemstoneModifierText.contains("armor")) {
+      return "armor";
+    } else if (gemstoneModifierText.contains("mine_speed")) {
+      return "mine_speed";
+    } else {
+      return "unknown_modifier";
+    }
+  }
+  
   @Inject(method = "getTooltip", at = @At("RETURN"), cancellable = true)
   public void tooltip(Item.TooltipContext context, PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir) {
     List<Text> tooltip = cir.getReturnValue();
@@ -58,19 +84,7 @@ public abstract class ItemStackMixin {
       
       MutableText slotsText = Text.literal("");
       for (var gemstoneSlot : gemstones) {
-        Formatting color = getGemstoneColor(gemstoneSlot.gemstoneType());
-        switch (gemstoneSlot.gemstoneType()) {
-          case LOCKED, EMPTY -> slotsText.append(
-            Text.literal("\uE001").styled(style ->
-              style.withFont(Identifier.of("gemstones", "gemstone"))
-            )
-          );
-          case RUBY -> slotsText.append(
-            Text.literal("\uE002").styled(style ->
-              style.withFont(Identifier.of("gemstones", "gemstone"))
-            )
-          );
-        }
+        slotsText.append(getGemstoneSprite(gemstoneSlot.gemstoneType()));
       }
       
       tooltip.add(2, slotsText);
@@ -82,30 +96,19 @@ public abstract class ItemStackMixin {
       for (int i = 0; i < gemstones.length; i++) {
         GemstoneType gemType = gemstones[i].gemstoneType();
         
-        if (gemType != GemstoneType.LOCKED && gemType != GemstoneType.EMPTY) {
+        if (gemType != GemstoneType.LOCKED
+          && gemType != GemstoneType.EMPTY) {
           EntityAttributeModifier modifier = GemstoneModifier.getModifier(gemType, itemStack.getItem());
           
           if (modifier != null) {
-            String bonusType = "";
-            String modifierName = modifier.id().getPath();
-            double bonusValue = modifier.value();
-            
-            if (modifierName.contains("attack_damage")) {
-              bonusType = "damage";
-            } else if (modifierName.contains("armor")) {
-              bonusType = "armor";
-            } else if (modifierName.contains("mine_speed")) {
-              bonusType = "mine_speed";
-            }
-            
-            String translationKey = String.format("tooltip.gemstones.%s_gemstone.%s_bonus_tooltip",
-              gemType.toString().toLowerCase(), bonusType);
-            
             String formattedValue;
+            String translationKey = String.format("tooltip.gemstones.%s_gemstone.%s_bonus_tooltip",
+              gemType.toString().toLowerCase(), getGemstoneModifier(modifier.id().getPath()));
+            
             if (modifier.operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
-              formattedValue = String.format("%.0f", bonusValue);
+              formattedValue = String.format("%.0f", modifier.value());
             } else {
-              formattedValue = String.format("%.0f", bonusValue * 100) + "%";
+              formattedValue = String.format("%.0f", modifier.value() * 100) + "%";
             }
             
             tooltip.add(buffIndex++, Text.translatable(translationKey, formattedValue)
@@ -126,7 +129,7 @@ public abstract class ItemStackMixin {
         for (int i = 0; i < gemstones.length; i++) {
           GemstoneType gemType = gemstones[i].gemstoneType();
           GemstoneRarityType gemRarityType = gemstones[i].gemstoneRarityType();
-          tooltip.add(buffIndex++, Text.literal(String.format("  %s %s", gemRarityType.toString(), getSlotText(gemType)))
+          tooltip.add(buffIndex++, Text.literal(String.format("%s %s", gemRarityType.toString(), getSlotText(gemType)))
             .formatted(getGemstoneColor(gemType)));
         }
       } else {

@@ -5,9 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 
-// UUID gemstoneUUID,
-// Uuids.CODEC.fieldOf("gemstoneUUID").forGetter(GemstoneSlot::gemstoneUUID),
-
 public record Gemstone(GemstoneType gemstoneType, GemstoneRarityType gemstoneRarityType) {
   public static final Codec<Gemstone> GEMSTONE_CODEC = RecordCodecBuilder.create(builder -> {
     return builder.group(
