@@ -17,6 +17,15 @@
       "chars": [
         "\uE002"
       ]
+    },
+    {
+      "type": "bitmap",
+      "file": "gemstones:gui/gemstone_socket_celestin.png",
+      "height": 26,
+      "ascent": 13,
+      "chars": [
+        "\uE003"
+      ]
     }
   ]
 }

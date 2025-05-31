@@ -3,10 +3,10 @@ package name.modid.items;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 
-public class RubyGemstoneItem extends GemstoneItem {
-  public RubyGemstoneItem(Settings settings) {
+public class CelestineGemstoneItem extends GemstoneItem {
+  public CelestineGemstoneItem(Settings settings) {
     super(settings);
-    this.type = GemstoneType.RUBY;
+    this.type = GemstoneType.CELESTINE;
     this.rarityType = GemstoneRarityType.COMMON;
   }
 

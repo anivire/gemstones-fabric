@@ -9,8 +9,17 @@
   "tooltip.gemstones.gemstone_slots_4": "%d",
   "tooltip.gemstones.gemstone_slots_5": "%d",
   "item.gemstones.ruby_gemstone": "Ruby Gemstone",
+  "item.gemstones.celestine_gemstone": "Celestine Gemstone",
   "tooltip.gemstones.ruby_gemstone.tooltip": "Processed gemstone",
   "tooltip.gemstones.ruby_gemstone.damage_bonus_tooltip": "+%s Attack Damage",
   "tooltip.gemstones.ruby_gemstone.armor_bonus_tooltip": "+%s Armor",
-  "tooltip.gemstones.ruby_gemstone.mine_speed_bonus_tooltip": "+%s Block Break Speed"
+  "tooltip.gemstones.ruby_gemstone.mine_speed_bonus_tooltip": "+%s Block Break Speed",
+  "tooltip.gemstones.melee_buff": "▪ Melee: ",
+  "tooltip.gemstones.ranged_buff": "▪ Ranged: ",
+  "tooltip.gemstones.tools_buff": "▪ Tools: ",
+  "tooltip.gemstones.armor_buff": "▪ Armor: ",
+  "tooltip.gemstones.ruby_item.melee_buff": "With 10% chance can inflict Bleeding for 5 seconds",
+  "tooltip.gemstones.ruby_item.ranged_buff": "With 20% chance can inflict Shattering Strike for 5 seconds",
+  "tooltip.gemstones.ruby_item.tools_buff": "Mining block can heal for 1 health point with 5% chance",
+  "tooltip.gemstones.ruby_item.armor_buff": "Gains additional 1 max heart"
 }

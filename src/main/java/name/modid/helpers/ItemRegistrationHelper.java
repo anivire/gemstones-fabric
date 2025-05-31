@@ -1,6 +1,7 @@
 package name.modid.helpers;
 
 import name.modid.Gemstones;
+import name.modid.items.CelestineGemstoneItem;
 import name.modid.items.RubyGemstoneItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.DataComponentTypes;
@@ -18,11 +19,8 @@ public final class ItemRegistrationHelper {
   private ItemRegistrationHelper() {
   }
   
-  public static final Item RUBY_GEMSTONE = register(
-    "ruby_gemstone",
-    RubyGemstoneItem::new,
-    new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 1)
-  );
+  public static final Item RUBY_GEMSTONE = register("ruby_gemstone", RubyGemstoneItem::new, new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 1));
+  public static final Item CELESTINE_GEMSTONE = register("celestine_gemstone", CelestineGemstoneItem::new, new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 1));
   
   public static Item register(String path, Function<Item.Settings, Item> factory, Item.Settings settings) {
     final RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Gemstones.MOD_ID, path));
@@ -33,6 +31,7 @@ public final class ItemRegistrationHelper {
     Gemstones.LOGGER.info("Registering mod items for {}", Gemstones.MOD_ID);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
       entries.add(RUBY_GEMSTONE);
+      entries.add(CELESTINE_GEMSTONE);
     });
   }
 }

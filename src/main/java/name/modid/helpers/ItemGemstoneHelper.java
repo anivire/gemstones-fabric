@@ -84,9 +84,6 @@ public class ItemGemstoneHelper {
   public static void initItemSlots(ItemStack itemStack, Item item) {
     if (!isItemValid(item)) return;
     
-    // Only initialize on server side to prevent duplication
-    if (itemStack.getHolder() != null && itemStack.getHolder().getWorld().isClient) return;
-    
     GemstoneSlots currentSlots = itemStack.get(ComponentsHelper.GEMSTONES);
     if (currentSlots == null || currentSlots.gemstones().length != MAX_SLOTS) {
       Gemstone[] gemstones = new Gemstone[MAX_SLOTS];

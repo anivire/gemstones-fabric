@@ -6,7 +6,7 @@ public enum GemstoneType {
   EMPTY,
   LOCKED,
   RUBY,
-  SAPPHIRE,
+  CELESTINE,
   MALACHITE;
   
   public static final Codec<GemstoneType> CODEC = Codec.STRING.xmap(

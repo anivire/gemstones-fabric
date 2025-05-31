@@ -14,10 +14,10 @@ import net.minecraft.util.Identifier;
 import java.util.Map;
 import java.util.Optional;
 
-public class RubyModifierProvider implements GemstoneModifierProvider {
+public class CelestineModifierProvider implements GemstoneModifierProvider {
   private final GemstoneType gemstoneType;
   
-  public RubyModifierProvider(GemstoneType gemstoneType) {
+  public CelestineModifierProvider(GemstoneType gemstoneType) {
     this.gemstoneType = gemstoneType;
   }
   
