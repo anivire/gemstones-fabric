@@ -4,14 +4,18 @@ import name.modid.Gemstones;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.items.CelestineGemstoneItem;
 import name.modid.items.RubyGemstoneItem;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.Items;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
@@ -28,13 +32,26 @@ public final class ItemRegistrationHelper {
 
   public static Item register(String path, Function<Item.Settings, Item> factory, Item.Settings settings) {
     final RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Gemstones.MOD_ID, path));
-    return Items.register(registryKey, factory, settings);
+
+    return Registry.register(Registries.ITEM, registryKey, factory.apply(settings.registryKey(registryKey)));
   }
+
+  public static final RegistryKey<ItemGroup> GEMSTONES_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP,
+      Identifier.of(Gemstones.MOD_ID, "item_group"));
+
+  public static ItemGroup GEMSTONES_ITEM_GROUP;
 
   public static void initialize() {
     Gemstones.LOGGER.info("Registering mod items for {}", Gemstones.MOD_ID);
+
     registerGemstones();
-    ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
+
+    GEMSTONES_ITEM_GROUP = FabricItemGroup.builder().icon(() -> new ItemStack(RUBY_GEMSTONES.get(0)))
+        .displayName(Text.translatable("item_group.gemstones")).build();
+
+    Registry.register(Registries.ITEM_GROUP, GEMSTONES_ITEM_GROUP_KEY, GEMSTONES_ITEM_GROUP);
+
+    ItemGroupEvents.modifyEntriesEvent(GEMSTONES_ITEM_GROUP_KEY)
         .register(ItemRegistrationHelper::addGemstonesToItemGroup);
   }
 

@@ -1,4 +1,6 @@
 {
+  "item_group.gemstones": "Gemstones",
+
   "tooltip.gemstones.gemstone_slots": "Gemstone Max Slots: %d",
   "tooltip.gemstones.gemstone_slots_info_with": "With gemstones:",
   "tooltip.gemstones.gemstone_slots_info_rarities": "Gemstone rarities:",
