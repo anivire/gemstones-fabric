@@ -23,21 +23,26 @@ public class ModifierAttribute implements GemstoneModifier {
   protected ModifierItemType itemType;
   protected ArrayList<Double> modifierValuesList = new ArrayList<Double>();
   protected RegistryEntry<EntityAttribute> attr;
-  protected String tooltipString;
+  protected String socketedTooltipString;
+  protected String gemstoneTooltipString;
   protected GemstoneType gemstoneType;
   protected GemstoneRarityType rarityType;
 
-  public ModifierAttribute(Operation operation, ArrayList<Double> modifierValuesList, String tooltipString,
-      ModifierItemType itemType, RegistryEntry<EntityAttribute> attr, GemstoneType gemstoneType) {
+  public ModifierAttribute(Operation operation, ArrayList<Double> modifierValuesList, String socketedTooltipString,
+      String gemstoneTooltipString, ModifierItemType itemType, RegistryEntry<EntityAttribute> attr,
+      GemstoneType gemstoneType) {
     this.operation = operation;
     this.modifierValuesList = new ArrayList<Double>(modifierValuesList);
-    this.tooltipString = tooltipString;
+    this.socketedTooltipString = socketedTooltipString;
+    this.gemstoneTooltipString = gemstoneTooltipString;
     this.itemType = itemType;
     this.attr = attr;
     this.gemstoneType = gemstoneType;
   }
 
-  public String getTooltipString() { return this.tooltipString; }
+  public String getGemstoneTooltipString() { return this.gemstoneTooltipString; }
+
+  public String getSocketedTooltipString() { return this.socketedTooltipString; }
 
   public GemstoneType getGemstoneType() { return this.gemstoneType; }
 

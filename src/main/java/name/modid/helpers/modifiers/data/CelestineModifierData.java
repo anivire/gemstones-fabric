@@ -19,23 +19,23 @@ public class CelestineModifierData implements ModifierData {
   static {
     MODIFIERS.put(ModifierItemType.MELEE,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            "tooltip.gemstones.socketed_celestine.melee_bonus", ModifierItemType.MELEE, EntityAttributes.ATTACK_DAMAGE,
-            GemstoneType.CELESTINE));
+            "tooltip.gemstones.socketed_celestine.melee_bonus", "tooltip.gemstones.item_celestine.melee_bonus",
+            ModifierItemType.MELEE, EntityAttributes.ATTACK_DAMAGE, GemstoneType.CELESTINE));
 
     MODIFIERS.put(ModifierItemType.RANGED,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            "tooltip.gemstones.socketed_celestine.ranged_bonus", ModifierItemType.RANGED,
-            EntityAttributes.ATTACK_DAMAGE, GemstoneType.CELESTINE));
+            "tooltip.gemstones.socketed_celestine.ranged_bonus", "tooltip.gemstones.item_celestine.ranged_bonus",
+            ModifierItemType.RANGED, EntityAttributes.ATTACK_DAMAGE, GemstoneType.CELESTINE));
 
     MODIFIERS.put(ModifierItemType.TOOLS,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            "tooltip.gemstones.socketed_celestine.tools_bonus", ModifierItemType.TOOLS, EntityAttributes.ATTACK_DAMAGE,
-            GemstoneType.CELESTINE));
+            "tooltip.gemstones.socketed_celestine.tools_bonus", "tooltip.gemstones.item_celestine.tools_bonus",
+            ModifierItemType.TOOLS, EntityAttributes.ATTACK_DAMAGE, GemstoneType.CELESTINE));
 
     MODIFIERS.put(ModifierItemType.ARMOR,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            "tooltip.gemstones.socketed_celestine.armor_bonus", ModifierItemType.ARMOR, EntityAttributes.ATTACK_DAMAGE,
-            GemstoneType.CELESTINE));
+            "tooltip.gemstones.socketed_celestine.armor_bonus", "tooltip.gemstones.item_celestine.armor_bonus",
+            ModifierItemType.ARMOR, EntityAttributes.ATTACK_DAMAGE, GemstoneType.CELESTINE));
   }
 
   @Override

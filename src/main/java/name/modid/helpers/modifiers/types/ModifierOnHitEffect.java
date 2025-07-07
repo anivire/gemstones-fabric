@@ -12,7 +12,8 @@ public class ModifierOnHitEffect implements GemstoneModifier {
   protected Integer duration;
   protected Integer amplifier;
   protected StatusEffect effect;
-  protected String tooltipString;
+  protected String socketedTooltipString;
+  protected String gemstoneTooltipString;
   protected GemstoneType gemstoneType;
   protected GemstoneRarityType rarityType;
 
@@ -23,7 +24,9 @@ public class ModifierOnHitEffect implements GemstoneModifier {
     this.effect = effect;
   }
 
-  public String getTooltipString() { return this.tooltipString; }
+  public String getGemstoneTooltipString() { return this.gemstoneTooltipString; }
+
+  public String getSocketedTooltipString() { return this.socketedTooltipString; }
 
   public GemstoneType getGemstoneType() { return this.gemstoneType; }
 

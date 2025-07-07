@@ -6,11 +6,11 @@
   "tooltip.gemstones.gemstone_slots_info_rarities": "Gemstone rarities:",
   "tooltip.gemstones.gemstone_slots_info_rarities_fold": "(Hold left Shift for details)",
 
-  "tooltip.gemstones.gemstone_slots_1": "%d",
-  "tooltip.gemstones.gemstone_slots_2": "%d",
-  "tooltip.gemstones.gemstone_slots_3": "%d",
-  "tooltip.gemstones.gemstone_slots_4": "%d",
-  "tooltip.gemstones.gemstone_slots_5": "%d",
+  "tooltip.gemstones.gemstone_slots.1": "%d",
+  "tooltip.gemstones.gemstone_slots.2": "%d",
+  "tooltip.gemstones.gemstone_slots.3": "%d",
+  "tooltip.gemstones.gemstone_slots.4": "%d",
+  "tooltip.gemstones.gemstone_slots.5": "%d",
   
   "tooltip.gemstones.melee_buff": "Melee: ",
   "tooltip.gemstones.ranged_buff": "Ranged: ",
@@ -22,16 +22,7 @@
   "tooltip.gemstones.socketed_ruby.ranged_bonus": "socketed_ruby.ranged_bonus",
   "tooltip.gemstones.socketed_ruby.tools_bonus": "socketed_ruby.tools_bonus",
   "tooltip.gemstones.socketed_ruby.armor_bonus": "socketed_ruby.armor_bonus",
-
-  "tooltip.gemstones.ruby_gemstone.damage_bonus_tooltip": "+%s Attack Damage",
-  "tooltip.gemstones.ruby_gemstone.armor_bonus_tooltip": "+%s Armor",
-  "tooltip.gemstones.ruby_gemstone.mine_speed_bonus_tooltip": "+%s Block Break Speed",
   
-  "tooltip.gemstones.ruby_item.melee_buff": "With 10% chance can inflict Bleeding for 5 seconds",
-  "tooltip.gemstones.ruby_item.ranged_buff": "With 20% chance can inflict Shattering Strike for 5 seconds",
-  "tooltip.gemstones.ruby_item.tools_buff": "Mining block can heal for 1 health point with 5% chance",
-  "tooltip.gemstones.ruby_item.armor_buff": "Gains additional 1 max heart",
-
   "item.gemstones.celestine_gemstone": "Celestine Gemstone",
   "tooltip.gemstones.socketed_celestine.melee_bonus": "socketed_celestine.melee_bonus",
   "tooltip.gemstones.socketed_celestine.ranged_bonus": "socketed_celestine.ranged_bonus",

@@ -5,6 +5,7 @@ import name.modid.helpers.ItemGemstoneHelper;
 import name.modid.helpers.components.Gemstone;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstoneModifierHelper;
+import name.modid.helpers.modifiers.ModifierItemType;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import name.modid.items.GemstoneItem;
@@ -21,7 +22,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
@@ -55,32 +58,11 @@ public abstract class ItemStackMixin {
 
         if (gemType != GemstoneType.LOCKED && gemType != GemstoneType.EMPTY) {
           GemstoneModifier modifier = GemstoneModifierHelper.getGemstoneModifierForItem(gemType, itemStack.getItem());
-          tooltip.add(buffIndex++, Text.translatable(modifier.getTooltipString())
+          tooltip.add(buffIndex++, Text.translatable(modifier.getSocketedTooltipString())
               .formatted(GemstoneTooltipHelper.getGemstoneColor(gemType)));
-          // EntityAttributeModifier modifier =
-          // GemstoneModifierHelper.getGemstoneModifierForItem(gemType,
-          // itemStack.getItem());
-
-          // if (modifier != null) {
-          // String formattedValue;
-          // String translationKey =
-          // String.format("tooltip.gemstones.%s_gemstone.%s_bonus_tooltip",
-          // gemType.toString().toLowerCase(),
-          // getGemstoneModifier(modifier.id().getPath()));
-
-          // if (modifier.operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
-          // formattedValue = String.format("%.0f", modifier.value());
-          // } else {
-          // formattedValue = String.format("%.0f", modifier.value() * 100) + "%";
-          // }
-
-          // tooltip.add(buffIndex++,
-          // Text.translatable(translationKey,
-          // formattedValue).formatted(getGemstoneColor(gemType)));
-          // }
         } else {
           tooltip.add(buffIndex++,
-              Text.translatable(String.format("tooltip.gemstones.gemstone_slots_%d", i + 1),
+              Text.translatable(String.format("tooltip.gemstones.gemstone_slots.%d", i + 1),
                   GemstoneTooltipHelper.getSlotText(gemstones[i].gemstoneType()))
                   .formatted(GemstoneTooltipHelper.getGemstoneColor(gemstones[i].gemstoneType())));
         }
@@ -102,12 +84,23 @@ public abstract class ItemStackMixin {
         tooltip.add(buffIndex,
             Text.translatable("tooltip.gemstones.gemstone_slots_info_rarities_fold").formatted(Formatting.GRAY));
       }
+
     } else if (itemStack.getItem() instanceof GemstoneItem) {
-      GemstoneItem i = (GemstoneItem) itemStack.getItem();
-      List<Text> b = GemstoneTooltipHelper.getGemstoneItemBonuses(i.getType());
-      tooltip.addLast(GemstoneTooltipHelper.getGemstoneRaritySprite(i.getRarityType()));
+      GemstoneItem gemstoneItem = (GemstoneItem) itemStack.getItem();
+      GemstoneType gemstoneType = gemstoneItem.getType();
+      Map<ModifierItemType, GemstoneModifier> gemstoneModifiers = new LinkedHashMap<>(
+          GemstoneModifierHelper.getGemstoneModifiers(gemstoneType, itemStack.getItem()));
+
+      tooltip.addLast(GemstoneTooltipHelper.getGemstoneRaritySprite(gemstoneItem.getRarityType()));
       tooltip.addLast(Text.literal(""));
-      tooltip.addAll(b);
+
+      for (Map.Entry<ModifierItemType, GemstoneModifier> entry : gemstoneModifiers.entrySet()) {
+        GemstoneModifier modifier = entry.getValue();
+        if (gemstoneType != GemstoneType.LOCKED && gemstoneType != GemstoneType.EMPTY) {
+          tooltip.addLast(Text.translatable(modifier.getGemstoneTooltipString())
+              .formatted(GemstoneTooltipHelper.getGemstoneColor(gemstoneType)));
+        }
+      }
     }
 
     cir.setReturnValue(tooltip);

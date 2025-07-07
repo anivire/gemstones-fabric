@@ -8,7 +8,9 @@ import net.minecraft.item.ItemStack;
 public interface GemstoneModifier {
   void applyBonus(ItemStack itemStack, Item item, Integer slotIndex, GemstoneRarityType gemstoneRarityType);
 
-  String getTooltipString();
+  public String getGemstoneTooltipString();
+
+  public String getSocketedTooltipString();
 
   GemstoneType getGemstoneType();
 
