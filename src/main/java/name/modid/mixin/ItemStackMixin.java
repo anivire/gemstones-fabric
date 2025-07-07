@@ -11,10 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
-  @Inject(
-    method = "<init>(Lnet/minecraft/item/ItemConvertible;ILnet/minecraft/component/MergedComponentMap;)V",
-    at = @At("TAIL")
-  )
+  @Inject(method = "<init>(Lnet/minecraft/item/ItemConvertible;ILnet/minecraft/component/MergedComponentMap;)V", at = @At("TAIL"))
   private void init(ItemConvertible item, int count, MergedComponentMap components, CallbackInfo ci) {
     ItemStack itemStack = (ItemStack) (Object) this;
     ItemGemstoneHelper.initItemSlots(itemStack, itemStack.getItem());
