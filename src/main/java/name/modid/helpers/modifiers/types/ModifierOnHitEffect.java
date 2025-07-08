@@ -6,6 +6,8 @@ import name.modid.helpers.types.GemstoneType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 
 public class ModifierOnHitEffect implements GemstoneModifier {
   protected Double inflitChance;
@@ -24,13 +26,21 @@ public class ModifierOnHitEffect implements GemstoneModifier {
     this.effect = effect;
   }
 
-  public String getGemstoneTooltipString() { return this.gemstoneTooltipString; }
+  public MutableText getGemstoneTooltipString(GemstoneRarityType gemstoneRarityType) {
+    return Text.literal(gemstoneTooltipString);
+  }
 
-  public String getSocketedTooltipString() { return this.socketedTooltipString; }
+  public String getSocketedTooltipString() {
+    return this.socketedTooltipString;
+  }
 
-  public GemstoneType getGemstoneType() { return this.gemstoneType; }
+  public GemstoneType getGemstoneType() {
+    return this.gemstoneType;
+  }
 
-  public GemstoneRarityType getRarityType() { return this.rarityType; }
+  public GemstoneRarityType getRarityType() {
+    return this.rarityType;
+  }
 
   @Override
   public void applyBonus(ItemStack itemStack, Item item, Integer slotIndex, GemstoneRarityType gemstoneRarityType) {

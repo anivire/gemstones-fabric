@@ -17,15 +17,31 @@
   "tooltip.gemstones.tools_buff": "Tools: ",
   "tooltip.gemstones.armor_buff": "Armor: ",
   
-  "item.gemstones.ruby_gemstone": "Ruby Gemstone",
+  "item.gemstones.ruby_gemstone_common": "Ruby Gemstone",
+  "item.gemstones.ruby_gemstone_uncommon": "Ruby Gemstone",
+  "item.gemstones.ruby_gemstone_rare": "Ruby Gemstone",
+  "item.gemstones.ruby_gemstone_legendary": "Ruby Gemstone",
   "tooltip.gemstones.socketed_ruby.melee_bonus": "socketed_ruby.melee_bonus",
   "tooltip.gemstones.socketed_ruby.ranged_bonus": "socketed_ruby.ranged_bonus",
   "tooltip.gemstones.socketed_ruby.tools_bonus": "socketed_ruby.tools_bonus",
   "tooltip.gemstones.socketed_ruby.armor_bonus": "socketed_ruby.armor_bonus",
   
-  "item.gemstones.celestine_gemstone": "Celestine Gemstone",
+  "tooltip.gemstones.item_ruby.melee_bonus": "item_ruby.melee_bonus",
+  "tooltip.gemstones.item_ruby.ranged_bonus": "item_ruby.ranged_bonus",
+  "tooltip.gemstones.item_ruby.tools_bonus": "item_ruby.tools_bonus",
+  "tooltip.gemstones.item_ruby.armor_bonus": "gains additional %s max heart",
+  
+  "item.gemstones.celestine_gemstone_common": "Celestine Gemstone",
+  "item.gemstones.celestine_gemstone_uncommon": "Celestine Gemstone",
+  "item.gemstones.celestine_gemstone_rare": "Celestine Gemstone",
+  "item.gemstones.celestine_gemstone_legendary": "Celestine Gemstone",
   "tooltip.gemstones.socketed_celestine.melee_bonus": "socketed_celestine.melee_bonus",
   "tooltip.gemstones.socketed_celestine.ranged_bonus": "socketed_celestine.ranged_bonus",
   "tooltip.gemstones.socketed_celestine.tools_bonus": "socketed_celestine.tools_bonus",
-  "tooltip.gemstones.socketed_celestine.armor_bonus": "socketed_celestine.armor_bonus"
+  "tooltip.gemstones.socketed_celestine.armor_bonus": "socketed_celestine.armor_bonus",
+
+  "tooltip.gemstones.item_celestine.melee_bonus": "item_celestine.melee_bonus",
+  "tooltip.gemstones.item_celestine.ranged_bonus": "item_celestine.ranged_bonus",
+  "tooltip.gemstones.item_celestine.tools_bonus": "item_celestine.tools_bonus",
+  "tooltip.gemstones.item_celestine.armor_bonus": "item_celestine.armor_bonus"
 }

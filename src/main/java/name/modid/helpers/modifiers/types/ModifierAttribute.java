@@ -11,6 +11,9 @@ import name.modid.helpers.types.GemstoneType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -40,13 +43,28 @@ public class ModifierAttribute implements GemstoneModifier {
     this.gemstoneType = gemstoneType;
   }
 
-  public String getGemstoneTooltipString() { return this.gemstoneTooltipString; }
+  public MutableText getGemstoneTooltipString(GemstoneRarityType gemstoneRarityType) {
+    Object value = modifierValuesList.get(gemstoneRarityType.getValue());
+    String tooltipKey = String.format("tooltip.gemstones.%s_buff", itemType.toString().toLowerCase());
 
-  public String getSocketedTooltipString() { return this.socketedTooltipString; }
+    return Text.translatable(tooltipKey).formatted(Formatting.GRAY).append(Text
+        .translatable(this.gemstoneTooltipString, Text.literal(String.format("%.1f", value)).formatted(Formatting.BLUE))
+        .formatted(Formatting.GOLD));
+  }
 
-  public GemstoneType getGemstoneType() { return this.gemstoneType; }
+  // .formatted(Formatting.GOLD)
 
-  public GemstoneRarityType getRarityType() { return this.rarityType; }
+  public String getSocketedTooltipString() {
+    return this.socketedTooltipString;
+  }
+
+  public GemstoneType getGemstoneType() {
+    return this.gemstoneType;
+  }
+
+  public GemstoneRarityType getRarityType() {
+    return this.rarityType;
+  }
 
   @Override
   public void applyBonus(ItemStack itemStack, Item item, Integer slotIndex, GemstoneRarityType gemstoneRarityType) {

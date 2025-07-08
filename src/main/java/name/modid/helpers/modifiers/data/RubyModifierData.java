@@ -33,11 +33,13 @@ public record RubyModifierData() implements ModifierData {
             ModifierItemType.TOOLS, EntityAttributes.BLOCK_BREAK_SPEED, GemstoneType.RUBY));
 
     MODIFIERS.put(ModifierItemType.ARMOR,
-        new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
+        new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)),
             "tooltip.gemstones.socketed_ruby.armor_bonus", "tooltip.gemstones.item_ruby.armor_bonus",
-            ModifierItemType.ARMOR, EntityAttributes.ARMOR, GemstoneType.RUBY));
+            ModifierItemType.ARMOR, EntityAttributes.MAX_HEALTH, GemstoneType.RUBY));
   }
 
   @Override
-  public Map<ModifierItemType, GemstoneModifier> getModifiers() { return new HashMap<>(MODIFIERS); }
+  public Map<ModifierItemType, GemstoneModifier> getModifiers() {
+    return new HashMap<>(MODIFIERS);
+  }
 }
