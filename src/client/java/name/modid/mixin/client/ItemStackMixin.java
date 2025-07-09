@@ -6,7 +6,6 @@ import name.modid.helpers.components.Gemstone;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstoneModifierHelper;
 import name.modid.helpers.modifiers.ModifierItemType;
-import name.modid.helpers.modifiers.types.ModifierAttribute;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import name.modid.items.GemstoneItem;
@@ -99,9 +98,7 @@ public abstract class ItemStackMixin {
         GemstoneModifier modifier = entry.getValue();
 
         if (gemstoneType != GemstoneType.LOCKED && gemstoneType != GemstoneType.EMPTY) {
-          if (modifier.getClass() == ModifierAttribute.class) {
-            tooltip.addLast(modifier.getGemstoneTooltipString(gemstoneItem.getRarityType()));
-          }
+          tooltip.addLast(modifier.getGemstoneTooltipString(gemstoneItem.getRarityType()));
         }
       }
     }

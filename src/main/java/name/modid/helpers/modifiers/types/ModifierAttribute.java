@@ -52,8 +52,6 @@ public class ModifierAttribute implements GemstoneModifier {
         .formatted(Formatting.GOLD));
   }
 
-  // .formatted(Formatting.GOLD)
-
   public String getSocketedTooltipString() {
     return this.socketedTooltipString;
   }
@@ -67,7 +65,7 @@ public class ModifierAttribute implements GemstoneModifier {
   }
 
   @Override
-  public void applyBonus(ItemStack itemStack, Item item, Integer slotIndex, GemstoneRarityType gemstoneRarityType) {
+  public void apply(ItemStack itemStack, Item item, Integer slotIndex, GemstoneRarityType gemstoneRarityType) {
     AttributeModifiersComponent itemAttributeModifiers = itemStack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS,
         AttributeModifiersComponent.DEFAULT);
 

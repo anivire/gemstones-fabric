@@ -4,6 +4,7 @@ import name.modid.helpers.components.Gemstone;
 import name.modid.helpers.components.GemstoneSlots;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstoneModifierHelper;
+import name.modid.helpers.modifiers.types.ModifierAttribute;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import name.modid.items.GemstoneItem;
@@ -28,6 +29,15 @@ public class ItemGemstoneHelper {
     return item instanceof PickaxeItem || item instanceof BowItem || item instanceof ArmorItem
         || item instanceof SwordItem || item instanceof AxeItem || item instanceof ShovelItem
         || item instanceof CrossbowItem;
+  }
+
+  public static Gemstone[] contains(ItemStack itemStack, GemstoneType gemstoneType) {
+    Gemstone[] gemstones = itemStack.get(ComponentsHelper.GEMSTONES) != null
+        ? itemStack.get(ComponentsHelper.GEMSTONES).gemstones()
+        : new Gemstone[0];
+
+    return Arrays.stream(gemstones).filter(gemstone -> gemstone != null && gemstone.gemstoneType() == gemstoneType)
+        .toArray(Gemstone[]::new);
   }
 
   public static boolean isGemstonesExists(ItemStack itemStack) {
@@ -127,7 +137,8 @@ public class ItemGemstoneHelper {
         GemstoneModifier gemstoneModifier = GemstoneModifierHelper.getGemstoneModifierForItem(gemstoneType, item);
 
         if (gemstoneModifier != null) {
-          gemstoneModifier.applyBonus(itemStack, item, slotIndex, gemstoneRarity);
+          if (gemstoneModifier.getClass() == ModifierAttribute.class)
+            gemstoneModifier.apply(itemStack, item, slotIndex, gemstoneRarity);
         }
       }
     }

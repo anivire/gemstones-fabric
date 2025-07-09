@@ -5,10 +5,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import name.modid.helpers.EffectRegistraionHelper;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.ModifierData;
 import name.modid.helpers.modifiers.ModifierItemType;
 import name.modid.helpers.modifiers.types.ModifierAttribute;
+import name.modid.helpers.modifiers.types.ModifierOnHitEffect;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -18,9 +20,9 @@ public record RubyModifierData() implements ModifierData {
 
   static {
     MODIFIERS.put(ModifierItemType.MELEE,
-        new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
+        new ModifierOnHitEffect(new ArrayList<Double>(Arrays.asList(0.1, 0.2, 0.3, 0.4)), 10, 1,
             "tooltip.gemstones.socketed_ruby.melee_bonus", "tooltip.gemstones.item_ruby.melee_bonus",
-            ModifierItemType.MELEE, EntityAttributes.ATTACK_DAMAGE, GemstoneType.RUBY));
+            EffectRegistraionHelper.BLEEDING_EFFECT));
 
     MODIFIERS.put(ModifierItemType.RANGED,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),

@@ -3,6 +3,7 @@ package name.modid;
 import name.modid.helpers.ComponentsHelper;
 import name.modid.helpers.EffectRegistraionHelper;
 import name.modid.helpers.ItemRegistrationHelper;
+import name.modid.helpers.events.EventRegistrationHelper;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ public class Gemstones implements ModInitializer {
   public void onInitialize() {
     LOGGER.info("Initializing Gemstones");
     ComponentsHelper.initialize();
+    EventRegistrationHelper.initialize();
     ItemRegistrationHelper.initialize();
     EffectRegistraionHelper.initialize();
   }
