@@ -30,12 +30,12 @@ import java.util.function.Function;
 public final class ItemRegistrationHelper {
   private ItemRegistrationHelper() {}
 
-  public static final Item GEODE_STONE = register("geode_stone",
+  public static final Item STONE_GEODE = register("stone_geode",
       settings -> new GeodeStoneItem(settings, GemstoneRarityType.RARE,
           new ArrayList<>(Arrays.asList(GemstoneType.RUBY, GemstoneType.CELESTINE))),
       new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 64));
 
-  public static final Item GEODE_DEEPSLATE = register("geode_deepslate",
+  public static final Item DEEPSLATE_GEODE = register("deepslate_geode",
       settings -> new GeodeDeepslateItem(settings, GemstoneRarityType.LEGENDARY,
           new ArrayList<>(Arrays.asList(GemstoneType.RUBY, GemstoneType.CELESTINE))),
       new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 64));
@@ -66,8 +66,8 @@ public final class ItemRegistrationHelper {
         .register(ItemRegistrationHelper::addGemstonesToItemGroup);
 
     ItemGroupEvents.modifyEntriesEvent(GEMSTONES_ITEM_GROUP_KEY).register(entries -> {
-      entries.add(GEODE_STONE);
-      entries.add(GEODE_DEEPSLATE);
+      entries.add(STONE_GEODE);
+      entries.add(DEEPSLATE_GEODE);
     });
   }
 
