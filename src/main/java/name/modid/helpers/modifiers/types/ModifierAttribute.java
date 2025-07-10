@@ -18,6 +18,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -46,10 +47,20 @@ public class ModifierAttribute implements GemstoneModifier {
   public MutableText getGemstoneTooltipString(GemstoneRarityType gemstoneRarityType) {
     Object value = modifierValuesList.get(gemstoneRarityType.getValue());
     String tooltipKey = String.format("tooltip.gemstones.%s_buff", itemType.toString().toLowerCase());
+    MutableText attributeBonus = Text.empty();
 
-    return Text.translatable(tooltipKey).formatted(Formatting.GRAY).append(Text
-        .translatable(this.gemstoneTooltipString, Text.literal(String.format("%.1f", value)).formatted(Formatting.BLUE))
-        .formatted(Formatting.GOLD));
+    if (this.attr == EntityAttributes.MAX_HEALTH) {
+      attributeBonus
+          .append(Text.literal("\uE001")
+              .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_icons"))))
+          .formatted(Formatting.WHITE);
+    }
+
+    return Text.translatable(tooltipKey).formatted(Formatting.GRAY)
+        .append(Text
+            .translatable(this.gemstoneTooltipString,
+                Text.literal(String.format("%.0f", value)).formatted(Formatting.BLUE).append(attributeBonus))
+            .formatted(Formatting.GOLD));
   }
 
   public String getSocketedTooltipString() {

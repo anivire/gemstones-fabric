@@ -8,6 +8,7 @@ import java.util.Random;
 import name.modid.helpers.ItemRegistrationHelper;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -98,7 +99,12 @@ public class GeodeItem extends Item {
     }
 
     ItemStack geodeStack = user.getStackInHand(hand);
-    user.getInventory().offerOrDrop(gemstoneStack);
+
+    ItemEntity itemEntity = new ItemEntity(world, user.getX(), user.getY() + 1, user.getZ(), gemstoneStack);
+    itemEntity.setPickupDelay(0);
+    world.spawnEntity(itemEntity);
+    itemEntity.onPlayerCollision(user);
+
     geodeStack.decrement(1);
 
     return ActionResult.SUCCESS;

@@ -32,7 +32,7 @@
   "tooltip.gemstones.item_ruby.melee_bonus": "%s to inflict Bleeding",
   "tooltip.gemstones.item_ruby.ranged_bonus": "item_ruby.ranged_bonus",
   "tooltip.gemstones.item_ruby.tools_bonus": "item_ruby.tools_bonus",
-  "tooltip.gemstones.item_ruby.armor_bonus": "gains additional %s max heart",
+  "tooltip.gemstones.item_ruby.armor_bonus": "gains %s max half-heart",
   
   "item.gemstones.celestine_gemstone_common": "Celestine Gemstone",
   "item.gemstones.celestine_gemstone_uncommon": "Celestine Gemstone",
