@@ -8,11 +8,18 @@ import java.util.Random;
 import name.modid.helpers.ItemRegistrationHelper;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
@@ -99,14 +106,36 @@ public class GeodeItem extends Item {
     }
 
     ItemStack geodeStack = user.getStackInHand(hand);
-
-    ItemEntity itemEntity = new ItemEntity(world, user.getX(), user.getY() + 1, user.getZ(), gemstoneStack);
-    itemEntity.setPickupDelay(0);
-    world.spawnEntity(itemEntity);
-    itemEntity.onPlayerCollision(user);
-
+    world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK,
+        SoundCategory.PLAYERS, 0.2F, ((world.random.nextFloat() - world.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+    user.getInventory().offerOrDrop(gemstoneStack);
     geodeStack.decrement(1);
-
     return ActionResult.SUCCESS;
+  }
+
+  @Override
+  public void appendTooltip(ItemStack itemStack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    Text[] rarityTexts = new Text[3];
+    for (int i = 0; i < 3; i++) {
+      if (i < gemstoneRarities.size()) {
+        String rarityName = gemstoneRarities.get(i).toString().toLowerCase();
+        String transformedRarityName = Character.toUpperCase(rarityName.charAt(0)) + rarityName.substring(1);
+
+        int color = switch (gemstoneRarities.get(i)) {
+        case COMMON -> 0xa8a8a8;
+        case UNCOMMON -> 0x5454fc;
+        case RARE -> 0xfc54fc;
+        case LEGENDARY -> 0xffad00;
+        default -> 0xa8a8a8;
+        };
+
+        rarityTexts[i] = Text.translatable(transformedRarityName)
+            .setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color)));
+      }
+    }
+    tooltip.add(Text.translatable("tooltip.gemstones.geode.info", rarityTexts[0], rarityTexts[1], rarityTexts[2])
+        .formatted(Formatting.WHITE));
+    tooltip.add(Text.literal(""));
+    tooltip.add(Text.translatable("tooltip.gemstones.geode.info_open").formatted(Formatting.GRAY));
   }
 }

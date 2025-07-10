@@ -5,8 +5,10 @@ import name.modid.helpers.ItemGemstoneHelper;
 import name.modid.helpers.components.Gemstone;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstoneModifierHelper;
+import name.modid.helpers.modifiers.ModifierItemType;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
+import name.modid.items.gemstones.GemstoneItem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -20,7 +22,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
@@ -81,6 +87,25 @@ public abstract class ItemStackMixin {
             Text.translatable("tooltip.gemstones.gemstone_slots_info_rarities_fold").formatted(Formatting.GRAY));
       }
 
+    } else if (itemStack.getItem() instanceof GemstoneItem) {
+      GemstoneItem gemstoneItem = (GemstoneItem) itemStack.getItem();
+      GemstoneType gemstoneType = gemstoneItem.getType();
+      Map<ModifierItemType, GemstoneModifier> gemstoneModifiers = new LinkedHashMap<>(
+          GemstoneModifierHelper.getGemstoneModifiers(gemstoneType, itemStack.getItem()));
+
+      tooltip.add(GemstoneTooltipHelper.getGemstoneRaritySprite(gemstoneItem.getRarityType()));
+      tooltip.add(Text.literal(""));
+
+      List<ModifierItemType> modifierOrder = Arrays.asList(ModifierItemType.MELEE, ModifierItemType.RANGED,
+          ModifierItemType.TOOLS, ModifierItemType.ARMOR);
+
+      gemstoneModifiers.entrySet().stream()
+          .sorted(Comparator.comparingInt(entry -> modifierOrder.indexOf(entry.getKey()))).forEachOrdered(entry -> {
+            GemstoneModifier modifier = entry.getValue();
+            if (gemstoneType != GemstoneType.LOCKED && gemstoneType != GemstoneType.EMPTY) {
+              tooltip.add(modifier.getGemstoneTooltipString(gemstoneItem.getRarityType()));
+            }
+          });
     }
 
     cir.setReturnValue(tooltip);

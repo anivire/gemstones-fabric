@@ -19,6 +19,8 @@
   
   "item.gemstones.stone_geode": "Stone Geode",
   "item.gemstones.deepslate_geode": "Deepslate Geode",
+  "tooltip.gemstones.geode.info": "Crack to obtain %s, %s and %s gemstones",
+  "tooltip.gemstones.geode.info_open": "(Click RMB in hand for open)",
 
   "item.gemstones.ruby_gemstone_common": "Ruby Gemstone",
   "item.gemstones.ruby_gemstone_uncommon": "Ruby Gemstone",
