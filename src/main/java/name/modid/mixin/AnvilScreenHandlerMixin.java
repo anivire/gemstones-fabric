@@ -1,7 +1,7 @@
 package name.modid.mixin;
 
 import name.modid.helpers.ItemGemstoneHelper;
-import name.modid.items.GemstoneItem;
+import name.modid.items.gemstones.GemstoneItem;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

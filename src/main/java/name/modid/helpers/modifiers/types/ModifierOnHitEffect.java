@@ -3,6 +3,7 @@ package name.modid.helpers.modifiers.types;
 import java.util.ArrayList;
 
 import name.modid.helpers.modifiers.GemstoneModifier;
+import name.modid.helpers.modifiers.ModifierItemType;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.entity.LivingEntity;
@@ -13,10 +14,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
 public class ModifierOnHitEffect implements GemstoneModifier {
   protected ArrayList<Double> inflitChance = new ArrayList<Double>();
+  protected ModifierItemType itemType;
   protected int duration;
   protected int amplifier;
   protected RegistryEntry<StatusEffect> effect;
@@ -26,17 +29,25 @@ public class ModifierOnHitEffect implements GemstoneModifier {
   protected GemstoneRarityType rarityType;
 
   public ModifierOnHitEffect(ArrayList<Double> inflitChance, int duration, int amplifier, String socketedTooltipString,
-      String gemstoneTooltipString, RegistryEntry<StatusEffect> effect) {
+      String gemstoneTooltipString, ModifierItemType itemType, RegistryEntry<StatusEffect> effect) {
     this.inflitChance = inflitChance;
     this.duration = duration;
     this.amplifier = amplifier;
+    this.itemType = itemType;
     this.socketedTooltipString = socketedTooltipString;
     this.gemstoneTooltipString = gemstoneTooltipString;
     this.effect = effect;
   }
 
   public MutableText getGemstoneTooltipString(GemstoneRarityType gemstoneRarityType) {
-    return Text.literal(gemstoneTooltipString);
+    Object value = inflitChance.get(gemstoneRarityType.getValue()) * 100;
+    String tooltipKey = String.format("tooltip.gemstones.%s_buff", itemType.toString().toLowerCase());
+
+    return Text.translatable(tooltipKey).formatted(Formatting.GRAY)
+        .append(Text
+            .translatable(this.gemstoneTooltipString,
+                Text.literal(String.format("%.0f", value) + "%").formatted(Formatting.BLUE))
+            .formatted(Formatting.GOLD));
   }
 
   public String getSocketedTooltipString() {

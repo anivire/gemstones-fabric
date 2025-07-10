@@ -1,4 +1,4 @@
-package name.modid.items;
+package name.modid.items.gemstones;
 
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;

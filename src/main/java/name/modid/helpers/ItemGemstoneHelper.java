@@ -7,7 +7,7 @@ import name.modid.helpers.modifiers.GemstoneModifierHelper;
 import name.modid.helpers.modifiers.types.ModifierAttribute;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
-import name.modid.items.GemstoneItem;
+import name.modid.items.gemstones.GemstoneItem;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BowItem;

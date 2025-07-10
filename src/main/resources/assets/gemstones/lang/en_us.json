@@ -26,7 +26,7 @@
   "tooltip.gemstones.socketed_ruby.tools_bonus": "socketed_ruby.tools_bonus",
   "tooltip.gemstones.socketed_ruby.armor_bonus": "socketed_ruby.armor_bonus",
   
-  "tooltip.gemstones.item_ruby.melee_bonus": "item_ruby.melee_bonus",
+  "tooltip.gemstones.item_ruby.melee_bonus": "%s to inflict Bleeding",
   "tooltip.gemstones.item_ruby.ranged_bonus": "item_ruby.ranged_bonus",
   "tooltip.gemstones.item_ruby.tools_bonus": "item_ruby.tools_bonus",
   "tooltip.gemstones.item_ruby.armor_bonus": "gains additional %s max heart",

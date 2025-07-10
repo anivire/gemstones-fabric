@@ -8,7 +8,7 @@ import name.modid.helpers.modifiers.GemstoneModifierHelper;
 import name.modid.helpers.modifiers.ModifierItemType;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
-import name.modid.items.GemstoneItem;
+import name.modid.items.gemstones.GemstoneItem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -22,6 +22,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,21 +88,7 @@ public abstract class ItemStackMixin {
       }
 
     } else if (itemStack.getItem() instanceof GemstoneItem) {
-      GemstoneItem gemstoneItem = (GemstoneItem) itemStack.getItem();
-      GemstoneType gemstoneType = gemstoneItem.getType();
-      Map<ModifierItemType, GemstoneModifier> gemstoneModifiers = new LinkedHashMap<>(
-          GemstoneModifierHelper.getGemstoneModifiers(gemstoneType, itemStack.getItem()));
 
-      tooltip.addLast(GemstoneTooltipHelper.getGemstoneRaritySprite(gemstoneItem.getRarityType()));
-      tooltip.addLast(Text.literal(""));
-
-      for (Map.Entry<ModifierItemType, GemstoneModifier> entry : gemstoneModifiers.entrySet()) {
-        GemstoneModifier modifier = entry.getValue();
-
-        if (gemstoneType != GemstoneType.LOCKED && gemstoneType != GemstoneType.EMPTY) {
-          tooltip.addLast(modifier.getGemstoneTooltipString(gemstoneItem.getRarityType()));
-        }
-      }
     }
 
     cir.setReturnValue(tooltip);
