@@ -1,6 +1,8 @@
 package name.modid.items.geodes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import name.modid.helpers.ItemRegistrationHelper;
@@ -14,28 +16,28 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class GeodeItem extends Item {
-  protected GemstoneRarityType rarityCap;
-  protected ArrayList<GemstoneType> includedGemstones;
+  protected ArrayList<GemstoneRarityType> gemstoneRarities = new ArrayList<>();
+  protected ArrayList<GemstoneType> includedGemstones = new ArrayList<>();
+  protected ArrayList<Double> dropChances = new ArrayList<>(Arrays.asList(0.6, 0.3, 0.1));
 
-  public GeodeItem(Settings settings, GemstoneRarityType rarityCap, ArrayList<GemstoneType> includedGemstones) {
+  public GeodeItem(Settings settings, ArrayList<GemstoneRarityType> gemstoneRarities,
+      ArrayList<GemstoneType> includedGemstones) {
     super(settings);
+    this.gemstoneRarities = new ArrayList<>(gemstoneRarities);
     this.includedGemstones = new ArrayList<>(includedGemstones);
-    this.rarityCap = rarityCap;
   }
 
   public ItemStack getGemstoneStack() {
-    if (includedGemstones.isEmpty() || rarityCap == GemstoneRarityType.NONE) {
-      return ItemStack.EMPTY;
-    }
-
     Random random = new Random();
     GemstoneType selectedType = includedGemstones.get(random.nextInt(includedGemstones.size()));
-    ArrayList<GemstoneRarityType> validRarities = new ArrayList<>();
+    ArrayList<GemstoneRarityType> validRarities = new ArrayList<>(gemstoneRarities);
+    ArrayList<Double> adjustedChances = new ArrayList<>();
 
-    for (GemstoneRarityType rarity : GemstoneRarityType.values()) {
-      if (rarity != GemstoneRarityType.NONE && rarity != GemstoneRarityType.UNUSUAL
-          && rarity.getValue() <= rarityCap.getValue()) {
-        validRarities.add(rarity);
+    for (int i = 0; i < validRarities.size(); i++) {
+      if (i < dropChances.size()) {
+        adjustedChances.add(dropChances.get(i));
+      } else {
+        adjustedChances.add(0.0);
       }
     }
 
@@ -43,18 +45,37 @@ public class GeodeItem extends Item {
       return ItemStack.EMPTY;
     }
 
-    GemstoneRarityType selectedRarity = validRarities.get(random.nextInt(validRarities.size()));
+    double totalChance = adjustedChances.stream().mapToDouble(Double::doubleValue).sum();
+    if (totalChance <= 0) {
+      return ItemStack.EMPTY;
+    }
+    adjustedChances.replaceAll(chance -> chance / totalChance);
+
+    double roll = random.nextDouble();
+    double cumulativeChance = 0.0;
+    GemstoneRarityType selectedRarity = validRarities.get(0);
+    for (int i = 0; i < validRarities.size(); i++) {
+      cumulativeChance += adjustedChances.get(i);
+      if (roll <= cumulativeChance) {
+        selectedRarity = validRarities.get(i);
+        break;
+      }
+    }
 
     Item gemstoneItem = null;
     if (selectedType == GemstoneType.RUBY) {
       int index = selectedRarity.getValue();
-      if (index >= 0 && index < ItemRegistrationHelper.getRubyGemstones().size()) {
-        gemstoneItem = ItemRegistrationHelper.getRubyGemstones().get(index);
+      List<Item> rubyList = ItemRegistrationHelper.getRubyGemstones();
+
+      if (rubyList != null && !rubyList.isEmpty() && index >= 0 && index < rubyList.size()) {
+        gemstoneItem = rubyList.get(index);
       }
     } else if (selectedType == GemstoneType.CELESTINE) {
       int index = selectedRarity.getValue();
-      if (index >= 0 && index < ItemRegistrationHelper.getCelestineGemstones().size()) {
-        gemstoneItem = ItemRegistrationHelper.getCelestineGemstones().get(index);
+      List<Item> celestineList = ItemRegistrationHelper.getCelestineGemstones();
+
+      if (celestineList != null && !celestineList.isEmpty() && index >= 0 && index < celestineList.size()) {
+        gemstoneItem = celestineList.get(index);
       }
     }
 

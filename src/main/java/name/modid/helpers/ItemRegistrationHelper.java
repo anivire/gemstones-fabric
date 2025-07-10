@@ -31,12 +31,16 @@ public final class ItemRegistrationHelper {
   private ItemRegistrationHelper() {}
 
   public static final Item STONE_GEODE = register("stone_geode",
-      settings -> new GeodeStoneItem(settings, GemstoneRarityType.RARE,
+      settings -> new GeodeStoneItem(settings,
+          new ArrayList<>(
+              Arrays.asList(GemstoneRarityType.COMMON, GemstoneRarityType.UNCOMMON, GemstoneRarityType.RARE)),
           new ArrayList<>(Arrays.asList(GemstoneType.RUBY, GemstoneType.CELESTINE))),
       new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 64));
 
   public static final Item DEEPSLATE_GEODE = register("deepslate_geode",
-      settings -> new GeodeDeepslateItem(settings, GemstoneRarityType.LEGENDARY,
+      settings -> new GeodeDeepslateItem(settings,
+          new ArrayList<>(
+              Arrays.asList(GemstoneRarityType.UNCOMMON, GemstoneRarityType.RARE, GemstoneRarityType.LEGENDARY)),
           new ArrayList<>(Arrays.asList(GemstoneType.RUBY, GemstoneType.CELESTINE))),
       new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 64));
 
