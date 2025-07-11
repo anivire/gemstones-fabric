@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -107,7 +106,7 @@ public class GeodeItem extends Item {
 
     ItemStack geodeStack = user.getStackInHand(hand);
     world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK,
-        SoundCategory.PLAYERS, 0.2F, ((world.random.nextFloat() - world.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        SoundCategory.PLAYERS, 0.5F, ((world.random.nextFloat() - world.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
     user.getInventory().offerOrDrop(gemstoneStack);
     geodeStack.decrement(1);
     return ActionResult.SUCCESS;

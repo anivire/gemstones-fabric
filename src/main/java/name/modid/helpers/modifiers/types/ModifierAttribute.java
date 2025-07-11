@@ -45,7 +45,7 @@ public class ModifierAttribute implements GemstoneModifier {
   }
 
   public MutableText getGemstoneTooltipString(GemstoneRarityType gemstoneRarityType) {
-    Object value = modifierValuesList.get(gemstoneRarityType.getValue());
+    Double value = modifierValuesList.get(gemstoneRarityType.getValue());
     String tooltipKey = String.format("tooltip.gemstones.%s_buff", itemType.toString().toLowerCase());
     MutableText attributeBonus = Text.empty();
 
@@ -56,11 +56,23 @@ public class ModifierAttribute implements GemstoneModifier {
           .formatted(Formatting.WHITE);
     }
 
+    String percent = this.operation == Operation.ADD_VALUE ? "" : "%";
+    Double adjustedValue = this.operation == Operation.ADD_VALUE ? value : value * 100;
+    String formattedValue = formatValue(adjustedValue) + percent;
+
     return Text.translatable(tooltipKey).formatted(Formatting.GRAY)
         .append(Text
             .translatable(this.gemstoneTooltipString,
-                Text.literal(String.format("%.0f", value)).formatted(Formatting.BLUE).append(attributeBonus))
+                Text.literal(formattedValue).formatted(Formatting.BLUE).append(attributeBonus))
             .formatted(Formatting.GOLD));
+  }
+
+  public String formatValue(double value) {
+    if (value % 1 == 0) {
+      return String.format("%.0f", value);
+    } else {
+      return String.format("%.2f", value).replaceAll("\\.0+$", "");
+    }
   }
 
   public String getSocketedTooltipString() {
