@@ -1,5 +1,7 @@
 package name.modid.helpers.modifiers.types;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import name.modid.Gemstones;
@@ -68,11 +70,8 @@ public class ModifierAttribute implements GemstoneModifier {
   }
 
   public String formatValue(double value) {
-    if (value % 1 == 0) {
-      return String.format("%.0f", value);
-    } else {
-      return String.format("%.2f", value).replaceAll("\\.0+$", "");
-    }
+    BigDecimal bd = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
+    return bd.toPlainString();
   }
 
   public String getSocketedTooltipString() {
