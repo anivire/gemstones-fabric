@@ -29,7 +29,8 @@ public class ModifierOnHitEffect implements GemstoneModifier {
   protected GemstoneRarityType rarityType;
 
   public ModifierOnHitEffect(ArrayList<Double> inflitChance, int duration, int amplifier, String socketedTooltipString,
-      String gemstoneTooltipString, ModifierItemType itemType, RegistryEntry<StatusEffect> effect) {
+      String gemstoneTooltipString, ModifierItemType itemType, RegistryEntry<StatusEffect> effect,
+      GemstoneType gemstoneType) {
     this.inflitChance = inflitChance;
     this.duration = duration;
     this.amplifier = amplifier;
@@ -37,6 +38,7 @@ public class ModifierOnHitEffect implements GemstoneModifier {
     this.socketedTooltipString = socketedTooltipString;
     this.gemstoneTooltipString = gemstoneTooltipString;
     this.effect = effect;
+    this.gemstoneType = gemstoneType;
   }
 
   public MutableText getGemstoneTooltipString(GemstoneRarityType gemstoneRarityType) {

@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -88,13 +89,14 @@ public abstract class ItemStackMixin {
       }
 
     } else if (itemStack.getItem() instanceof GemstoneItem) {
+      ArrayList<Text> tooltipText = new ArrayList<>();
       GemstoneItem gemstoneItem = (GemstoneItem) itemStack.getItem();
       GemstoneType gemstoneType = gemstoneItem.getType();
       Map<ModifierItemType, GemstoneModifier> gemstoneModifiers = new LinkedHashMap<>(
           GemstoneModifierHelper.getGemstoneModifiers(gemstoneType, itemStack.getItem()));
 
-      tooltip.add(GemstoneTooltipHelper.getGemstoneRaritySprite(gemstoneItem.getRarityType()));
-      tooltip.add(Text.literal(""));
+      tooltipText.add(GemstoneTooltipHelper.getGemstoneRaritySprite(gemstoneItem.getRarityType()));
+      tooltipText.add(Text.literal(""));
 
       List<ModifierItemType> modifierOrder = Arrays.asList(ModifierItemType.MELEE, ModifierItemType.RANGED,
           ModifierItemType.TOOLS, ModifierItemType.ARMOR);
@@ -103,9 +105,11 @@ public abstract class ItemStackMixin {
           .sorted(Comparator.comparingInt(entry -> modifierOrder.indexOf(entry.getKey()))).forEachOrdered(entry -> {
             GemstoneModifier modifier = entry.getValue();
             if (gemstoneType != GemstoneType.LOCKED && gemstoneType != GemstoneType.EMPTY) {
-              tooltip.add(modifier.getGemstoneTooltipString(gemstoneItem.getRarityType()));
+              tooltipText.add(modifier.getGemstoneTooltipString(gemstoneItem.getRarityType()));
             }
           });
+
+      tooltip.addAll(1, tooltipText);
     }
 
     cir.setReturnValue(tooltip);

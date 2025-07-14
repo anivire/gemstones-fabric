@@ -107,7 +107,12 @@ public class GeodeItem extends Item {
     ItemStack geodeStack = user.getStackInHand(hand);
     world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK,
         SoundCategory.PLAYERS, 0.5F, ((world.random.nextFloat() - world.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-    user.getInventory().offerOrDrop(gemstoneStack);
+
+    // Give item after opening right into player inventory
+    // user.getInventory().offerOrDrop(gemstoneStack);
+
+    user.dropItem(gemstoneStack, false);
+
     geodeStack.decrement(1);
     return ActionResult.SUCCESS;
   }
