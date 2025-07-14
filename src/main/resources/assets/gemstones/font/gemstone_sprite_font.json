@@ -26,6 +26,24 @@
       "chars": [
         "\uE003"
       ]
+    },
+    {
+      "type": "bitmap",
+      "file": "gemstones:gui/gemstone_socket_topaz.png",
+      "height": 26,
+      "ascent": 13,
+      "chars": [
+        "\uE004"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "gemstones:gui/gemstone_socket_sapphire.png",
+      "height": 26,
+      "ascent": 13,
+      "chars": [
+        "\uE005"
+      ]
     }
   ]
 }

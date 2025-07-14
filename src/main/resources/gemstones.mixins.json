@@ -4,10 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AnvilScreenHandlerMixin",
-    "ItemStackMixin",
     "BowItemMixin",
-    "LivingEntityMixin",
-    "HeldItemRendererMixin"
+    "ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1

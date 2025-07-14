@@ -48,5 +48,15 @@
   "tooltip.gemstones.item_celestine.melee_bonus": "increase attack speed by %s",
   "tooltip.gemstones.item_celestine.ranged_bonus": "item_celestine.ranged_bonus",
   "tooltip.gemstones.item_celestine.tools_bonus": "increase block break speed by %s",
-  "tooltip.gemstones.item_celestine.armor_bonus": "increase movement speed by %s"
+  "tooltip.gemstones.item_celestine.armor_bonus": "increase movement speed by %s",
+
+  "item.gemstones.topaz_gemstone_common": "Topaz Gemstone",
+  "item.gemstones.topaz_gemstone_uncommon": "Topaz Gemstone",
+  "item.gemstones.topaz_gemstone_rare": "Topaz Gemstone",
+  "item.gemstones.topaz_gemstone_legendary": "Topaz Gemstone",
+  
+  "item.gemstones.sapphire_gemstone_common": "Sapphire Gemstone",
+  "item.gemstones.sapphire_gemstone_uncommon": "Sapphire Gemstone",
+  "item.gemstones.sapphire_gemstone_rare": "Sapphire Gemstone",
+  "item.gemstones.sapphire_gemstone_legendary": "Sapphire Gemstone"
 }

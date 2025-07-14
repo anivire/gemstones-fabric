@@ -12,51 +12,57 @@ public class GemstoneTooltipHelper {
   @Unique
   public static Formatting getGemstoneColor(GemstoneType gemType) {
     return switch (gemType) {
-    case EMPTY -> Formatting.DARK_GRAY;
-    case RUBY -> Formatting.RED;
-    case CELESTINE -> Formatting.BLUE;
-    default -> Formatting.GRAY;
+      case EMPTY -> Formatting.DARK_GRAY;
+      case RUBY -> Formatting.RED;
+      case CELESTINE -> Formatting.BLUE;
+      default -> Formatting.GRAY;
     };
   }
 
   @Unique
   public static String getSlotText(GemstoneType gemType) {
     return switch (gemType) {
-    case LOCKED -> "Locked";
-    case EMPTY -> "Empty";
-    case RUBY -> "Ruby";
-    case CELESTINE -> "Celestine";
-    default -> "unknown";
+      case LOCKED -> "Locked";
+      case EMPTY -> "Empty";
+      case RUBY -> "Ruby";
+      case CELESTINE -> "Celestine";
+      case TOPAZ -> "Topaz";
+      case SAPPHIRE -> "Sapphire";
+      default -> "unknown";
     };
   }
 
   @Unique
   public static Text getGemstoneSprite(GemstoneType gemType) {
     return switch (gemType) {
-    case EMPTY -> Text.literal("\uE001")
-        .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_font")));
-    case RUBY -> Text.literal("\uE002")
-        .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_font")));
-    case CELESTINE -> Text.literal("\uE003")
-        .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_font")));
-    default -> Text.literal("");
+      case EMPTY -> Text.literal("\uE001")
+          .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_font")));
+      case RUBY -> Text.literal("\uE002")
+          .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_font")));
+      case CELESTINE -> Text.literal("\uE003")
+          .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_font")));
+      case TOPAZ -> Text.literal("\uE004")
+          .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_font")));
+      case SAPPHIRE -> Text.literal("\uE005")
+          .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_font")));
+      default -> Text.literal("");
     };
   }
 
   @Unique
   public static Text getGemstoneRaritySprite(GemstoneRarityType rarityType) {
     return switch (rarityType) {
-    case COMMON -> Text.literal("\uE001")
-        .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
-    case UNCOMMON -> Text.literal("\uE002")
-        .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
-    case RARE -> Text.literal("\uE003")
-        .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
-    case LEGENDARY -> Text.literal("\uE004")
-        .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
-    case UNUSUAL -> Text.literal("\uE005")
-        .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
-    default -> Text.literal("");
+      case COMMON -> Text.literal("\uE001")
+          .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
+      case UNCOMMON -> Text.literal("\uE002")
+          .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
+      case RARE -> Text.literal("\uE003")
+          .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
+      case LEGENDARY -> Text.literal("\uE004")
+          .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
+      case UNUSUAL -> Text.literal("\uE005")
+          .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
+      default -> Text.literal("");
     };
   }
 
