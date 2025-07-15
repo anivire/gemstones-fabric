@@ -1,9 +1,55 @@
 package name.modid;
 
+import java.util.List;
+
+import name.modid.helpers.attributes.AttributeRegistrationHelper;
 import net.fabricmc.api.ClientModInitializer;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.AttributeModifiersComponent.Entry;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.item.Items;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.Identifier;
 
 public class GemstonesClient implements ClientModInitializer {
   @Override
-  public void onInitializeClient() {}
+  public void onInitializeClient() {
+    ModelPredicateProviderRegistry.register(Items.BOW, Identifier.of("minecraft", "pull"),
+        (itemStack, world, entity, seed) -> {
+          if (entity == null) {
+            return 0.0f;
+          }
+
+          float drawSpeed = 0.00f;
+
+          AttributeModifiersComponent itemAttributeModifiers = itemStack.getOrDefault(
+              DataComponentTypes.ATTRIBUTE_MODIFIERS,
+              AttributeModifiersComponent.DEFAULT);
+          List<Entry> modifiers = itemAttributeModifiers.modifiers();
+
+          for (Entry mod : modifiers) {
+            if (AttributeRegistrationHelper.DRAW_SPEED_ATTRIBUTE == mod.attribute()) {
+              RegistryEntry<EntityAttribute> a = mod.attribute();
+              drawSpeed += (float) a.value().getDefaultValue();
+            }
+          }
+
+          float useTicks = itemStack.getMaxUseTime(entity) - entity.getItemUseTimeLeft();
+          float adjustedTicks = useTicks * (1.0f + drawSpeed);
+          float progress = adjustedTicks / 20.0f;
+          progress = (progress * progress + progress * 2.0f) / 3.0f;
+          if (progress > 1.0f) {
+            progress = 1.0f;
+          }
+          return progress;
+        });
+
+    ModelPredicateProviderRegistry.register(Items.BOW, Identifier.of("minecraft", "pulling"),
+        (stack, world, entity, seed) -> {
+          return entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0f : 0.0f;
+        });
+  }
 
 }

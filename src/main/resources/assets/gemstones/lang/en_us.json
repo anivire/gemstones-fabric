@@ -45,8 +45,8 @@
   "tooltip.gemstones.socketed_celestine.tools_bonus": "socketed_celestine.tools_bonus",
   "tooltip.gemstones.socketed_celestine.armor_bonus": "socketed_celestine.armor_bonus",
 
-  "tooltip.gemstones.item_celestine.melee_bonus": "increase attack speed by %s",
-  "tooltip.gemstones.item_celestine.ranged_bonus": "item_celestine.ranged_bonus",
+  "tooltip.gemstones.item_celestine.melee_bonus": "increase attac k speed by %s",
+  "tooltip.gemstones.item_celestine.ranged_bonus": "decrease pull time by %s",
   "tooltip.gemstones.item_celestine.tools_bonus": "increase block break speed by %s",
   "tooltip.gemstones.item_celestine.armor_bonus": "increase movement speed by %s"
 }

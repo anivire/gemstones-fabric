@@ -12,10 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
-
   @Inject(method = "<init>(Lnet/minecraft/registry/entry/RegistryEntry;ILnet/minecraft/component/ComponentChanges;)V", at = @At("TAIL"))
-  private void onConstruct(RegistryEntry item, int count, ComponentChanges changes, CallbackInfo ci) {
+  private void onConstruct(RegistryEntry<?> item, int count, ComponentChanges changes, CallbackInfo ci) {
     ItemStack itemStack = (ItemStack) (Object) this;
-    ItemGemstoneHelper.initItemSlots(itemStack, (Item) item);
+    if (item instanceof RegistryEntry.Reference<?> reference && reference.value() instanceof Item actualItem) {
+      ItemGemstoneHelper.initItemSlots(itemStack, actualItem);
+    }
   }
 }
