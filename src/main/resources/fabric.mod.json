@@ -6,7 +6,7 @@
   "description": "Add various Gemstones to your equipment, tools and weapons!",
   "authors": [
     "anivire",
-    "schultz1417"
+    "8o1y*ra"
   ],
   "license": "CC0-1.0",
   "icon": "assets/gemstones/icon.png",
@@ -27,10 +27,10 @@
     }
   ],
   "depends": {
-    "fabricloader": ">=0.16.14",
-    "minecraft": "~1.21.4",
+    "fabricloader": ">=0.16.7",
+    "minecraft": "1.21.1",
     "java": ">=21",
-    "fabric-api": "*"
+    "fabric-api": ">=0.100.7+1.21.1"
   },
   "suggests": {
     "another-mod": "*"

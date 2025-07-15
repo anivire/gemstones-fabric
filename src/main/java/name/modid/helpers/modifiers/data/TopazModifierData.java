@@ -27,17 +27,17 @@ public record TopazModifierData() implements ModifierData {
     MODIFIERS.put(ModifierItemType.RANGED,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
             "tooltip.gemstones.socketed_topaz.ranged_bonus", "tooltip.gemstones.item_topaz.ranged_bonus",
-            ModifierItemType.RANGED, EntityAttributes.ATTACK_DAMAGE, GemstoneType.TOPAZ));
+            ModifierItemType.RANGED, EntityAttributes.GENERIC_ATTACK_DAMAGE, GemstoneType.TOPAZ));
 
     MODIFIERS.put(ModifierItemType.TOOLS,
         new ModifierAttribute(Operation.ADD_MULTIPLIED_TOTAL, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
             "tooltip.gemstones.socketed_topaz.tools_bonus", "tooltip.gemstones.item_topaz.tools_bonus",
-            ModifierItemType.TOOLS, EntityAttributes.BLOCK_BREAK_SPEED, GemstoneType.TOPAZ));
+            ModifierItemType.TOOLS, EntityAttributes.PLAYER_BLOCK_BREAK_SPEED, GemstoneType.TOPAZ));
 
     MODIFIERS.put(ModifierItemType.ARMOR,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)),
             "tooltip.gemstones.socketed_topaz.armor_bonus", "tooltip.gemstones.item_topaz.armor_bonus",
-            ModifierItemType.ARMOR, EntityAttributes.MAX_HEALTH, GemstoneType.TOPAZ));
+            ModifierItemType.ARMOR, EntityAttributes.GENERIC_MAX_HEALTH, GemstoneType.TOPAZ));
   }
 
   @Override

@@ -5,9 +5,7 @@
   "mixins": [
     "AnvilScreenHandlerMixin",
     "ItemStackMixin",
-    "BowItemMixin",
-    "LivingEntityMixin",
-    "HeldItemRendererMixin"
+    "BowItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

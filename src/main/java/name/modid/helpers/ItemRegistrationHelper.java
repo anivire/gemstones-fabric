@@ -49,7 +49,7 @@ public final class ItemRegistrationHelper {
 
   public static Item register(String path, Function<Item.Settings, Item> factory, Item.Settings settings) {
     final RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Gemstones.MOD_ID, path));
-    return Registry.register(Registries.ITEM, registryKey, factory.apply(settings.registryKey(registryKey)));
+    return Registry.register(Registries.ITEM, registryKey, factory.apply(settings)); // Removed registryKey call
   }
 
   public static final RegistryKey<ItemGroup> GEMSTONES_ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP,

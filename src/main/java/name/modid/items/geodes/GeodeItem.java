@@ -17,9 +17,9 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class GeodeItem extends Item {
@@ -94,27 +94,25 @@ public class GeodeItem extends Item {
   }
 
   @Override
-  public ActionResult use(World world, PlayerEntity user, Hand hand) {
+  public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    ItemStack geodeStack = user.getStackInHand(hand);
+
     if (world.isClient) {
-      return ActionResult.PASS;
+      return TypedActionResult.pass(geodeStack);
     }
 
     ItemStack gemstoneStack = getGemstoneStack();
     if (gemstoneStack.isEmpty()) {
-      return ActionResult.FAIL;
+      return TypedActionResult.fail(geodeStack);
     }
 
-    ItemStack geodeStack = user.getStackInHand(hand);
     world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK,
         SoundCategory.PLAYERS, 0.5F, ((world.random.nextFloat() - world.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-
-    // Give item after opening right into player inventory
-    // user.getInventory().offerOrDrop(gemstoneStack);
 
     user.dropItem(gemstoneStack, false);
 
     geodeStack.decrement(1);
-    return ActionResult.SUCCESS;
+    return TypedActionResult.success(geodeStack, true);
   }
 
   @Override

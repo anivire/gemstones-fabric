@@ -51,7 +51,7 @@ public class ModifierAttribute implements GemstoneModifier {
     String tooltipKey = String.format("tooltip.gemstones.%s_buff", itemType.toString().toLowerCase());
     MutableText attributeBonus = Text.empty();
 
-    if (this.attr == EntityAttributes.MAX_HEALTH) {
+    if (this.attr == EntityAttributes.GENERIC_MAX_HEALTH) {
       attributeBonus
           .append(Text.literal("\uE001")
               .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_icons"))))
