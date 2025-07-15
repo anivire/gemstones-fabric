@@ -44,7 +44,8 @@ public final class ItemRegistrationHelper {
       settings -> new GeodeDeepslateItem(settings,
           new ArrayList<>(
               Arrays.asList(GemstoneRarityType.UNCOMMON, GemstoneRarityType.RARE, GemstoneRarityType.LEGENDARY)),
-          new ArrayList<>(Arrays.asList(GemstoneType.RUBY, GemstoneType.CELESTINE))),
+          new ArrayList<>(
+              Arrays.asList(GemstoneType.RUBY, GemstoneType.CELESTINE, GemstoneType.TOPAZ, GemstoneType.SAPPHIRE))),
       new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 64));
 
   private static final List<Item> RUBY_GEMSTONES = new ArrayList<>();

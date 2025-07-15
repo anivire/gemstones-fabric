@@ -8,6 +8,15 @@
       "chars": [
         "\uE001"
       ]
+    },
+    {
+      "type": "bitmap",
+      "file": "gemstones:gui/icons/bleed_icon.png",
+      "height": 10,
+      "ascent": 8,
+      "chars": [
+        "\uE002"
+      ]
     }
   ]
 }

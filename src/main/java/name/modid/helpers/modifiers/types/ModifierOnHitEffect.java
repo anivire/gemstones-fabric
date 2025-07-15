@@ -2,11 +2,13 @@ package name.modid.helpers.modifiers.types;
 
 import java.util.ArrayList;
 
+import name.modid.helpers.EffectRegistraionHelper;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.ModifierItemType;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.Item;
@@ -15,6 +17,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class ModifierOnHitEffect implements GemstoneModifier {
@@ -44,6 +47,14 @@ public class ModifierOnHitEffect implements GemstoneModifier {
   public MutableText getGemstoneTooltipString(GemstoneRarityType gemstoneRarityType) {
     Object value = inflitChance.get(gemstoneRarityType.getValue()) * 100;
     String tooltipKey = String.format("tooltip.gemstones.%s_buff", itemType.toString().toLowerCase());
+
+    // if (this.effect == EffectRegistraionHelper.BLEEDING_EFFECT) {
+    // attributeBonus
+    // .append(Text.literal("\uE001")
+    // .styled(style -> style.withFont(Identifier.of("gemstones",
+    // "gemstone_sprite_icons"))))
+    // .formatted(Formatting.WHITE);
+    // }
 
     return Text.translatable(tooltipKey).formatted(Formatting.GRAY)
         .append(Text
