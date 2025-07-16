@@ -3,11 +3,9 @@ package name.modid.mixin;
 import name.modid.helpers.attributes.AttributeRegistrationHelper;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -32,7 +30,6 @@ public class BowItemMixin {
     drawSpeed = 0.0f;
     for (AttributeModifiersComponent.Entry mod : itemAttributeModifiers.modifiers()) {
       if (AttributeRegistrationHelper.DRAW_SPEED_ATTRIBUTE == mod.attribute()) {
-        RegistryEntry<EntityAttribute> attribute = mod.attribute();
         drawSpeed += (float) mod.modifier().value();
       }
     }
