@@ -25,15 +25,15 @@ public class AbstractClientPlayerEntityMixin {
           DataComponentTypes.ATTRIBUTE_MODIFIERS,
           AttributeModifiersComponent.DEFAULT);
 
-      float drawSpeed = 0.0f;
+      float drawSpeedPercent = 0.0f;
       for (AttributeModifiersComponent.Entry mod : itemAttributeModifiers.modifiers()) {
         if (AttributeRegistrationHelper.DRAW_SPEED_ATTRIBUTE == mod.attribute()) {
-          drawSpeed += (float) mod.modifier().value();
+          drawSpeedPercent += (float) mod.modifier().value();
         }
       }
 
       float useTicks = stack.getMaxUseTime(player) - player.getItemUseTimeLeft();
-      float adjustedTicks = useTicks * (1.0f + drawSpeed);
+      float adjustedTicks = useTicks * (1.0f + drawSpeedPercent);
       float progress = adjustedTicks / BASE_PULL_TIME;
       progress = (progress * progress + progress * 2.0f) / 3.0f;
       if (progress > 1.0f) {

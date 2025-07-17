@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BowItem.class)
 public class BowItemMixin {
   private static final float BASE_PULL_TIME = 20.0f;
-  private static float drawSpeed = 0.0f; // Статическое поле для хранения drawSpeed
+  private static float drawSpeedPercent = 0.0f;
 
   @Inject(method = "use", at = @At("HEAD"))
   private void onUse(World world, PlayerEntity user, Hand hand,
@@ -27,17 +27,17 @@ public class BowItemMixin {
         DataComponentTypes.ATTRIBUTE_MODIFIERS,
         AttributeModifiersComponent.DEFAULT);
 
-    drawSpeed = 0.0f;
+    drawSpeedPercent = 0.0f;
     for (AttributeModifiersComponent.Entry mod : itemAttributeModifiers.modifiers()) {
       if (AttributeRegistrationHelper.DRAW_SPEED_ATTRIBUTE == mod.attribute()) {
-        drawSpeed += (float) mod.modifier().value();
+        drawSpeedPercent += (float) mod.modifier().value();
       }
     }
   }
 
   @Inject(method = "getPullProgress", at = @At("RETURN"), cancellable = true)
   private static void getPullProgress(int useTicks, CallbackInfoReturnable<Float> cir) {
-    float adjustedTicks = useTicks * (1.0f + drawSpeed);
+    float adjustedTicks = useTicks * (1.0f + drawSpeedPercent);
     float progress = adjustedTicks / BASE_PULL_TIME;
     progress = (progress * progress + progress * 2.0f) / 3.0f;
     if (progress > 1.0f) {

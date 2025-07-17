@@ -22,7 +22,7 @@ public class GemstonesClient implements ClientModInitializer {
             return 0.0f;
           }
 
-          float drawSpeed = 0.00f;
+          float drawSpeedPercent = 0.00f;
 
           AttributeModifiersComponent itemAttributeModifiers = itemStack.getOrDefault(
               DataComponentTypes.ATTRIBUTE_MODIFIERS,
@@ -31,13 +31,12 @@ public class GemstonesClient implements ClientModInitializer {
 
           for (Entry mod : modifiers) {
             if (AttributeRegistrationHelper.DRAW_SPEED_ATTRIBUTE == mod.attribute()) {
-              RegistryEntry<EntityAttribute> a = mod.attribute();
-              drawSpeed += (float) a.value().getDefaultValue();
+              drawSpeedPercent += (float) mod.modifier().value();
             }
           }
 
           float useTicks = itemStack.getMaxUseTime(entity) - entity.getItemUseTimeLeft();
-          float adjustedTicks = useTicks * (1.0f + drawSpeed);
+          float adjustedTicks = useTicks * (1.0f + drawSpeedPercent);
           float progress = adjustedTicks / 20.0f;
           progress = (progress * progress + progress * 2.0f) / 3.0f;
           if (progress > 1.0f) {

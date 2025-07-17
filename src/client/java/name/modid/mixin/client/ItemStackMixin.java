@@ -44,7 +44,6 @@ public abstract class ItemStackMixin {
         return;
 
       tooltip.add(1, Text.literal(""));
-
       MutableText slotsText = Text.literal("");
       for (var gemstoneSlot : gemstones) {
         slotsText.append(GemstoneTooltipHelper.getGemstoneSprite(gemstoneSlot.gemstoneType()));
@@ -71,22 +70,23 @@ public abstract class ItemStackMixin {
         }
       }
 
-      tooltip.add(buffIndex++, Text.literal(""));
-
-      if (Screen.hasShiftDown()) {
-        tooltip.add(buffIndex++,
-            Text.translatable("tooltip.gemstones.gemstone_slots_info_rarities").formatted(Formatting.GRAY));
-        for (int i = 0; i < gemstones.length; i++) {
-          GemstoneType gemType = gemstones[i].gemstoneType();
-          GemstoneRarityType gemRarityType = gemstones[i].gemstoneRarityType();
-          tooltip.add(buffIndex++,
-              Text.literal(String.format("%s %s", gemRarityType.toString(), GemstoneTooltipHelper.getSlotText(gemType)))
-                  .formatted(GemstoneTooltipHelper.getGemstoneColor(gemType)));
-        }
-      } else {
-        tooltip.add(buffIndex,
-            Text.translatable("tooltip.gemstones.gemstone_slots_info_rarities_fold").formatted(Formatting.GRAY));
-      }
+      // Shift description
+      // tooltip.add(buffIndex++, Text.literal(""));
+      // if (Screen.hasShiftDown()) {
+      // tooltip.add(buffIndex++,
+      // Text.translatable("tooltip.gemstones.gemstone_slots_info_rarities").formatted(Formatting.GRAY));
+      // for (int i = 0; i < gemstones.length; i++) {
+      // GemstoneType gemType = gemstones[i].gemstoneType();
+      // GemstoneRarityType gemRarityType = gemstones[i].gemstoneRarityType();
+      // tooltip.add(buffIndex++,
+      // Text.literal(String.format("%s %s", gemRarityType.toString(),
+      // GemstoneTooltipHelper.getSlotText(gemType)))
+      // .formatted(GemstoneTooltipHelper.getGemstoneColor(gemType)));
+      // }
+      // } else {
+      // tooltip.add(buffIndex,
+      // Text.translatable("tooltip.gemstones.gemstone_slots_info_rarities_fold").formatted(Formatting.GRAY));
+      // }
 
     } else if (itemStack.getItem() instanceof GemstoneItem) {
       ArrayList<Text> tooltipText = new ArrayList<>();
