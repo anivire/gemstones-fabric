@@ -48,5 +48,8 @@
   "tooltip.gemstones.item_celestine.melee_bonus": "increase attack speed by %s",
   "tooltip.gemstones.item_celestine.ranged_bonus": "increase pull speed by %s",
   "tooltip.gemstones.item_celestine.tools_bonus": "increase block break speed by %s",
-  "tooltip.gemstones.item_celestine.armor_bonus": "increase movement speed by %s"
+  "tooltip.gemstones.item_celestine.armor_bonus": "increase movement speed by %s",
+
+  "attribute.name.generic.draw_speed": "Draw Speed",
+  "attribute.name.generic.crit_damage": "Critical Hit Damage"
 }
