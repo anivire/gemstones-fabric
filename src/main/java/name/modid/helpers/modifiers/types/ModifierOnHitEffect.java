@@ -1,7 +1,6 @@
 package name.modid.helpers.modifiers.types;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.ModifierItemType;
@@ -59,6 +58,10 @@ public class ModifierOnHitEffect implements GemstoneModifier {
 
   public GemstoneRarityType getRarityType() {
     return this.rarityType;
+  }
+
+  public void setRarityType(GemstoneRarityType rarityType) {
+    this.rarityType = rarityType;
   }
 
   @Override

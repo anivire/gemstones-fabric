@@ -1,7 +1,5 @@
 package name.modid.helpers.modifiers;
 
-import java.util.Optional;
-
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.entity.LivingEntity;
@@ -25,4 +23,6 @@ public interface GemstoneModifier {
   GemstoneType getGemstoneType();
 
   GemstoneRarityType getRarityType();
+
+  void setRarityType(GemstoneRarityType type);
 }

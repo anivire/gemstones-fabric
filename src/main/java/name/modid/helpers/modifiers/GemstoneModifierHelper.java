@@ -51,26 +51,16 @@ public class GemstoneModifierHelper {
     return modifier;
   }
 
-  private static final Class<?>[] MAINHAND_ITEMS = { SwordItem.class, AxeItem.class, PickaxeItem.class,
-      ShovelItem.class, BowItem.class, CrossbowItem.class };
-
   public static AttributeModifierSlot getAttributeModifierSlot(Item item) {
-    for (Class<?> itemClass : MAINHAND_ITEMS) {
-      if (itemClass.isInstance(item)) {
-        return AttributeModifierSlot.MAINHAND;
-      }
+    if (item instanceof ArmorItem armorItem) {
+      return switch (armorItem.getSlotType()) {
+        case HEAD -> AttributeModifierSlot.HEAD;
+        case CHEST -> AttributeModifierSlot.CHEST;
+        case LEGS -> AttributeModifierSlot.LEGS;
+        case FEET -> AttributeModifierSlot.FEET;
+        default -> AttributeModifierSlot.CHEST;
+      };
     }
-
-    // if (item instanceof ArmorItem armorItem) {
-    // return switch
-    // (armorItem.getComponents().get(DataComponentTypes.EQUIPPABLE).getSlot()) {
-    // case HEAD -> AttributeModifierSlot.HEAD;
-    // case CHEST -> AttributeModifierSlot.CHEST;
-    // case LEGS -> AttributeModifierSlot.LEGS;
-    // case FEET -> AttributeModifierSlot.FEET;
-    // default -> AttributeModifierSlot.CHEST;
-    // };
-    // }
 
     return AttributeModifierSlot.MAINHAND;
   }

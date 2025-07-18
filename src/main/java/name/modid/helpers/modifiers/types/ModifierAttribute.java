@@ -3,7 +3,6 @@ package name.modid.helpers.modifiers.types;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Optional;
 
 import name.modid.Gemstones;
 import name.modid.helpers.modifiers.GemstoneModifier;
@@ -26,12 +25,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ModifierAttribute implements GemstoneModifier {
-  protected Operation operation;
-  protected ModifierItemType itemType;
-  protected ArrayList<Double> modifierValuesList = new ArrayList<Double>();
-  protected RegistryEntry<EntityAttribute> attr;
-  protected GemstoneType gemstoneType;
-  protected GemstoneRarityType rarityType;
+  public Operation operation;
+  public ModifierItemType itemType;
+  public ArrayList<Double> modifierValuesList = new ArrayList<Double>();
+  public RegistryEntry<EntityAttribute> attr;
+  public GemstoneType gemstoneType;
+  public GemstoneRarityType rarityType;
 
   public ModifierAttribute(Operation operation, ArrayList<Double> modifierValuesList, ModifierItemType itemType,
       RegistryEntry<EntityAttribute> attr,
@@ -81,6 +80,10 @@ public class ModifierAttribute implements GemstoneModifier {
 
   public GemstoneRarityType getRarityType() {
     return this.rarityType;
+  }
+
+  public void setRarityType(GemstoneRarityType rarityType) {
+    this.rarityType = rarityType;
   }
 
   @Override

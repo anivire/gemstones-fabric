@@ -1,5 +1,6 @@
 package name.modid.helpers;
 
+import name.modid.Gemstones;
 import name.modid.helpers.components.Gemstone;
 import name.modid.helpers.components.GemstoneSlots;
 import name.modid.helpers.modifiers.GemstoneModifier;
@@ -8,6 +9,9 @@ import name.modid.helpers.modifiers.types.ModifierAttribute;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import name.modid.items.gemstones.GemstoneItem;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BowItem;
@@ -17,10 +21,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.SwordItem;
+import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class ItemGemstoneHelper {
   public static final int MAX_SLOTS = 5;
@@ -127,8 +135,8 @@ public class ItemGemstoneHelper {
     }
 
     // Collect gemstone modifiers and apply bonuses
+    ArrayList<ModifierAttribute> gemstoneModifiers = new ArrayList<>();
     for (Map.Entry<Integer, Map<GemstoneType, GemstoneRarityType>> m : itemGemstones.entrySet()) {
-      Integer slotIndex = m.getKey();
       Map<GemstoneType, GemstoneRarityType> i = m.getValue();
 
       for (Map.Entry<GemstoneType, GemstoneRarityType> e : i.entrySet()) {
@@ -137,10 +145,46 @@ public class ItemGemstoneHelper {
         GemstoneModifier gemstoneModifier = GemstoneModifierHelper.getGemstoneModifierForItem(gemstoneType, item);
 
         if (gemstoneModifier != null) {
-          if (gemstoneModifier.getClass() == ModifierAttribute.class)
-            gemstoneModifier.apply(itemStack, item, slotIndex, gemstoneRarity);
+          gemstoneModifier.setRarityType(gemstoneRarity);
+          if (gemstoneModifier.getClass() == ModifierAttribute.class) {
+            gemstoneModifiers.add((ModifierAttribute) (Object) gemstoneModifier);
+          }
         }
       }
     }
+
+    applyAttributeModifiers(gemstoneModifiers, item, itemStack);
+  }
+
+  public static void applyAttributeModifiers(ArrayList<ModifierAttribute> gemstoneModifiers, Item item,
+      ItemStack itemStack) {
+    AttributeModifiersComponent itemAttributeModifiers = itemStack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS,
+        AttributeModifiersComponent.DEFAULT);
+    List<AttributeModifiersComponent.Entry> newModifiers = new ArrayList<>();
+
+    // Save all modifiers not equas gemstones namespace
+    for (AttributeModifiersComponent.Entry entry : itemAttributeModifiers.modifiers()) {
+      if (!entry.modifier().id().getNamespace().equals(Gemstones.MOD_ID)) {
+        newModifiers.add(entry);
+      }
+    }
+
+    // Create new modifiers
+    for (ModifierAttribute modifier : gemstoneModifiers) {
+      EntityAttributeModifier scaledGemstoneModifier = new EntityAttributeModifier(
+          Identifier.of(Gemstones.MOD_ID,
+              String.format("%s_gemstone_%s_modifier_slot%s", modifier.gemstoneType.toString().toLowerCase(),
+                  modifier.itemType.toString().toLowerCase(), UUID.randomUUID().toString())),
+          modifier.modifierValuesList.get(modifier.rarityType.getValue()),
+          modifier.operation);
+
+      newModifiers.add(new AttributeModifiersComponent.Entry(
+          modifier.attr,
+          scaledGemstoneModifier,
+          GemstoneModifierHelper.getAttributeModifierSlot(item)));
+    }
+
+    itemAttributeModifiers = new AttributeModifiersComponent(newModifiers, itemAttributeModifiers.showInTooltip());
+    itemStack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, itemAttributeModifiers);
   }
 }
