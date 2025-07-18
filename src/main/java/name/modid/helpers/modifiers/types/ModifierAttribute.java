@@ -3,6 +3,7 @@ package name.modid.helpers.modifiers.types;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import name.modid.Gemstones;
 import name.modid.helpers.modifiers.GemstoneModifier;
@@ -29,26 +30,24 @@ public class ModifierAttribute implements GemstoneModifier {
   protected ModifierItemType itemType;
   protected ArrayList<Double> modifierValuesList = new ArrayList<Double>();
   protected RegistryEntry<EntityAttribute> attr;
-  protected String socketedTooltipString;
-  protected String gemstoneTooltipString;
   protected GemstoneType gemstoneType;
   protected GemstoneRarityType rarityType;
 
-  public ModifierAttribute(Operation operation, ArrayList<Double> modifierValuesList, String socketedTooltipString,
-      String gemstoneTooltipString, ModifierItemType itemType, RegistryEntry<EntityAttribute> attr,
+  public ModifierAttribute(Operation operation, ArrayList<Double> modifierValuesList, ModifierItemType itemType,
+      RegistryEntry<EntityAttribute> attr,
       GemstoneType gemstoneType) {
     this.operation = operation;
     this.modifierValuesList = new ArrayList<Double>(modifierValuesList);
-    this.socketedTooltipString = socketedTooltipString;
-    this.gemstoneTooltipString = gemstoneTooltipString;
     this.itemType = itemType;
     this.attr = attr;
     this.gemstoneType = gemstoneType;
   }
 
-  public MutableText getGemstoneTooltipString(GemstoneRarityType gemstoneRarityType) {
+  public MutableText getTooltipString(GemstoneRarityType gemstoneRarityType, Boolean withCategoryString) {
     Double value = modifierValuesList.get(gemstoneRarityType.getValue());
-    String tooltipKey = String.format("tooltip.gemstones.%s_buff", itemType.toString().toLowerCase());
+    String tooltipCategoryType = withCategoryString
+        ? String.format("tooltip.gemstones.%s_type", itemType.toString().toLowerCase())
+        : "tooltip.gemstones.without_type";
     MutableText attributeBonus = Text.empty();
 
     if (this.attr == EntityAttributes.GENERIC_MAX_HEALTH) {
@@ -61,21 +60,19 @@ public class ModifierAttribute implements GemstoneModifier {
     String percent = this.operation == Operation.ADD_VALUE ? "" : "%";
     Double adjustedValue = this.operation == Operation.ADD_VALUE ? value : value * 100;
     String formattedValue = formatValue(adjustedValue) + percent;
+    MutableText resultTooltip = Text.empty();
 
-    return Text.translatable(tooltipKey).formatted(Formatting.GRAY)
-        .append(Text
-            .translatable(this.gemstoneTooltipString,
-                Text.literal(formattedValue).formatted(Formatting.BLUE).append(attributeBonus))
-            .formatted(Formatting.GOLD));
+    return resultTooltip.append(Text.translatable(tooltipCategoryType).formatted(Formatting.GRAY)).append(Text
+        .translatable(
+            String.format("tooltip.gemstones.%s.%s_bonus", this.gemstoneType.toString().toLowerCase(),
+                this.itemType.toString().toLowerCase()),
+            Text.literal(formattedValue).formatted(Formatting.BLUE).append(attributeBonus))
+        .formatted(Formatting.GOLD));
   }
 
   public String formatValue(double value) {
     BigDecimal bd = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
     return bd.toPlainString();
-  }
-
-  public String getSocketedTooltipString() {
-    return this.socketedTooltipString;
   }
 
   public GemstoneType getGemstoneType() {

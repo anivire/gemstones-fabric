@@ -26,17 +26,14 @@ public record RubyModifierData() implements ModifierData {
 
     MODIFIERS.put(ModifierItemType.RANGED,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            "tooltip.gemstones.socketed_ruby.ranged_bonus", "tooltip.gemstones.item_ruby.ranged_bonus",
             ModifierItemType.RANGED, EntityAttributes.GENERIC_ATTACK_DAMAGE, GemstoneType.RUBY));
 
     MODIFIERS.put(ModifierItemType.TOOLS,
         new ModifierAttribute(Operation.ADD_MULTIPLIED_TOTAL, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            "tooltip.gemstones.socketed_ruby.tools_bonus", "tooltip.gemstones.item_ruby.tools_bonus",
             ModifierItemType.TOOLS, EntityAttributes.PLAYER_BLOCK_BREAK_SPEED, GemstoneType.RUBY));
 
     MODIFIERS.put(ModifierItemType.ARMOR,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)),
-            "tooltip.gemstones.socketed_ruby.armor_bonus", "tooltip.gemstones.item_ruby.armor_bonus",
             ModifierItemType.ARMOR, EntityAttributes.GENERIC_MAX_HEALTH, GemstoneType.RUBY));
   }
 

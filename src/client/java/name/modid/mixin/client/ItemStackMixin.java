@@ -9,7 +9,6 @@ import name.modid.helpers.modifiers.ModifierItemType;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import name.modid.items.gemstones.GemstoneItem;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -57,11 +56,11 @@ public abstract class ItemStackMixin {
       int buffIndex = 6;
       for (int i = 0; i < gemstones.length; i++) {
         GemstoneType gemType = gemstones[i].gemstoneType();
+        GemstoneRarityType gemRarity = gemstones[i].gemstoneRarityType();
 
         if (gemType != GemstoneType.LOCKED && gemType != GemstoneType.EMPTY) {
           GemstoneModifier modifier = GemstoneModifierHelper.getGemstoneModifierForItem(gemType, itemStack.getItem());
-          tooltip.add(buffIndex++, Text.translatable(modifier.getSocketedTooltipString())
-              .formatted(GemstoneTooltipHelper.getGemstoneColor(gemType)));
+          tooltip.add(buffIndex++, modifier.getTooltipString(gemRarity, false));
         } else {
           tooltip.add(buffIndex++,
               Text.translatable(String.format("tooltip.gemstones.gemstone_slots.%d", i + 1),
@@ -105,7 +104,7 @@ public abstract class ItemStackMixin {
           .sorted(Comparator.comparingInt(entry -> modifierOrder.indexOf(entry.getKey()))).forEachOrdered(entry -> {
             GemstoneModifier modifier = entry.getValue();
             if (gemstoneType != GemstoneType.LOCKED && gemstoneType != GemstoneType.EMPTY) {
-              tooltipText.add(modifier.getGemstoneTooltipString(gemstoneItem.getRarityType()));
+              tooltipText.add(modifier.getTooltipString(gemstoneItem.getRarityType(), true));
             }
           });
 

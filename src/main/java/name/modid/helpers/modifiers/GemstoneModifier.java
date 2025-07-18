@@ -1,5 +1,7 @@
 package name.modid.helpers.modifiers;
 
+import java.util.Optional;
+
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.entity.LivingEntity;
@@ -18,9 +20,7 @@ public interface GemstoneModifier {
     throw new UnsupportedOperationException("This modifier does not support attribute-based apply.");
   };
 
-  public MutableText getGemstoneTooltipString(GemstoneRarityType gemstoneRarityType);
-
-  public String getSocketedTooltipString();
+  public MutableText getTooltipString(GemstoneRarityType gemstoneRarityType, Boolean withCategoryString);
 
   GemstoneType getGemstoneType();
 

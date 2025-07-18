@@ -8,9 +8,7 @@ import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.AttributeModifiersComponent.Entry;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.item.Items;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
 public class GemstonesClient implements ClientModInitializer {

@@ -19,22 +19,18 @@ public record SapphireModifierData() implements ModifierData {
   static {
     MODIFIERS.put(ModifierItemType.MELEE,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            "tooltip.gemstones.socketed_sapphire.melee_bonus", "tooltip.gemstones.item_sapphire.melee_bonus",
             ModifierItemType.MELEE, EntityAttributes.GENERIC_ATTACK_DAMAGE, GemstoneType.SAPPHIRE));
 
     MODIFIERS.put(ModifierItemType.RANGED,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            "tooltip.gemstones.socketed_sapphire.ranged_bonus", "tooltip.gemstones.item_sapphire.ranged_bonus",
             ModifierItemType.RANGED, EntityAttributes.GENERIC_ATTACK_DAMAGE, GemstoneType.SAPPHIRE));
 
     MODIFIERS.put(ModifierItemType.TOOLS,
         new ModifierAttribute(Operation.ADD_MULTIPLIED_TOTAL, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            "tooltip.gemstones.socketed_sapphire.tools_bonus", "tooltip.gemstones.item_sapphire.tools_bonus",
             ModifierItemType.TOOLS, EntityAttributes.PLAYER_BLOCK_BREAK_SPEED, GemstoneType.SAPPHIRE));
 
     MODIFIERS.put(ModifierItemType.ARMOR,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)),
-            "tooltip.gemstones.socketed_sapphire.armor_bonus", "tooltip.gemstones.item_sapphire.armor_bonus",
             ModifierItemType.ARMOR, EntityAttributes.GENERIC_MAX_HEALTH, GemstoneType.SAPPHIRE));
   }
 
