@@ -6,12 +6,16 @@ import name.modid.helpers.components.GemstoneSlots;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstoneModifierHelper;
 import name.modid.helpers.modifiers.types.ModifierAttribute;
+import name.modid.helpers.modifiers.types.ModifierOnHitEffect;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import name.modid.items.gemstones.GemstoneItem;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BowItem;
@@ -21,7 +25,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.SwordItem;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -175,16 +181,58 @@ public class ItemGemstoneHelper {
           Identifier.of(Gemstones.MOD_ID,
               String.format("%s_gemstone_%s_modifier_slot%s", modifier.gemstoneType.toString().toLowerCase(),
                   modifier.itemType.toString().toLowerCase(), UUID.randomUUID().toString())),
-          modifier.modifierValuesList.get(modifier.rarityType.getValue()),
-          modifier.operation);
+          modifier.modifierValuesList.get(modifier.rarityType.getValue()), modifier.operation);
 
-      newModifiers.add(new AttributeModifiersComponent.Entry(
-          modifier.attr,
-          scaledGemstoneModifier,
+      newModifiers.add(new AttributeModifiersComponent.Entry(modifier.attr, scaledGemstoneModifier,
           GemstoneModifierHelper.getAttributeModifierSlot(item)));
     }
 
     itemAttributeModifiers = new AttributeModifiersComponent(newModifiers, itemAttributeModifiers.showInTooltip());
     itemStack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, itemAttributeModifiers);
+  }
+
+  public static void applyOnHitModifiers(ArrayList<ModifierOnHitEffect> gemstoneModifiers, Item item,
+      ItemStack itemStack, LivingEntity target, World world) {
+    Map<RegistryEntry<StatusEffect>, List<ModifierOnHitEffect>> effectToModifiers = new HashMap<>();
+    for (ModifierOnHitEffect modifier : gemstoneModifiers) {
+      effectToModifiers.computeIfAbsent(modifier.effect, k -> new ArrayList<>()).add(modifier);
+    }
+
+    for (Map.Entry<RegistryEntry<StatusEffect>, List<ModifierOnHitEffect>> statusEntry : effectToModifiers.entrySet()) {
+      RegistryEntry<StatusEffect> statusEffect = statusEntry.getKey();
+      List<ModifierOnHitEffect> modifiers = statusEntry.getValue();
+
+      double combinedProcChance = 0.0;
+      ModifierOnHitEffect selectedModifier = null;
+      int maxAmplifier = -1;
+
+      for (ModifierOnHitEffect modifier : modifiers) {
+        GemstoneRarityType rarity = modifier.getRarityType();
+        if (rarity == null) {
+          throw new IllegalStateException("RarityType is not set for modifier with effect: " + statusEffect);
+        }
+
+        combinedProcChance += modifier.inflitChance.get(rarity.getValue());
+
+        if (modifier.amplifier > maxAmplifier) {
+          maxAmplifier = modifier.amplifier;
+          selectedModifier = modifier;
+        }
+      }
+
+      double randomValue = world.getRandom().nextDouble();
+      if (randomValue < combinedProcChance && selectedModifier != null) {
+        Map<RegistryEntry<StatusEffect>, StatusEffectInstance> activeEffects = target.getActiveStatusEffects();
+        StatusEffectInstance existingEffect = activeEffects.get(statusEffect);
+        int newAmplifier = selectedModifier.amplifier;
+
+        if (existingEffect != null && selectedModifier.isStacking) {
+          newAmplifier = Math.min(existingEffect.getAmplifier() + 1, selectedModifier.maxStackCount - 1);
+        }
+
+        target.addStatusEffect(new StatusEffectInstance(statusEffect, selectedModifier.duration * 20,
+            selectedModifier.isStacking ? newAmplifier : selectedModifier.amplifier));
+      }
+    }
   }
 }

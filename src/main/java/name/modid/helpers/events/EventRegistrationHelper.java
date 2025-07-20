@@ -1,5 +1,6 @@
 package name.modid.helpers.events;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +34,6 @@ public class EventRegistrationHelper {
 
         for (int i = 0; i < gemstones.length; i++) {
           Gemstone gem = gemstones[i];
-
           if (gem.gemstoneType() != null && gem.gemstoneType() != GemstoneType.LOCKED) {
             Map<GemstoneType, GemstoneRarityType> m = new HashMap<>();
             m.put(gem.gemstoneType(), gem.gemstoneRarityType());
@@ -41,8 +41,8 @@ public class EventRegistrationHelper {
           }
         }
 
+        ArrayList<ModifierOnHitEffect> gemstoneModifiers = new ArrayList<>();
         for (Map.Entry<Integer, Map<GemstoneType, GemstoneRarityType>> m : itemGemstones.entrySet()) {
-          Integer slotIndex = m.getKey();
           Map<GemstoneType, GemstoneRarityType> i = m.getValue();
 
           for (Map.Entry<GemstoneType, GemstoneRarityType> e : i.entrySet()) {
@@ -51,12 +51,20 @@ public class EventRegistrationHelper {
             GemstoneModifier gemstoneModifier = GemstoneModifierHelper.getGemstoneModifierForItem(gemstoneType, item);
 
             if (gemstoneModifier != null) {
-              if (gemstoneModifier.getClass() == ModifierOnHitEffect.class) {
-                gemstoneModifier.apply(itemStack, item, slotIndex, gemstoneRarity, target, world);
+              if (gemstoneModifier instanceof ModifierOnHitEffect modifierOnHitEffect) {
+                // gemstoneModifier.apply(itemStack, item, slotIndex, gemstoneRarity, target, world);
+                ModifierOnHitEffect newModifier = new ModifierOnHitEffect(modifierOnHitEffect.inflitChance,
+                    modifierOnHitEffect.duration, modifierOnHitEffect.amplifier, modifierOnHitEffect.itemType,
+                    modifierOnHitEffect.effect, modifierOnHitEffect.isStacking, modifierOnHitEffect.maxStackCount,
+                    modifierOnHitEffect.gemstoneType);
+                newModifier.setRarityType(gemstoneRarity);
+                gemstoneModifiers.add(newModifier);
               }
             }
           }
         }
+
+        ItemGemstoneHelper.applyOnHitModifiers(gemstoneModifiers, item, itemStack, target, world);
       }
 
       return ActionResult.PASS;

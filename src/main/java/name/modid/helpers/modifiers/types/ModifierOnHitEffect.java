@@ -19,19 +19,18 @@ import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
 public class ModifierOnHitEffect implements GemstoneModifier {
-  protected ArrayList<Double> inflitChance = new ArrayList<Double>();
-  protected ModifierItemType itemType;
-  protected int duration;
-  protected int amplifier;
-  protected RegistryEntry<StatusEffect> effect;
-  protected boolean isStacking;
-  protected int maxStackCount;
-  protected GemstoneType gemstoneType;
-  protected GemstoneRarityType rarityType;
+  public ArrayList<Double> inflitChance = new ArrayList<Double>();
+  public ModifierItemType itemType;
+  public int duration;
+  public int amplifier;
+  public RegistryEntry<StatusEffect> effect;
+  public boolean isStacking;
+  public int maxStackCount;
+  public GemstoneType gemstoneType;
+  public GemstoneRarityType rarityType;
 
-  public ModifierOnHitEffect(ArrayList<Double> inflitChance, int duration, int amplifier, String socketedTooltipString,
-      String gemstoneTooltipString, ModifierItemType itemType, RegistryEntry<StatusEffect> effect, boolean isStacking,
-      int maxStackCount, GemstoneType gemstoneType) {
+  public ModifierOnHitEffect(ArrayList<Double> inflitChance, int duration, int amplifier, ModifierItemType itemType,
+      RegistryEntry<StatusEffect> effect, boolean isStacking, int maxStackCount, GemstoneType gemstoneType) {
     this.inflitChance = inflitChance;
     this.duration = duration;
     this.amplifier = amplifier;
