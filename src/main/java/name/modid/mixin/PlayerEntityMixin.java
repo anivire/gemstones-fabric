@@ -12,8 +12,7 @@ import name.modid.helpers.attributes.AttributeRegistrationHelper;
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
   /**
-   * Replace default critical damage {@code 1.5F} on value,
-   * based on {@code CRIT_DAMAGE_ATTRIBUTE}.
+   * Replace default critical damage {@code 1.5F} with value based on {@code CRIT_DAMAGE_ATTRIBUTE}.
    */
   @ModifyConstant(method = "attack", constant = @Constant(floatValue = 1.5F))
   private float modifyCriticalDamage(float f, Entity target) {

@@ -1,4 +1,4 @@
-package name.modid.mixin;
+package name.modid.mixin.client;
 
 import name.modid.helpers.attributes.AttributeRegistrationHelper;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -21,8 +21,7 @@ public class AbstractClientPlayerEntityMixin {
     ItemStack stack = player.getActiveItem();
 
     if (stack.getItem() instanceof BowItem && player.isUsingItem()) {
-      AttributeModifiersComponent itemAttributeModifiers = stack.getOrDefault(
-          DataComponentTypes.ATTRIBUTE_MODIFIERS,
+      AttributeModifiersComponent itemAttributeModifiers = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS,
           AttributeModifiersComponent.DEFAULT);
 
       float drawSpeedPercent = 0.0f;

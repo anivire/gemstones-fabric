@@ -6,7 +6,6 @@
     "AnvilScreenHandlerMixin",
     "ItemStackMixin",
     "BowItemMixin",
-    "AbstractClientPlayerEntityMixin",
     "PlayerEntityMixin"
   ],
   "injectors": {
