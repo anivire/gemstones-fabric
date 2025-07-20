@@ -13,6 +13,7 @@ import name.modid.items.gemstones.GemstoneItem;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -168,22 +169,36 @@ public class ItemGemstoneHelper {
         AttributeModifiersComponent.DEFAULT);
     List<AttributeModifiersComponent.Entry> newModifiers = new ArrayList<>();
 
-    // Save all modifiers not equas gemstones namespace
     for (AttributeModifiersComponent.Entry entry : itemAttributeModifiers.modifiers()) {
       if (!entry.modifier().id().getNamespace().equals(Gemstones.MOD_ID)) {
         newModifiers.add(entry);
       }
     }
 
-    // Create new modifiers
+    Map<RegistryEntry<EntityAttribute>, List<ModifierAttribute>> attributeToModifiers = new HashMap<>();
     for (ModifierAttribute modifier : gemstoneModifiers) {
-      EntityAttributeModifier scaledGemstoneModifier = new EntityAttributeModifier(
-          Identifier.of(Gemstones.MOD_ID,
-              String.format("%s_gemstone_%s_modifier_slot%s", modifier.gemstoneType.toString().toLowerCase(),
-                  modifier.itemType.toString().toLowerCase(), UUID.randomUUID().toString())),
-          modifier.modifierValuesList.get(modifier.rarityType.getValue()), modifier.operation);
+      attributeToModifiers.computeIfAbsent(modifier.attr, k -> new ArrayList<>()).add(modifier);
+    }
 
-      newModifiers.add(new AttributeModifiersComponent.Entry(modifier.attr, scaledGemstoneModifier,
+    for (Map.Entry<RegistryEntry<EntityAttribute>, List<ModifierAttribute>> modifierEntry : attributeToModifiers
+        .entrySet()) {
+      RegistryEntry<EntityAttribute> attribute = modifierEntry.getKey();
+      List<ModifierAttribute> modifiers = modifierEntry.getValue();
+      ModifierAttribute mod = modifiers.get(0);
+
+      float totalValue = 0.0f;
+
+      for (ModifierAttribute modifier : modifiers) {
+        GemstoneRarityType rarity = modifier.getRarityType();
+        totalValue += modifier.modifierValuesList.get(rarity.getValue());
+      }
+
+      EntityAttributeModifier scaledGemstoneModifier = new EntityAttributeModifier(Identifier.of(Gemstones.MOD_ID,
+          String.format("%s_gemstone_%s_modifier_slot%s", mod.gemstoneType.toString().toLowerCase(),
+              mod.itemType.toString().toLowerCase(), UUID.randomUUID().toString())),
+          totalValue, mod.operation);
+
+      newModifiers.add(new AttributeModifiersComponent.Entry(attribute, scaledGemstoneModifier,
           GemstoneModifierHelper.getAttributeModifierSlot(item)));
     }
 
@@ -208,10 +223,6 @@ public class ItemGemstoneHelper {
 
       for (ModifierOnHitEffect modifier : modifiers) {
         GemstoneRarityType rarity = modifier.getRarityType();
-        if (rarity == null) {
-          throw new IllegalStateException("RarityType is not set for modifier with effect: " + statusEffect);
-        }
-
         combinedProcChance += modifier.inflitChance.get(rarity.getValue());
 
         if (modifier.amplifier > maxAmplifier) {
