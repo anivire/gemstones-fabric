@@ -20,9 +20,9 @@ public record RubyModifierData() implements ModifierData {
 
   static {
     MODIFIERS.put(ModifierItemType.MELEE,
-        new ModifierOnHitEffect(new ArrayList<Double>(Arrays.asList(0.1, 0.2, 0.3, 0.4)), 6, 1,
+        new ModifierOnHitEffect(new ArrayList<Double>(Arrays.asList(0.1, 0.2, 0.3, 0.4)), 6, 0,
             "tooltip.gemstones.socketed_ruby.melee_bonus", "tooltip.gemstones.item_ruby.melee_bonus",
-            ModifierItemType.MELEE, EffectRegistraionHelper.BLEEDING_EFFECT, GemstoneType.RUBY));
+            ModifierItemType.MELEE, EffectRegistraionHelper.BLEEDING_EFFECT, true, 5, GemstoneType.RUBY));
 
     MODIFIERS.put(ModifierItemType.RANGED,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),

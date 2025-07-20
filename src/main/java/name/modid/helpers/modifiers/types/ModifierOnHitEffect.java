@@ -1,6 +1,7 @@
 package name.modid.helpers.modifiers.types;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.ModifierItemType;
@@ -23,18 +24,22 @@ public class ModifierOnHitEffect implements GemstoneModifier {
   protected int duration;
   protected int amplifier;
   protected RegistryEntry<StatusEffect> effect;
+  protected boolean isStacking;
+  protected int maxStackCount;
   protected GemstoneType gemstoneType;
   protected GemstoneRarityType rarityType;
 
   public ModifierOnHitEffect(ArrayList<Double> inflitChance, int duration, int amplifier, String socketedTooltipString,
-      String gemstoneTooltipString, ModifierItemType itemType, RegistryEntry<StatusEffect> effect,
-      GemstoneType gemstoneType) {
+      String gemstoneTooltipString, ModifierItemType itemType, RegistryEntry<StatusEffect> effect, boolean isStacking,
+      int maxStackCount, GemstoneType gemstoneType) {
     this.inflitChance = inflitChance;
     this.duration = duration;
     this.amplifier = amplifier;
     this.itemType = itemType;
     this.effect = effect;
     this.gemstoneType = gemstoneType;
+    this.maxStackCount = maxStackCount;
+    this.isStacking = isStacking;
   }
 
   public MutableText getTooltipString(GemstoneRarityType gemstoneRarityType, Boolean withCategoryString) {
@@ -44,12 +49,13 @@ public class ModifierOnHitEffect implements GemstoneModifier {
         : "tooltip.gemstones.without_type";
     MutableText resultTooltip = Text.empty();
 
-    return resultTooltip.append(Text.translatable(tooltipCategoryType).formatted(Formatting.GRAY)).append(Text
-        .translatable(
-            String.format("tooltip.gemstones.%s.%s_bonus", gemstoneType.toString().toLowerCase(),
-                itemType.toString().toLowerCase()),
-            Text.literal(String.format("%.0f", value) + "%").formatted(Formatting.BLUE))
-        .formatted(Formatting.GOLD));
+    return resultTooltip.append(Text.translatable(tooltipCategoryType).formatted(Formatting.GRAY))
+        .append(Text
+            .translatable(
+                String.format("tooltip.gemstones.%s.%s_bonus", gemstoneType.toString().toLowerCase(),
+                    itemType.toString().toLowerCase()),
+                Text.literal(String.format("%.0f", value) + "%").formatted(Formatting.BLUE))
+            .formatted(Formatting.GOLD));
   }
 
   public GemstoneType getGemstoneType() {
@@ -68,9 +74,18 @@ public class ModifierOnHitEffect implements GemstoneModifier {
   public void apply(ItemStack itemStack, Item item, Integer slotIndex, GemstoneRarityType gemstoneRarityType,
       LivingEntity target, World world) {
     Double procChance = world.getRandom().nextDouble();
+    Map<RegistryEntry<StatusEffect>, StatusEffectInstance> effects = target.getActiveStatusEffects();
 
     if (procChance < inflitChance.get(gemstoneRarityType.getValue())) {
-      target.addStatusEffect(new StatusEffectInstance(effect, duration * 20, amplifier));
+      StatusEffectInstance existingEffect = effects.get(this.effect);
+      int newAmplifier = this.amplifier;
+
+      if (existingEffect != null) {
+        newAmplifier = Math.min(existingEffect.getAmplifier() + 1, this.maxStackCount - 1);
+      }
+
+      target.addStatusEffect(
+          new StatusEffectInstance(this.effect, this.duration * 20, this.isStacking ? newAmplifier : this.amplifier));
     }
   }
 }

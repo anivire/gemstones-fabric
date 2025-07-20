@@ -3,7 +3,10 @@ package name.modid;
 import java.util.List;
 
 import name.modid.helpers.attributes.AttributeRegistrationHelper;
+import name.modid.helpers.particles.BleedParticleFactory;
+import name.modid.helpers.particles.ParticlesRegistrationHelper;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -22,9 +25,8 @@ public class GemstonesClient implements ClientModInitializer {
 
           float drawSpeedPercent = 0.00f;
 
-          AttributeModifiersComponent itemAttributeModifiers = itemStack.getOrDefault(
-              DataComponentTypes.ATTRIBUTE_MODIFIERS,
-              AttributeModifiersComponent.DEFAULT);
+          AttributeModifiersComponent itemAttributeModifiers = itemStack
+              .getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
           List<Entry> modifiers = itemAttributeModifiers.modifiers();
 
           for (Entry mod : modifiers) {
@@ -47,6 +49,9 @@ public class GemstonesClient implements ClientModInitializer {
         (stack, world, entity, seed) -> {
           return entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0f : 0.0f;
         });
+
+    ParticleFactoryRegistry.getInstance().register(ParticlesRegistrationHelper.BLEED_PARTICLE,
+        BleedParticleFactory::new);
   }
 
 }

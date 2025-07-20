@@ -5,6 +5,7 @@ import name.modid.helpers.EffectRegistraionHelper;
 import name.modid.helpers.ItemRegistrationHelper;
 import name.modid.helpers.attributes.AttributeRegistrationHelper;
 import name.modid.helpers.events.EventRegistrationHelper;
+import name.modid.helpers.particles.ParticlesRegistrationHelper;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,5 +22,6 @@ public class Gemstones implements ModInitializer {
     EventRegistrationHelper.initialize();
     ItemRegistrationHelper.initialize();
     EffectRegistraionHelper.initialize();
+    ParticlesRegistrationHelper.initialize();
   }
 }

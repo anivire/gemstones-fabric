@@ -64,6 +64,8 @@
   "tooltip.gemstones.zircon.tools_bonus": "increase block break range by %s",
   "tooltip.gemstones.zircon.armor_bonus": "increase jump height by %s",
 
+  "effect.gemstones.bleeding": "Bleeding",
+
   "attribute.name.generic.draw_speed": "Draw Speed",
   "attribute.name.generic.crit_damage": "Critical Hit Damage",
   "attribute.name.generic.arrow_fly_distance": "Arrow Fly Distance"
