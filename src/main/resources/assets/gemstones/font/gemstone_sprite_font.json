@@ -44,6 +44,15 @@
       "chars": [
         "\uE005"
       ]
+    },
+    {
+      "type": "bitmap",
+      "file": "gemstones:gui/gemstone_socket_zircon.png",
+      "height": 26,
+      "ascent": 13,
+      "chars": [
+        "\uE006"
+      ]
     }
   ]
 }

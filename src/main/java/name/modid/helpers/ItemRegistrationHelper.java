@@ -7,6 +7,7 @@ import name.modid.items.gemstones.CelestineGemstoneItem;
 import name.modid.items.gemstones.RubyGemstoneItem;
 import name.modid.items.gemstones.SapphireGemstoneItem;
 import name.modid.items.gemstones.TopazGemstoneItem;
+import name.modid.items.gemstones.ZirconGemstoneItem;
 import name.modid.items.geodes.GeodeDeepslateItem;
 import name.modid.items.geodes.GeodeStoneItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -51,6 +52,7 @@ public final class ItemRegistrationHelper {
   private static final List<Item> CELESTINE_GEMSTONES = new ArrayList<>();
   private static final List<Item> TOPAZ_GEMSTONES = new ArrayList<>();
   private static final List<Item> SAPPHIRE_GEMSTONES = new ArrayList<>();
+  private static final List<Item> ZIRCON_GEMSTONES = new ArrayList<>();
 
   public static Item register(String path, Function<Item.Settings, Item> factory, Item.Settings settings) {
     final RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Gemstones.MOD_ID, path));
@@ -98,8 +100,7 @@ public final class ItemRegistrationHelper {
       CELESTINE_GEMSTONES.add(celestineGemstone);
 
       // TOPAZ
-      Item topazGemstone = register("topaz_gemstone_" + rarityName,
-          settings -> new TopazGemstoneItem(settings, rarity),
+      Item topazGemstone = register("topaz_gemstone_" + rarityName, settings -> new TopazGemstoneItem(settings, rarity),
           new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 1));
       TOPAZ_GEMSTONES.add(topazGemstone);
 
@@ -108,6 +109,12 @@ public final class ItemRegistrationHelper {
           settings -> new SapphireGemstoneItem(settings, rarity),
           new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 1));
       SAPPHIRE_GEMSTONES.add(sapphireGemstone);
+
+      // ZIRCON
+      Item zirconGemstone = register("zircon_gemstone_" + rarityName,
+          settings -> new ZirconGemstoneItem(settings, rarity),
+          new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 1));
+      ZIRCON_GEMSTONES.add(zirconGemstone);
     }
   }
 
@@ -116,6 +123,7 @@ public final class ItemRegistrationHelper {
     CELESTINE_GEMSTONES.forEach(entries::add);
     TOPAZ_GEMSTONES.forEach(entries::add);
     SAPPHIRE_GEMSTONES.forEach(entries::add);
+    ZIRCON_GEMSTONES.forEach(entries::add);
   }
 
   public static List<Item> getRubyGemstones() {
@@ -132,5 +140,9 @@ public final class ItemRegistrationHelper {
 
   public static List<Item> getTopazGemstones() {
     return TOPAZ_GEMSTONES;
+  }
+
+  public static List<Item> getZirconGemstones() {
+    return ZIRCON_GEMSTONES;
   }
 }

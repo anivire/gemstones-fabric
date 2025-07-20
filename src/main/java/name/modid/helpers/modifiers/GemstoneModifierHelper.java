@@ -4,6 +4,7 @@ import name.modid.helpers.modifiers.data.CelestineModifierData;
 import name.modid.helpers.modifiers.data.RubyModifierData;
 import name.modid.helpers.modifiers.data.SapphireModifierData;
 import name.modid.helpers.modifiers.data.TopazModifierData;
+import name.modid.helpers.modifiers.data.ZirconModifierData;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.item.ArmorItem;
@@ -26,6 +27,7 @@ public class GemstoneModifierHelper {
     MODIFIER_REGISTRY.put(GemstoneType.CELESTINE, new CelestineModifierData());
     MODIFIER_REGISTRY.put(GemstoneType.TOPAZ, new TopazModifierData());
     MODIFIER_REGISTRY.put(GemstoneType.SAPPHIRE, new SapphireModifierData());
+    MODIFIER_REGISTRY.put(GemstoneType.ZIRCON, new ZirconModifierData());
   }
 
   public static Map<ModifierItemType, GemstoneModifier> getGemstoneModifiers(GemstoneType gemstoneType, Item item) {
@@ -54,11 +56,11 @@ public class GemstoneModifierHelper {
   public static AttributeModifierSlot getAttributeModifierSlot(Item item) {
     if (item instanceof ArmorItem armorItem) {
       return switch (armorItem.getSlotType()) {
-        case HEAD -> AttributeModifierSlot.HEAD;
-        case CHEST -> AttributeModifierSlot.CHEST;
-        case LEGS -> AttributeModifierSlot.LEGS;
-        case FEET -> AttributeModifierSlot.FEET;
-        default -> AttributeModifierSlot.CHEST;
+      case HEAD -> AttributeModifierSlot.HEAD;
+      case CHEST -> AttributeModifierSlot.CHEST;
+      case LEGS -> AttributeModifierSlot.LEGS;
+      case FEET -> AttributeModifierSlot.FEET;
+      default -> AttributeModifierSlot.CHEST;
       };
     }
 

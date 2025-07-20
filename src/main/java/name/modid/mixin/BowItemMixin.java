@@ -23,8 +23,7 @@ public class BowItemMixin {
   private void onUse(World world, PlayerEntity user, Hand hand,
       CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
     ItemStack stack = user.getStackInHand(hand);
-    AttributeModifiersComponent itemAttributeModifiers = stack.getOrDefault(
-        DataComponentTypes.ATTRIBUTE_MODIFIERS,
+    AttributeModifiersComponent itemAttributeModifiers = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS,
         AttributeModifiersComponent.DEFAULT);
 
     drawSpeedPercent = 0.0f;

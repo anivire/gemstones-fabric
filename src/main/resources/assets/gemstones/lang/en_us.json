@@ -44,6 +44,27 @@
   "tooltip.gemstones.celestine.tools_bonus": "increase block break speed by %s",
   "tooltip.gemstones.celestine.armor_bonus": "increase movement speed by %s",
 
+  "item.gemstones.sapphire_gemstone_common": "Sapphire Gemstone",
+  "item.gemstones.sapphire_gemstone_uncommon": "Sapphire Gemstone",
+  "item.gemstones.sapphire_gemstone_rare": "Sapphire Gemstone",
+  "item.gemstones.sapphire_gemstone_legendary": "Sapphire Gemstone",
+
+  "item.gemstones.topaz_gemstone_common": "Topaz Gemstone",
+  "item.gemstones.topaz_gemstone_uncommon": "Topaz Gemstone",
+  "item.gemstones.topaz_gemstone_rare": "Topaz Gemstone",
+  "item.gemstones.topaz_gemstone_legendary": "Topaz Gemstone",
+  
+  "item.gemstones.zircon_gemstone_common": "Zircon Gemstone",
+  "item.gemstones.zircon_gemstone_uncommon": "Zircon Gemstone",
+  "item.gemstones.zircon_gemstone_rare": "Zircon Gemstone",
+  "item.gemstones.zircon_gemstone_legendary": "Zircon Gemstone",
+
+  "tooltip.gemstones.zircon.melee_bonus": "increase attack range by %s",
+  "tooltip.gemstones.zircon.ranged_bonus": "increase arrow fly distance by %s",
+  "tooltip.gemstones.zircon.tools_bonus": "increase block break range by %s",
+  "tooltip.gemstones.zircon.armor_bonus": "increase jump height by %s",
+
   "attribute.name.generic.draw_speed": "Draw Speed",
-  "attribute.name.generic.crit_damage": "Critical Hit Damage"
+  "attribute.name.generic.crit_damage": "Critical Hit Damage",
+  "attribute.name.generic.arrow_fly_distance": "Arrow Fly Distance"
 }
