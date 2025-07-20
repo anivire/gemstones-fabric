@@ -17,7 +17,7 @@
   "tooltip.gemstones.tools_type": "Tools: ",
   "tooltip.gemstones.armor_type": "Armor: ",
   
-  "tooltip.gemstones.without_type": " - ",
+  "tooltip.gemstones.without_type": "∙ ",
   
   "item.gemstones.stone_geode": "Stone Geode",
   "item.gemstones.deepslate_geode": "Deepslate Geode",
@@ -60,7 +60,6 @@
   "item.gemstones.zircon_gemstone_legendary": "Zircon Gemstone",
 
   "tooltip.gemstones.zircon.melee_bonus": "increase attack range by %s",
-  "tooltip.gemstones.zircon.ranged_bonus": "increase arrow fly distance by %s",
   "tooltip.gemstones.zircon.tools_bonus": "increase block break range by %s",
   "tooltip.gemstones.zircon.armor_bonus": "increase jump height by %s",
 
