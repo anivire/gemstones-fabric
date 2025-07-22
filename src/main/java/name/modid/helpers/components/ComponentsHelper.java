@@ -1,7 +1,6 @@
-package name.modid.helpers;
+package name.modid.helpers.components;
 
 import name.modid.Gemstones;
-import name.modid.helpers.components.GemstoneSlots;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

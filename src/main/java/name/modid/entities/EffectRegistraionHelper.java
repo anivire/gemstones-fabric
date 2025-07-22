@@ -1,8 +1,6 @@
-package name.modid.helpers;
+package name.modid.entities;
 
 import name.modid.Gemstones;
-import name.modid.entities.BleedingEffect;
-import name.modid.entities.ExperienceThirstEffect;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -15,6 +13,12 @@ public class EffectRegistraionHelper {
 
   public static final RegistryEntry<StatusEffect> BLEEDING_EFFECT = Registry.registerReference(Registries.STATUS_EFFECT,
       Identifier.of(Gemstones.MOD_ID, "bleeding"), new BleedingEffect());
+
+  public static final RegistryEntry<StatusEffect> GUARDIAN_SMITE_EFFECT = Registry.registerReference(
+      Registries.STATUS_EFFECT, Identifier.of(Gemstones.MOD_ID, "guardian_smite"), new GuardianSmiteEffect());
+
+  public static final RegistryEntry<StatusEffect> QUICK_SANDS_EFFECT = Registry.registerReference(
+      Registries.STATUS_EFFECT, Identifier.of(Gemstones.MOD_ID, "quick_sands"), new QuickSandsEffect());
 
   public static void initialize() {
     Gemstones.LOGGER.info("Registering mod effects for {}", Gemstones.MOD_ID);

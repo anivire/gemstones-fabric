@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GemstoneModifierHelper {
-  private static final Map<GemstoneType, ModifierData> MODIFIER_REGISTRY = new HashMap<>();
+  private static final Map<GemstoneType, GemstonesModifierData> MODIFIER_REGISTRY = new HashMap<>();
 
   static {
     MODIFIER_REGISTRY.put(GemstoneType.RUBY, new RubyModifierData());
@@ -30,13 +30,14 @@ public class GemstoneModifierHelper {
     MODIFIER_REGISTRY.put(GemstoneType.ZIRCON, new ZirconModifierData());
   }
 
-  public static Map<ModifierItemType, GemstoneModifier> getGemstoneModifiers(GemstoneType gemstoneType, Item item) {
+  public static Map<GemstoneModifierItemType, GemstoneModifier> getGemstoneModifiers(GemstoneType gemstoneType,
+      Item item) {
     if (gemstoneType == GemstoneType.EMPTY || gemstoneType == GemstoneType.LOCKED)
       return null;
 
-    ModifierData modifiersData = MODIFIER_REGISTRY.get(gemstoneType);
+    GemstonesModifierData modifiersData = MODIFIER_REGISTRY.get(gemstoneType);
 
-    Map<ModifierItemType, GemstoneModifier> modifiers = modifiersData.getModifiers();
+    Map<GemstoneModifierItemType, GemstoneModifier> modifiers = modifiersData.getModifiers();
 
     return modifiers;
   }
@@ -45,9 +46,9 @@ public class GemstoneModifierHelper {
     if (gemstoneType == GemstoneType.EMPTY || gemstoneType == GemstoneType.LOCKED)
       return null;
 
-    ModifierData modifiersData = MODIFIER_REGISTRY.get(gemstoneType);
+    GemstonesModifierData modifiersData = MODIFIER_REGISTRY.get(gemstoneType);
 
-    Map<ModifierItemType, GemstoneModifier> modifiers = modifiersData.getModifiers();
+    Map<GemstoneModifierItemType, GemstoneModifier> modifiers = modifiersData.getModifiers();
     GemstoneModifier modifier = modifiers.get(getModifieritemSlot(item));
 
     return modifier;
@@ -67,23 +68,23 @@ public class GemstoneModifierHelper {
     return AttributeModifierSlot.MAINHAND;
   }
 
-  public static ModifierItemType getModifieritemSlot(Item item) {
+  public static GemstoneModifierItemType getModifieritemSlot(Item item) {
     if (item instanceof SwordItem) {
-      return ModifierItemType.MELEE;
+      return GemstoneModifierItemType.MELEE;
     }
 
     if (item instanceof BowItem || item instanceof CrossbowItem) {
-      return ModifierItemType.RANGED;
+      return GemstoneModifierItemType.RANGED;
     }
 
     if (item instanceof AxeItem || item instanceof PickaxeItem || item instanceof ShovelItem) {
-      return ModifierItemType.TOOLS;
+      return GemstoneModifierItemType.TOOLS;
     }
 
     if (item instanceof ArmorItem) {
-      return ModifierItemType.ARMOR;
+      return GemstoneModifierItemType.ARMOR;
     }
 
-    return ModifierItemType.TOOLS;
+    return GemstoneModifierItemType.TOOLS;
   }
 }

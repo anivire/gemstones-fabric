@@ -1,5 +1,5 @@
 package name.modid.helpers.modifiers;
 
-public enum ModifierItemType {
+public enum GemstoneModifierItemType {
   MELEE, RANGED, TOOLS, ARMOR
 }

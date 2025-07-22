@@ -5,39 +5,39 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import name.modid.helpers.EffectRegistraionHelper;
+import name.modid.entities.EffectRegistraionHelper;
 import name.modid.helpers.modifiers.GemstoneModifier;
-import name.modid.helpers.modifiers.ModifierData;
-import name.modid.helpers.modifiers.ModifierItemType;
+import name.modid.helpers.modifiers.GemstonesModifierData;
+import name.modid.helpers.modifiers.GemstoneModifierItemType;
 import name.modid.helpers.modifiers.types.ModifierAttribute;
 import name.modid.helpers.modifiers.types.ModifierOnHitEffect;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.attribute.EntityAttributes;
 
-public record RubyModifierData() implements ModifierData {
-  private static final Map<ModifierItemType, GemstoneModifier> MODIFIERS = new HashMap<>();
+public record RubyModifierData() implements GemstonesModifierData {
+  private static final Map<GemstoneModifierItemType, GemstoneModifier> MODIFIERS = new HashMap<>();
 
   static {
-    MODIFIERS.put(ModifierItemType.MELEE,
-        new ModifierOnHitEffect(new ArrayList<Double>(Arrays.asList(0.1, 0.2, 0.3, 0.4)), 6, 0, ModifierItemType.MELEE,
-            EffectRegistraionHelper.BLEEDING_EFFECT, true, 5, GemstoneType.RUBY));
+    MODIFIERS.put(GemstoneModifierItemType.MELEE,
+        new ModifierOnHitEffect(new ArrayList<Double>(Arrays.asList(0.1, 0.2, 0.3, 0.4)), 6, 0,
+            GemstoneModifierItemType.MELEE, EffectRegistraionHelper.BLEEDING_EFFECT, true, 5, GemstoneType.RUBY));
 
-    MODIFIERS.put(ModifierItemType.RANGED,
+    MODIFIERS.put(GemstoneModifierItemType.RANGED,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            ModifierItemType.RANGED, EntityAttributes.GENERIC_ATTACK_DAMAGE, GemstoneType.RUBY));
+            GemstoneModifierItemType.RANGED, EntityAttributes.GENERIC_ATTACK_DAMAGE, GemstoneType.RUBY));
 
-    MODIFIERS.put(ModifierItemType.TOOLS,
+    MODIFIERS.put(GemstoneModifierItemType.TOOLS,
         new ModifierAttribute(Operation.ADD_MULTIPLIED_TOTAL, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            ModifierItemType.TOOLS, EntityAttributes.PLAYER_BLOCK_BREAK_SPEED, GemstoneType.RUBY));
+            GemstoneModifierItemType.TOOLS, EntityAttributes.PLAYER_BLOCK_BREAK_SPEED, GemstoneType.RUBY));
 
-    MODIFIERS.put(ModifierItemType.ARMOR,
+    MODIFIERS.put(GemstoneModifierItemType.ARMOR,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)),
-            ModifierItemType.ARMOR, EntityAttributes.GENERIC_MAX_HEALTH, GemstoneType.RUBY));
+            GemstoneModifierItemType.ARMOR, EntityAttributes.GENERIC_MAX_HEALTH, GemstoneType.RUBY));
   }
 
   @Override
-  public Map<ModifierItemType, GemstoneModifier> getModifiers() {
+  public Map<GemstoneModifierItemType, GemstoneModifier> getModifiers() {
     return new HashMap<>(MODIFIERS);
   }
 }

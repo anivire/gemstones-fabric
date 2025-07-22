@@ -1,5 +1,6 @@
 package name.modid.helpers;
 
+import name.modid.Gemstones;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.text.Text;
@@ -32,11 +33,11 @@ public class GemstoneTooltipHelper {
 
   public static Text getGemstoneSprite(GemstoneType gemType) {
     return Text.literal(GemstoneType.getGemstoneLiteral(gemType))
-        .styled(style -> style.withFont(Identifier.of("gemstones", "gemstone_sprite_font")));
+        .styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, "gemstone_sprite_font")));
   }
 
   public static Text getGemstoneRaritySprite(GemstoneRarityType rarityType) {
     return Text.literal(GemstoneRarityType.getRarityLiteral(rarityType))
-        .styled(style -> style.withFont(Identifier.of("gemstones", "rarity_sprite_font")));
+        .styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, "rarity_sprite_font")));
   }
 }

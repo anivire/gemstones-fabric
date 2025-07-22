@@ -5,7 +5,7 @@ import name.modid.helpers.ItemGemstoneHelper;
 import name.modid.helpers.components.Gemstone;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstoneModifierHelper;
-import name.modid.helpers.modifiers.ModifierItemType;
+import name.modid.helpers.modifiers.GemstoneModifierItemType;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
 import name.modid.items.gemstones.GemstoneItem;
@@ -91,14 +91,14 @@ public abstract class ItemStackMixin {
       ArrayList<Text> tooltipText = new ArrayList<>();
       GemstoneItem gemstoneItem = (GemstoneItem) itemStack.getItem();
       GemstoneType gemstoneType = gemstoneItem.getType();
-      Map<ModifierItemType, GemstoneModifier> gemstoneModifiers = new LinkedHashMap<>(
+      Map<GemstoneModifierItemType, GemstoneModifier> gemstoneModifiers = new LinkedHashMap<>(
           GemstoneModifierHelper.getGemstoneModifiers(gemstoneType, itemStack.getItem()));
 
       tooltipText.add(GemstoneTooltipHelper.getGemstoneRaritySprite(gemstoneItem.getRarityType()));
       tooltipText.add(Text.literal(""));
 
-      List<ModifierItemType> modifierOrder = Arrays.asList(ModifierItemType.MELEE, ModifierItemType.RANGED,
-          ModifierItemType.TOOLS, ModifierItemType.ARMOR);
+      List<GemstoneModifierItemType> modifierOrder = Arrays.asList(GemstoneModifierItemType.MELEE,
+          GemstoneModifierItemType.RANGED, GemstoneModifierItemType.TOOLS, GemstoneModifierItemType.ARMOR);
 
       gemstoneModifiers.entrySet().stream()
           .sorted(Comparator.comparingInt(entry -> modifierOrder.indexOf(entry.getKey()))).forEachOrdered(entry -> {

@@ -29,7 +29,7 @@
   "item.gemstones.ruby_gemstone_rare": "Ruby Gemstone",
   "item.gemstones.ruby_gemstone_legendary": "Ruby Gemstone",
 
-  "tooltip.gemstones.ruby.melee_bonus": "%s to inflict Bleeding",
+  "tooltip.gemstones.ruby.melee_bonus": "%s to inflict %s",
   "tooltip.gemstones.ruby.ranged_bonus": "ruby.ranged_bonus",
   "tooltip.gemstones.ruby.tools_bonus": "ruby.tools_bonus",
   "tooltip.gemstones.ruby.armor_bonus": "gains %s max half-heart",
@@ -49,10 +49,20 @@
   "item.gemstones.sapphire_gemstone_rare": "Sapphire Gemstone",
   "item.gemstones.sapphire_gemstone_legendary": "Sapphire Gemstone",
 
+  "tooltip.gemstones.sapphire.melee_bonus": "%s to inflict %s",
+  "tooltip.gemstones.sapphire.ranged_bonus": "triggers %s with a %s chance in rainy weather",
+  "tooltip.gemstones.sapphire.tools_bonus": "increase block underwater block break speed by %s",
+  "tooltip.gemstones.sapphire.armor_bonus": "increase movement speed in water by %s",
+
   "item.gemstones.topaz_gemstone_common": "Topaz Gemstone",
   "item.gemstones.topaz_gemstone_uncommon": "Topaz Gemstone",
   "item.gemstones.topaz_gemstone_rare": "Topaz Gemstone",
   "item.gemstones.topaz_gemstone_legendary": "Topaz Gemstone",
+
+  "tooltip.gemstones.topaz.melee_bonus": "increase crit damage by %s",
+  "tooltip.gemstones.topaz.ranged_bonus": "%s to inflict %s",
+  "tooltip.gemstones.topaz.tools_bonus": "topaz.tools_bonus",
+  "tooltip.gemstones.topaz.armor_bonus": "increase luck by %s",
   
   "item.gemstones.zircon_gemstone_common": "Zircon Gemstone",
   "item.gemstones.zircon_gemstone_uncommon": "Zircon Gemstone",

@@ -5,39 +5,42 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import name.modid.entities.EffectRegistraionHelper;
 import name.modid.helpers.attributes.AttributeRegistrationHelper;
 import name.modid.helpers.modifiers.GemstoneModifier;
-import name.modid.helpers.modifiers.ModifierData;
-import name.modid.helpers.modifiers.ModifierItemType;
+import name.modid.helpers.modifiers.GemstonesModifierData;
+import name.modid.helpers.modifiers.GemstoneModifierItemType;
 import name.modid.helpers.modifiers.types.ModifierAttribute;
+import name.modid.helpers.modifiers.types.ModifierOnHitEffect;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.attribute.EntityAttributes;
 
-public record TopazModifierData() implements ModifierData {
-  private static final Map<ModifierItemType, GemstoneModifier> MODIFIERS = new HashMap<>();
+public record TopazModifierData() implements GemstonesModifierData {
+  private static final Map<GemstoneModifierItemType, GemstoneModifier> MODIFIERS = new HashMap<>();
 
   static {
-    MODIFIERS.put(ModifierItemType.MELEE,
+    MODIFIERS.put(GemstoneModifierItemType.MELEE,
         new ModifierAttribute(Operation.ADD_MULTIPLIED_TOTAL,
-            new ArrayList<Double>(Arrays.asList(0.25, 0.35, 0.50, 0.65)),
-            ModifierItemType.MELEE, AttributeRegistrationHelper.CRIT_DAMAGE_ATTRIBUTE, GemstoneType.TOPAZ));
+            new ArrayList<Double>(Arrays.asList(0.25, 0.35, 0.50, 0.65)), GemstoneModifierItemType.MELEE,
+            AttributeRegistrationHelper.CRIT_DAMAGE_ATTRIBUTE, GemstoneType.TOPAZ));
 
-    MODIFIERS.put(ModifierItemType.RANGED,
-        new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            ModifierItemType.RANGED, EntityAttributes.GENERIC_ATTACK_DAMAGE, GemstoneType.TOPAZ));
+    MODIFIERS.put(GemstoneModifierItemType.RANGED,
+        new ModifierOnHitEffect(new ArrayList<Double>(Arrays.asList(0.1, 0.2, 0.3, 0.4)), 6, 0,
+            GemstoneModifierItemType.MELEE, EffectRegistraionHelper.QUICK_SANDS_EFFECT, true, 5, GemstoneType.RUBY));
 
-    MODIFIERS.put(ModifierItemType.TOOLS,
+    MODIFIERS.put(GemstoneModifierItemType.TOOLS,
         new ModifierAttribute(Operation.ADD_MULTIPLIED_TOTAL, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            ModifierItemType.TOOLS, EntityAttributes.PLAYER_BLOCK_BREAK_SPEED, GemstoneType.TOPAZ));
+            GemstoneModifierItemType.TOOLS, EntityAttributes.PLAYER_BLOCK_BREAK_SPEED, GemstoneType.TOPAZ));
 
-    MODIFIERS.put(ModifierItemType.ARMOR,
-        new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, 4.0)),
-            ModifierItemType.ARMOR, EntityAttributes.GENERIC_MAX_HEALTH, GemstoneType.TOPAZ));
+    MODIFIERS.put(GemstoneModifierItemType.ARMOR,
+        new ModifierAttribute(Operation.ADD_MULTIPLIED_TOTAL,
+            new ArrayList<Double>(Arrays.asList(0.05, 0.10, 0.15, 0.25)), GemstoneModifierItemType.ARMOR,
+            EntityAttributes.GENERIC_LUCK, GemstoneType.TOPAZ));
   }
 
   @Override
-  public Map<ModifierItemType, GemstoneModifier> getModifiers() {
+  public Map<GemstoneModifierItemType, GemstoneModifier> getModifiers() {
     return new HashMap<>(MODIFIERS);
   }
 }

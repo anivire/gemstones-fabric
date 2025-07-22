@@ -1,26 +1,23 @@
 package name.modid.helpers.modifiers.types;
 
 import java.util.ArrayList;
-import java.util.Map;
 
+import name.modid.Gemstones;
+import name.modid.entities.EffectRegistraionHelper;
 import name.modid.helpers.modifiers.GemstoneModifier;
-import name.modid.helpers.modifiers.ModifierItemType;
+import name.modid.helpers.modifiers.GemstoneModifierItemType;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
+import net.minecraft.util.Identifier;
 
 public class ModifierOnHitEffect implements GemstoneModifier {
   public ArrayList<Double> inflitChance = new ArrayList<Double>();
-  public ModifierItemType itemType;
+  public GemstoneModifierItemType itemType;
   public int duration;
   public int amplifier;
   public RegistryEntry<StatusEffect> effect;
@@ -29,8 +26,9 @@ public class ModifierOnHitEffect implements GemstoneModifier {
   public GemstoneType gemstoneType;
   public GemstoneRarityType rarityType;
 
-  public ModifierOnHitEffect(ArrayList<Double> inflitChance, int duration, int amplifier, ModifierItemType itemType,
-      RegistryEntry<StatusEffect> effect, boolean isStacking, int maxStackCount, GemstoneType gemstoneType) {
+  public ModifierOnHitEffect(ArrayList<Double> inflitChance, int duration, int amplifier,
+      GemstoneModifierItemType itemType, RegistryEntry<StatusEffect> effect, boolean isStacking, int maxStackCount,
+      GemstoneType gemstoneType) {
     this.inflitChance = inflitChance;
     this.duration = duration;
     this.amplifier = amplifier;
@@ -46,14 +44,28 @@ public class ModifierOnHitEffect implements GemstoneModifier {
     String tooltipCategoryType = withCategoryString
         ? String.format("tooltip.gemstones.%s_type", itemType.toString().toLowerCase())
         : "tooltip.gemstones.without_type";
+    MutableText effectString = Text.empty();
     MutableText resultTooltip = Text.empty();
+
+    if (this.effect == EffectRegistraionHelper.BLEEDING_EFFECT) {
+      effectString.append(Text.literal("Bleeding").formatted(Formatting.RED))
+          .append(Text.literal("\uE002")
+              .styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, "gemstone_sprite_icons"))))
+          .formatted(Formatting.WHITE);
+    } else if (this.effect == EffectRegistraionHelper.GUARDIAN_SMITE_EFFECT) {
+      effectString.append(Text.literal("Guardian Smite").formatted(Formatting.RED));
+    } else if (this.effect == EffectRegistraionHelper.QUICK_SANDS_EFFECT) {
+      effectString.append(Text.literal("Quick Sands").formatted(Formatting.RED));
+    } else {
+      effectString.append(Text.literal(this.effect.toString()).formatted(Formatting.WHITE));
+    }
 
     return resultTooltip.append(Text.translatable(tooltipCategoryType).formatted(Formatting.GRAY))
         .append(Text
             .translatable(
                 String.format("tooltip.gemstones.%s.%s_bonus", gemstoneType.toString().toLowerCase(),
                     itemType.toString().toLowerCase()),
-                Text.literal(String.format("%.0f", value) + "%").formatted(Formatting.BLUE))
+                Text.literal(String.format("%.0f", value) + "%").formatted(Formatting.BLUE), effectString)
             .formatted(Formatting.GOLD));
   }
 
@@ -67,24 +79,5 @@ public class ModifierOnHitEffect implements GemstoneModifier {
 
   public void setRarityType(GemstoneRarityType rarityType) {
     this.rarityType = rarityType;
-  }
-
-  @Override
-  public void apply(ItemStack itemStack, Item item, Integer slotIndex, GemstoneRarityType gemstoneRarityType,
-      LivingEntity target, World world) {
-    Double procChance = world.getRandom().nextDouble();
-    Map<RegistryEntry<StatusEffect>, StatusEffectInstance> effects = target.getActiveStatusEffects();
-
-    if (procChance < inflitChance.get(gemstoneRarityType.getValue())) {
-      StatusEffectInstance existingEffect = effects.get(this.effect);
-      int newAmplifier = this.amplifier;
-
-      if (existingEffect != null) {
-        newAmplifier = Math.min(existingEffect.getAmplifier() + 1, this.maxStackCount - 1);
-      }
-
-      target.addStatusEffect(
-          new StatusEffectInstance(this.effect, this.duration * 20, this.isStacking ? newAmplifier : this.amplifier));
-    }
   }
 }

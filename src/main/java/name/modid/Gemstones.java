@@ -1,9 +1,9 @@
 package name.modid;
 
-import name.modid.helpers.ComponentsHelper;
-import name.modid.helpers.EffectRegistraionHelper;
+import name.modid.entities.EffectRegistraionHelper;
 import name.modid.helpers.ItemRegistrationHelper;
 import name.modid.helpers.attributes.AttributeRegistrationHelper;
+import name.modid.helpers.components.ComponentsHelper;
 import name.modid.helpers.events.EventRegistrationHelper;
 import name.modid.helpers.particles.ParticlesRegistrationHelper;
 import net.fabricmc.api.ModInitializer;
