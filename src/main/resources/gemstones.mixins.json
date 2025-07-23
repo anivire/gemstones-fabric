@@ -6,7 +6,8 @@
     "AnvilScreenHandlerMixin",
     "ItemStackMixin",
     "BowItemMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "PersistentProjectileEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

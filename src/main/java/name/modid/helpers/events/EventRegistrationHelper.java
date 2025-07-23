@@ -19,7 +19,7 @@ import net.minecraft.util.ActionResult;
 
 public class EventRegistrationHelper {
   public static void initialize() {
-    // Register onHit modifiers
+    // Register onHitEffect modifiers
     AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
       if (!world.isClient && entity instanceof LivingEntity target) {
         Item item = player.getStackInHand(hand).getItem();

@@ -48,13 +48,13 @@ public class ItemGemstoneHelper {
         || item instanceof CrossbowItem;
   }
 
-  public static Gemstone[] contains(ItemStack itemStack, GemstoneType gemstoneType) {
-    Gemstone[] gemstones = itemStack.get(ComponentsHelper.GEMSTONES) != null
-        ? itemStack.get(ComponentsHelper.GEMSTONES).gemstones()
-        : new Gemstone[0];
+  public static ArrayList<Gemstone> contains(ItemStack itemStack, GemstoneType gemstoneType) {
+    ArrayList<Gemstone> gemstones = itemStack.get(ComponentsHelper.GEMSTONES) != null
+        ? new ArrayList<>(Arrays.asList(itemStack.get(ComponentsHelper.GEMSTONES).gemstones()))
+        : new ArrayList<>();
 
-    return Arrays.stream(gemstones).filter(gemstone -> gemstone != null && gemstone.gemstoneType() == gemstoneType)
-        .toArray(Gemstone[]::new);
+    gemstones.removeIf(g -> g.gemstoneType() != gemstoneType);
+    return gemstones;
   }
 
   public static boolean isGemstonesExists(ItemStack itemStack) {
@@ -67,10 +67,6 @@ public class ItemGemstoneHelper {
 
   public static GemstoneSlots getGemstonesSlot(ItemStack itemStack) {
     return itemStack.get(ComponentsHelper.GEMSTONES);
-  }
-
-  public static Gemstone getGemstoneByIndex(ItemStack itemStack, int index) {
-    return itemStack.get(ComponentsHelper.GEMSTONES).gemstones()[index];
   }
 
   public static Integer getGemstoneFirstEmptyIndex(ItemStack itemStack) {

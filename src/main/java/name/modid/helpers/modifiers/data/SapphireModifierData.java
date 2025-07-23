@@ -10,7 +10,9 @@ import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstonesModifierData;
 import name.modid.helpers.modifiers.GemstoneModifierItemType;
 import name.modid.helpers.modifiers.types.ModifierAttribute;
+import name.modid.helpers.modifiers.types.ModifierOnHit;
 import name.modid.helpers.modifiers.types.ModifierOnHitEffect;
+import name.modid.helpers.modifiers.types.ModifierOnHit.EventType;
 import name.modid.helpers.types.GemstoneType;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -25,8 +27,8 @@ public record SapphireModifierData() implements GemstonesModifierData {
             GemstoneType.RUBY));
 
     MODIFIERS.put(GemstoneModifierItemType.RANGED,
-        new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
-            GemstoneModifierItemType.RANGED, EntityAttributes.GENERIC_ATTACK_DAMAGE, GemstoneType.SAPPHIRE));
+        new ModifierOnHit(new ArrayList<Double>(Arrays.asList(0.05, 0.10, 0.15, 0.25)), EventType.LIGHTNING_BOLT,
+            GemstoneModifierItemType.RANGED, GemstoneType.SAPPHIRE));
 
     MODIFIERS.put(GemstoneModifierItemType.TOOLS,
         new ModifierAttribute(Operation.ADD_MULTIPLIED_TOTAL,
