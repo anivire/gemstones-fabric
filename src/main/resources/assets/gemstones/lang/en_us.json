@@ -50,7 +50,7 @@
   "item.gemstones.sapphire_gemstone_legendary": "Sapphire Gemstone",
 
   "tooltip.gemstones.sapphire.melee_bonus": "%s to inflict %s",
-  "tooltip.gemstones.sapphire.ranged_bonus": "triggers Lighting Strike with a %s chance in rainy weather",
+  "tooltip.gemstones.sapphire.ranged_bonus": "triggers with %s chance a %s in rainy weather",
   "tooltip.gemstones.sapphire.tools_bonus": "increase underwater block break speed by %s",
   "tooltip.gemstones.sapphire.armor_bonus": "increase movement speed in water by %s",
 

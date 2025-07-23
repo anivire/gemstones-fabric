@@ -36,12 +36,6 @@ public class PersistentProjectileEntityMixin {
       ServerWorld world = (ServerWorld) arrow.getWorld();
       Vec3d pos = entityHitResult.getPos();
 
-      // Apply default lightning strike for BowItem during rain
-      if (bow.getItem() instanceof BowItem) {
-        spawnLightning(world, pos);
-      }
-
-      // Apply gemstone modifiers
       applyGemstoneModifiers(bow, world, pos, arrow);
     }
   }
@@ -58,7 +52,6 @@ public class PersistentProjectileEntityMixin {
       ServerWorld world = (ServerWorld) arrow.getWorld();
       Vec3d pos = blockHitResult.getPos();
 
-      // Apply gemstone modifiers
       applyGemstoneModifiers(bow, world, pos, arrow);
     }
   }
@@ -77,14 +70,12 @@ public class PersistentProjectileEntityMixin {
     ArrayList<ModifierOnHit> modifiers = GemstoneModifierHelper.getOnHitModifiers(itemStack);
     double totalChance = 0.0;
 
-    // Sum the event chances for LIGHTNING_STRIKE modifiers
     for (ModifierOnHit modifier : modifiers) {
       if (modifier.eventType == ModifierOnHit.EventType.LIGHTNING_BOLT) {
         totalChance += modifier.eventChance.get(modifier.getRarityType().getValue());
       }
     }
 
-    // Cap the total chance at 1.0 (100%) to avoid invalid probabilities
     if (totalChance > 0 && RANDOM.nextDouble() < Math.min(totalChance, 1.0)) {
       spawnLightning(world, pos);
       arrow.discard();
