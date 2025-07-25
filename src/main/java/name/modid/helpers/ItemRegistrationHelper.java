@@ -3,6 +3,7 @@ package name.modid.helpers;
 import name.modid.Gemstones;
 import name.modid.helpers.types.GemstoneRarityType;
 import name.modid.helpers.types.GemstoneType;
+import name.modid.items.gemstones.AquamarinGemstoneItem;
 import name.modid.items.gemstones.CelestineGemstoneItem;
 import name.modid.items.gemstones.RubyGemstoneItem;
 import name.modid.items.gemstones.SapphireGemstoneItem;
@@ -31,8 +32,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public final class ItemRegistrationHelper {
-  private ItemRegistrationHelper() {
-  }
+  private ItemRegistrationHelper() {}
 
   public static final Item STONE_GEODE = register("stone_geode",
       settings -> new GeodeStoneItem(settings,
@@ -53,6 +53,7 @@ public final class ItemRegistrationHelper {
   private static final List<Item> TOPAZ_GEMSTONES = new ArrayList<>();
   private static final List<Item> SAPPHIRE_GEMSTONES = new ArrayList<>();
   private static final List<Item> ZIRCON_GEMSTONES = new ArrayList<>();
+  private static final List<Item> AQUAMARIN_GEMSTONES = new ArrayList<>();
 
   public static Item register(String path, Function<Item.Settings, Item> factory, Item.Settings settings) {
     final RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Gemstones.MOD_ID, path));
@@ -115,6 +116,12 @@ public final class ItemRegistrationHelper {
           settings -> new ZirconGemstoneItem(settings, rarity),
           new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 1));
       ZIRCON_GEMSTONES.add(zirconGemstone);
+
+      // AQUAMARIN
+      Item aquamarinGemstone = register("aquamarin_gemstone_" + rarityName,
+          settings -> new AquamarinGemstoneItem(settings, rarity),
+          new Item.Settings().rarity(Rarity.EPIC).component(DataComponentTypes.MAX_STACK_SIZE, 1));
+      AQUAMARIN_GEMSTONES.add(aquamarinGemstone);
     }
   }
 
@@ -124,6 +131,7 @@ public final class ItemRegistrationHelper {
     TOPAZ_GEMSTONES.forEach(entries::add);
     SAPPHIRE_GEMSTONES.forEach(entries::add);
     ZIRCON_GEMSTONES.forEach(entries::add);
+    AQUAMARIN_GEMSTONES.forEach(entries::add);
   }
 
   public static List<Item> getRubyGemstones() {
@@ -144,5 +152,9 @@ public final class ItemRegistrationHelper {
 
   public static List<Item> getZirconGemstones() {
     return ZIRCON_GEMSTONES;
+  }
+
+  public static List<Item> getAquamarinGemstones() {
+    return AQUAMARIN_GEMSTONES;
   }
 }

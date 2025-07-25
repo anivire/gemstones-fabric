@@ -15,6 +15,7 @@ public class GemstoneTooltipHelper {
     case CELESTINE -> Formatting.BLUE;
     case TOPAZ -> Formatting.GOLD;
     case SAPPHIRE -> Formatting.DARK_BLUE;
+    case AQUAMARIN -> Formatting.BLUE;
     default -> Formatting.GRAY;
     };
   }
@@ -27,6 +28,7 @@ public class GemstoneTooltipHelper {
     case CELESTINE -> "Celestine";
     case SAPPHIRE -> "Sapphire";
     case TOPAZ -> "Topaz";
+    case AQUAMARIN -> "Aquamarin";
     default -> "unknown";
     };
   }

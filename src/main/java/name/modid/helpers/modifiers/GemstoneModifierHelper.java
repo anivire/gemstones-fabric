@@ -2,6 +2,7 @@ package name.modid.helpers.modifiers;
 
 import name.modid.helpers.ItemGemstoneHelper;
 import name.modid.helpers.components.Gemstone;
+import name.modid.helpers.modifiers.data.AquamarinModifierData;
 import name.modid.helpers.modifiers.data.CelestineModifierData;
 import name.modid.helpers.modifiers.data.RubyModifierData;
 import name.modid.helpers.modifiers.data.SapphireModifierData;
@@ -33,6 +34,7 @@ public class GemstoneModifierHelper {
     MODIFIER_REGISTRY.put(GemstoneType.TOPAZ, new TopazModifierData());
     MODIFIER_REGISTRY.put(GemstoneType.SAPPHIRE, new SapphireModifierData());
     MODIFIER_REGISTRY.put(GemstoneType.ZIRCON, new ZirconModifierData());
+    MODIFIER_REGISTRY.put(GemstoneType.AQUAMARIN, new AquamarinModifierData());
   }
 
   public static Map<GemstoneModifierItemType, GemstoneModifier> getGemstoneModifiers(GemstoneType gemstoneType,
