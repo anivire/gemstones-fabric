@@ -52,7 +52,6 @@ public class EventRegistrationHelper {
 
             if (gemstoneModifier != null) {
               if (gemstoneModifier instanceof ModifierOnHitEffect modifierOnHitEffect) {
-                // gemstoneModifier.apply(itemStack, item, slotIndex, gemstoneRarity, target, world);
                 ModifierOnHitEffect newModifier = new ModifierOnHitEffect(modifierOnHitEffect.inflitChance,
                     modifierOnHitEffect.duration, modifierOnHitEffect.amplifier, modifierOnHitEffect.itemType,
                     modifierOnHitEffect.effect, modifierOnHitEffect.isStacking, modifierOnHitEffect.maxStackCount,

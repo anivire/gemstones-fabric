@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+
 import name.modid.helpers.attributes.AttributeRegistrationHelper;
 
 @Mixin(PlayerEntity.class)

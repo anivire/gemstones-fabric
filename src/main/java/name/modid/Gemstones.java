@@ -1,6 +1,6 @@
 package name.modid;
 
-import name.modid.entities.EffectRegistraionHelper;
+import name.modid.entities.EffectRegistrationHelper;
 import name.modid.helpers.ItemRegistrationHelper;
 import name.modid.helpers.attributes.AttributeRegistrationHelper;
 import name.modid.helpers.components.ComponentsHelper;
@@ -21,7 +21,7 @@ public class Gemstones implements ModInitializer {
     ComponentsHelper.initialize();
     EventRegistrationHelper.initialize();
     ItemRegistrationHelper.initialize();
-    EffectRegistraionHelper.initialize();
+    EffectRegistrationHelper.initialize();
     ParticlesRegistrationHelper.initialize();
   }
 }

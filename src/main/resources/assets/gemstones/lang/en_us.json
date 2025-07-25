@@ -50,7 +50,7 @@
   "item.gemstones.sapphire_gemstone_legendary": "Sapphire Gemstone",
 
   "tooltip.gemstones.sapphire.melee_bonus": "%s to inflict %s",
-  "tooltip.gemstones.sapphire.ranged_bonus": "triggers with %s chance a %s in rainy weather",
+  "tooltip.gemstones.sapphire.ranged_bonus": "%s to trigger %s in rainy weather",
   "tooltip.gemstones.sapphire.tools_bonus": "increase underwater block break speed by %s",
   "tooltip.gemstones.sapphire.armor_bonus": "increase movement speed in water by %s",
 
@@ -74,6 +74,7 @@
   "tooltip.gemstones.zircon.armor_bonus": "increase jump height by %s",
 
   "effect.gemstones.bleeding": "Bleeding",
+  "effect.gemstones.guardian_smite": "Guardian Smite",
 
   "attribute.name.generic.draw_speed": "Draw Speed",
   "attribute.name.generic.crit_damage": "Critical Hit Damage",

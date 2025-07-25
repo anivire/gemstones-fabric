@@ -7,7 +7,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
-public class EffectRegistraionHelper {
+public class EffectRegistrationHelper {
   public static final RegistryEntry<StatusEffect> EXP_THIRST_EFFECT = Registry.registerReference(
       Registries.STATUS_EFFECT, Identifier.of(Gemstones.MOD_ID, "exp_thirst"), new ExperienceThirstEffect());
 

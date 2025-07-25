@@ -6,7 +6,7 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class GuardianSmiteEffect extends StatusEffect {
   public GuardianSmiteEffect() {
-    super(StatusEffectCategory.HARMFUL, 0xe9b8b3);
+    super(StatusEffectCategory.HARMFUL, 0x1c7cff);
   }
 
   @Override

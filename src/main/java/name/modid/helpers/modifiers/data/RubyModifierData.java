@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import name.modid.entities.EffectRegistraionHelper;
+import name.modid.entities.EffectRegistrationHelper;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstonesModifierData;
 import name.modid.helpers.modifiers.GemstoneModifierItemType;
@@ -21,7 +21,7 @@ public record RubyModifierData() implements GemstonesModifierData {
   static {
     MODIFIERS.put(GemstoneModifierItemType.MELEE,
         new ModifierOnHitEffect(new ArrayList<Double>(Arrays.asList(0.1, 0.2, 0.3, 0.4)), 6, 0,
-            GemstoneModifierItemType.MELEE, EffectRegistraionHelper.BLEEDING_EFFECT, true, 5, GemstoneType.RUBY));
+            GemstoneModifierItemType.MELEE, EffectRegistrationHelper.BLEEDING_EFFECT, true, 5, GemstoneType.RUBY));
 
     MODIFIERS.put(GemstoneModifierItemType.RANGED,
         new ModifierAttribute(Operation.ADD_VALUE, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),

@@ -3,7 +3,7 @@ package name.modid.helpers.modifiers.types;
 import java.util.ArrayList;
 
 import name.modid.Gemstones;
-import name.modid.entities.EffectRegistraionHelper;
+import name.modid.entities.EffectRegistrationHelper;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstoneModifierItemType;
 import name.modid.helpers.types.GemstoneRarityType;
@@ -47,14 +47,14 @@ public class ModifierOnHitEffect implements GemstoneModifier {
     MutableText effectString = Text.empty();
     MutableText resultTooltip = Text.empty();
 
-    if (this.effect == EffectRegistraionHelper.BLEEDING_EFFECT) {
+    if (this.effect == EffectRegistrationHelper.BLEEDING_EFFECT) {
       effectString.append(Text.literal("Bleeding").formatted(Formatting.RED))
           .append(Text.literal("\uE002")
               .styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, "gemstone_sprite_icons"))))
           .formatted(Formatting.WHITE);
-    } else if (this.effect == EffectRegistraionHelper.GUARDIAN_SMITE_EFFECT) {
+    } else if (this.effect == EffectRegistrationHelper.GUARDIAN_SMITE_EFFECT) {
       effectString.append(Text.literal("Guardian Smite").formatted(Formatting.RED));
-    } else if (this.effect == EffectRegistraionHelper.QUICK_SANDS_EFFECT) {
+    } else if (this.effect == EffectRegistrationHelper.QUICK_SANDS_EFFECT) {
       effectString.append(Text.literal("Quick Sands").formatted(Formatting.RED));
     } else {
       effectString.append(Text.literal(this.effect.toString()).formatted(Formatting.WHITE));

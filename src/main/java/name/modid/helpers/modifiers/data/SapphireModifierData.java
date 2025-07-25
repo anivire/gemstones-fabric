@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import name.modid.entities.EffectRegistraionHelper;
+import name.modid.entities.EffectRegistrationHelper;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstonesModifierData;
 import name.modid.helpers.modifiers.GemstoneModifierItemType;
@@ -23,7 +23,7 @@ public record SapphireModifierData() implements GemstonesModifierData {
   static {
     MODIFIERS.put(GemstoneModifierItemType.MELEE,
         new ModifierOnHitEffect(new ArrayList<Double>(Arrays.asList(0.1, 0.2, 0.3, 0.4)), 6, 0,
-            GemstoneModifierItemType.MELEE, EffectRegistraionHelper.GUARDIAN_SMITE_EFFECT, false, 1,
+            GemstoneModifierItemType.MELEE, EffectRegistrationHelper.GUARDIAN_SMITE_EFFECT, false, 1,
             GemstoneType.RUBY));
 
     MODIFIERS.put(GemstoneModifierItemType.RANGED,

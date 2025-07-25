@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import name.modid.entities.EffectRegistraionHelper;
+import name.modid.entities.EffectRegistrationHelper;
 import name.modid.helpers.attributes.AttributeRegistrationHelper;
 import name.modid.helpers.modifiers.GemstoneModifier;
 import name.modid.helpers.modifiers.GemstonesModifierData;
@@ -27,7 +27,7 @@ public record TopazModifierData() implements GemstonesModifierData {
 
     MODIFIERS.put(GemstoneModifierItemType.RANGED,
         new ModifierOnHitEffect(new ArrayList<Double>(Arrays.asList(0.1, 0.2, 0.3, 0.4)), 6, 0,
-            GemstoneModifierItemType.MELEE, EffectRegistraionHelper.QUICK_SANDS_EFFECT, true, 5, GemstoneType.RUBY));
+            GemstoneModifierItemType.MELEE, EffectRegistrationHelper.QUICK_SANDS_EFFECT, true, 5, GemstoneType.RUBY));
 
     MODIFIERS.put(GemstoneModifierItemType.TOOLS,
         new ModifierAttribute(Operation.ADD_MULTIPLIED_TOTAL, new ArrayList<Double>(Arrays.asList(0.5, 1.0, 1.5, 2.0)),
